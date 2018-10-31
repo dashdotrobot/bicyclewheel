@@ -1,0 +1,5 @@
+# Compiled Python scripts
+*.pyc
+
+# Pelican output directory
+output/
