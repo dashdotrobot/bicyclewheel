@@ -1,16 +1,14 @@
-Title: Instructions
+Title: The App
 Authors: Matthew Ford
-Slug: howto
+Slug: app
 
-# Launch the Bicycle Wheel App
+## Launch the Bicycle Wheel App
 
 <a href="https://bike-wheel-app.herokuapp.com/" target="_blank">Click here</a> to launch the Bike Wheel App in a separate window.
 
-# How to use the Bicycle Wheel App
+## How to use the Bicycle Wheel App
 
 The Bicycle Wheel App is a tool for designing a virtual wheel and simulating its response to external forces.
-
-## Usage
 
 ### Designing your wheel
 
