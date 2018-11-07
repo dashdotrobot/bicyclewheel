@@ -1,0 +1,15 @@
+/* import only the necessary Bootstrap files */
+@import "../../../bootstrap4/scss/functions"; 
+@import "../../../bootstrap4/scss/variables";
+
+/* -------begin customization-------- */
+
+$container-max-widths: (
+  lg: 720px,
+  xl: 720px
+);
+
+/* -------end customization-------- */
+
+/* finally, import Bootstrap to set the changes! */
+@import "../../../bootstrap4/scss/bootstrap";
