@@ -33,7 +33,14 @@
         <!-- Pages -->
         {% for p in pages %}
         <li class="nav-item"><a class="nav-link{% if p == page %} active{% endif %}" href="{{ SITEURL }}/{{ p.url }}">{{ p.title }}</a></li>
-          {% endfor %}
+        {% endfor %}
+
+        <!-- Article categories -->
+        {% for cat, null in categories %}
+        <li class="nav-item{% if cat == category %} active{% endif %}">
+          <a class="nav-link" href="{{ SITEURL }}/{{ cat.url }}">{{ cat | capitalize }}</a>
+        </li>
+        {% endfor %}
 
       </ul>
     </div>
