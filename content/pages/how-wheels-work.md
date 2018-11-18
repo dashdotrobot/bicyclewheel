@@ -26,12 +26,20 @@ The stiffness of the rim prevents a single spoke from taking all the force by it
 * In the __lateral__ direction, the rim stiffness is low and the spoke stiffness is low, so the load is spread out to __several__ spokes, usually 8 to 10 in a 36-spoke wheel.
 * In the __tangential__ direction, the rim stiffness is high and spoke stiffness is low, so the load is spread out to __many__ spokes, essentially evenly distributed around the entire wheel.
 
-In the words of Jim Papadopoulos, ...
+In the words of Jim Papadopoulos,
+
+> "...it may be most helpful to think of a bicycle wheel as a long, bendable, twistable, curved rod (or beam) held in place by 36 springs anchored in a firmly-held hub. Forces in any direction applied to a point on the rim always produce the greatest effects in spokes nearby."
 
 
 ## Role of spoke tension
 
-...
+In order for the spokes to support the rim, they need to be able to support _compression_ (pushing) and _tension_ (pulling). Take a spoke out of the wheel and pull on its ends, and it will stretch ever so slightly (you won't be able to measure or feel it without special equipment). But if you try to compress the same spoke, it will just bend like a floppy noodle (engineers call this _buckling_). The trick that makes bicycle wheels work is _prestress_: the spoke is held in tension by the hub and the rim. Now the spoke can support "compression" by losing some of this initial tension. As long as the spoke doesn't lose all of its initial tension, it will act just like an ideal spring in both directions. This is why it's important to build wheels to a sufficiently high tension: they must not lose tension under the complicated combination of radial, lateral, and tangential loads supported by the wheel.
+
+Many people that higher spoke tension makes a stiffer wheel. __This is false__. You may get the impression that a wheel with low spoke tension has low stiffness because if you put a large lateral force on it, the spokes near the load will buckle and the stiffness of the wheel will suddenly decrease. Countless wheel gurus have debunked the "tighter = stiffer" myth.
+
+__In fact, once the wheel has sufficient tension to prevent buckling, increasing spoke tension _decreases_ the lateral stiffness__. This counterintuitive effect arises because the inward pull of the spokes actually puts the rim under _compression_, and just like in the spoke, compression leads to buckling. The rim is much wider than a single spoke (and it's supported _by_ the spokes), so it doesn't buckle as easily, but with enough spoke tension the compressive force is enough to buckle the rim into a "taco."
+
+
 
 
 ## What about spoke patterns?
