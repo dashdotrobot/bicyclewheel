@@ -3,3 +3,6 @@
 
 # Pelican output directory
 output/
+
+# IPython notebook metadata
+.ipynb_checkpoints/
