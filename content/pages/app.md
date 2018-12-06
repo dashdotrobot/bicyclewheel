@@ -1,6 +1,7 @@
-Title: The App
+Title: How to use the app
 Authors: Matthew Ford
-Slug: app
+Slug: app-instructions
+Show_in_menu: false
 
 ## Launch the Bicycle Wheel App
 

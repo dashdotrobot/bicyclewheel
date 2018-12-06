@@ -21,6 +21,9 @@ TRANSLATION_FEED_ATOM = None
 AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
+# Nav menu items
+MENUITEMS = [('The App', 'app.html')]
+
 # Blogroll
 LINKS = None
 
