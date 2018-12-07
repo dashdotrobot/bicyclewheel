@@ -134,12 +134,12 @@ var RIM_PRESETS = {
 ** ------------------------------------------------------------------------ */
 
 // Update value labels for all range sliders with class .update-range
-$('input.update-range').on('change mousemove', function() {
+$('input.update-range').on('change input', function() {
   $(this).prev().html('<strong>' + $(this).val() + '</strong>');
 })
 
 // Update value labels for hub width range sliders
-$('#hubWidthLeft').on('change mousemove', function() {
+$('#hubWidthLeft').on('change input', function() {
   $('#hubWidthLeft_label').html('<strong>' + (-parseInt($(this).val())).toString() + '</strong>')
 
   // If symmetric, update the other one to match
@@ -149,7 +149,7 @@ $('#hubWidthLeft').on('change mousemove', function() {
   }
 })
 
-$('#hubWidthRight').on('change mousemove', function() {
+$('#hubWidthRight').on('change input', function() {
   $('#hubWidthRight_label').html('<strong>' + $(this).val() + '</strong>')
 
   // If symmetric, update the other one to match
@@ -242,12 +242,12 @@ $('.spokes-ds').on('change', function() {
 $('#spkMatl').val('Steel').trigger('change')
 
 // Set spoke tension based on tension ratio
-$('#spkTens').on('change mousemove', function() {
+$('#spkTens').on('change input', function() {
   var T_ratio = calc_tension_ratio()
   $('#spkTensNDS').val($(this).val() / T_ratio)
   $('#spkTensNDS').prev().html('<strong>' + $('#spkTensNDS').val() + '</strong>');
 })
-$('#spkTensNDS').on('change mousemove', function() {
+$('#spkTensNDS').on('change input', function() {
   var T_ratio = calc_tension_ratio()
   $('#spkTens').val($(this).val() * T_ratio)
   $('#spkTens').prev().html('<strong>' + $('#spkTensNDS').val() + '</strong>');
