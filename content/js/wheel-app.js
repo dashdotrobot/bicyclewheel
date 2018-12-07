@@ -517,7 +517,7 @@ function plot_tensions(data) {
 
   var layout = {
     margin: {
-      l: 50, r: 50, t: 50, b: 50
+      l: 25, r: 25, t: 25, b: 25
     },
     legend: {
       orientation: 'h'
