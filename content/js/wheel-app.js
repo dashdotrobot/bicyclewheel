@@ -296,7 +296,7 @@ function display_error(title, text) {
   div_text += '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'
   div_text += '<span aria-hidden="true">&times;</span></button></div>'
 
-  $('#resultPlots').prepend(div_text)
+  $('#alerts').append(div_text)
 }
 
 // Calculate spoke tension ratio, T_ds / T_nds
@@ -468,6 +468,11 @@ function update_results() {
 function plot_tensions(data) {
   console.log(data)
 
+  if (!data['tension']['success']) {
+    display_error('Error calculating tensions', data['tension']['error'])
+    return false
+  }
+
   plot_canvas = document.getElementById('tension-plot');
 
   theta = data['tension']['spokes'].slice()
@@ -561,21 +566,33 @@ function show_summary(data) {
   console.log(data)
 
   // Mass properties
-  $('#sumMassGrams').html((1000*data['mass']['mass']).toFixed(0) + ' grams')
-  $('#sumMassLbs').html('(' + (2.20462*data['mass']['mass']).toFixed(2) + ' lbs)')
+  if (data['mass']['success']) {
 
-  $('#sumMassRotGrams').html(Math.round(1000*data['mass']['mass_rotational']).toString() + ' grams')
-  $('#sumMassRotLbs').html('(' + (2.20462*data['mass']['mass_rotational']).toFixed(2) + ' lbs)')
+    $('#sumMassGrams').html((1000*data['mass']['mass']).toFixed(0) + ' grams')
+    $('#sumMassLbs').html('(' + (2.20462*data['mass']['mass']).toFixed(2) + ' lbs)')
+
+    $('#sumMassRotGrams').html(Math.round(1000*data['mass']['mass_rotational']).toString() + ' grams')
+    $('#sumMassRotLbs').html('(' + (2.20462*data['mass']['mass_rotational']).toFixed(2) + ' lbs)')
+
+  } else {
+    display_error('Error calculating mass', data['mass']['error'])
+  }
 
   // Stiffness properties
-  $('#sumStiffRadSI').html((0.001*data['stiffness']['radial_stiffness']).toFixed(0) + ' N/mm')
-  $('#sumStiffRadLbs').html('(' + (0.224809*0.0254*data['stiffness']['radial_stiffness']).toFixed(0) + ' lbs/in)')
+  if (data['stiffness']['success']) {
 
-  $('#sumStiffLatSI').html((0.001*data['stiffness']['lateral_stiffness']).toFixed(1) + ' N/mm')
-  $('#sumStiffLatLbs').html('(' + (0.224809*0.0254*data['stiffness']['lateral_stiffness']).toFixed(0) + ' lbs/in)')
+    $('#sumStiffRadSI').html((0.001*data['stiffness']['radial_stiffness']).toFixed(0) + ' N/mm')
+    $('#sumStiffRadLbs').html('(' + (0.224809*0.0254*data['stiffness']['radial_stiffness']).toFixed(0) + ' lbs/in)')
 
-  $('#sumStiffTorSI').html((Math.PI/180.*data['stiffness']['torsional_stiffness']).toFixed(0) + ' N/deg')
-  $('#sumStiffTorLbs').html('(' + (Math.PI/180.*0.224809*data['stiffness']['torsional_stiffness']).toFixed(0) + ' lbs/deg)')
+    $('#sumStiffLatSI').html((0.001*data['stiffness']['lateral_stiffness']).toFixed(1) + ' N/mm')
+    $('#sumStiffLatLbs').html('(' + (0.224809*0.0254*data['stiffness']['lateral_stiffness']).toFixed(0) + ' lbs/in)')
+
+    $('#sumStiffTorSI').html((Math.PI/180.*data['stiffness']['torsional_stiffness']).toFixed(0) + ' N/deg')
+    $('#sumStiffTorLbs').html('(' + (Math.PI/180.*0.224809*data['stiffness']['torsional_stiffness']).toFixed(0) + ' lbs/deg)')
+
+  } else {
+    display_error('Error calculating stiffness', data['stiffness']['error'])
+  }
 }
 
 update_results()
