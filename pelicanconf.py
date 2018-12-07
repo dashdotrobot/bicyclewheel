@@ -39,3 +39,7 @@ RELATIVE_URLS = True
 
 PLUGIN_PATHS = ['../../pelican-plugins']
 PLUGINS = ['pelican_javascript']
+
+# Include CNAME file in output for Github Pages
+STATIC_PATHS = ['images', 'extra/CNAME']
+EXTRA_PATH_METADATA = {'extra/CNAME': {'path': 'CNAME'},}
