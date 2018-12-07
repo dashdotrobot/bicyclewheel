@@ -276,12 +276,7 @@ initEditableTable()
 
 // Work the magic!
 $('#btnPressMe').on('click', function() {
-  $(this).text('Please wait...')
-  $(this).addClass('disabled')
-
-  calc_and_plot_tensions()
-  calc_and_show_summary()
-
+  update_results()
 })
 
 function reset_calc_button() {
@@ -428,12 +423,17 @@ function build_json_forces() {
   return json
 }
 
-function calc_and_plot_tensions() {
+function update_results() {
 
-  // Build wheel JSON
+  // Disable "Calculate" button
+  $('#btnPressMe').text('Please wait...')
+  $('#btnPressMe').addClass('disabled')
+
   post_data = {
     'wheel': build_json_wheel(),
-    'tension': {'forces': build_json_forces()}
+    'tension': {'forces': build_json_forces()},
+    'mass': {'empty': 0},
+    'stiffness': {'empty': 0}
   }
 
   console.log(post_data)
@@ -445,6 +445,7 @@ function calc_and_plot_tensions() {
     contentType: 'application/json',
     success: function (result) {
       plot_tensions(result);
+      show_summary(result);
       reset_calc_button();
     },
     error: function (xhr, ajaxOptions, thrownError) {
@@ -542,32 +543,6 @@ function plot_tensions(data) {
   Plotly.newPlot(plot_canvas, traces, layout, {responsive: true});
 }
 
-function calc_and_show_summary() {
-  // Build wheel JSON
-  post_data = {
-    'wheel': build_json_wheel(),
-    'mass': {'empty': 0},
-    'stiffness': {'empty': 0}
-  }
-
-  console.log(post_data)
-
-  $.post({
-    url: API_ENDPOINT,
-    data: JSON.stringify(post_data),
-    dataType: 'json',
-    contentType: 'application/json',
-    success: function (result) {
-      show_summary(result);
-      reset_calc_button();
-    },
-    error: function (xhr, ajaxOptions, thrownError) {
-      // TODO
-      reset_calc_button();
-    }
-  });
-}
-
 function show_summary(data) {
   console.log(data)
 
@@ -589,5 +564,4 @@ function show_summary(data) {
   $('#sumStiffTorLbs').html('(' + (Math.PI/180.*0.224809*data['stiffness']['torsional_stiffness']).toFixed(0) + ' lbs/deg)')
 }
 
-calc_and_plot_tensions()
-calc_and_show_summary()
+update_results()
