@@ -5,7 +5,7 @@ Show_in_menu: true
 
 ## How to use the Bicycle Wheel App
 
-The Bicycle Wheel App is a tool for designing a virtual wheel and simulating its response to external forces.
+The Bicycle Wheel App is a tool for designing and simulating a virtual bicycle wheel. Calculate stiffness, mass, rotating inertia, and see how spoke tensions change when the wheel is subjected to forces.
 
 ### Designing your wheel
 
