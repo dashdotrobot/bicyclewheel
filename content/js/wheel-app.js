@@ -3,7 +3,7 @@
 **
 ** --------------------------------------------------------------------------- */
 
-var API_ENDPOINT = 'http://localhost:5000/calculate';
+var API_ENDPOINT = 'https://bike-wheel-api.herokuapp.com/calculate';
 
 var RIM_MATLS = {
   'Alloy': {
