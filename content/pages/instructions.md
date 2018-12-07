@@ -1,11 +1,7 @@
-Title: How to use the app
+Title: Instructions
 Authors: Matthew Ford
-Slug: app-instructions
-Show_in_menu: false
-
-## Launch the Bicycle Wheel App
-
-<a href="https://bike-wheel-app.herokuapp.com/" target="_blank">Click here</a> to launch the Bike Wheel App in a separate window.
+Slug: instructions
+Show_in_menu: true
 
 ## How to use the Bicycle Wheel App
 
