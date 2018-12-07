@@ -289,6 +289,16 @@ function reset_calc_button() {
 **
 ** ------------------------------------------------------------------------ */
 
+function display_error(title, text) {
+  var div_text = '<div class="alert alert-danger alert-dismissible fade show" role="alert">'
+  div_text += '<strong>' + title + ': </strong>' + text
+
+  div_text += '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'
+  div_text += '<span aria-hidden="true">&times;</span></button></div>'
+
+  $('#resultPlots').prepend(div_text)
+}
+
 // Calculate spoke tension ratio, T_ds / T_nds
 function calc_tension_ratio() {
 
@@ -463,6 +473,10 @@ function plot_tensions(data) {
   theta = data['tension']['spokes'].slice()
   tension = data['tension']['tension'].slice()
   tension_0 = data['tension']['tension_initial'].slice()
+
+  if (tension.some(function(e) {return e < 0})) {
+    display_error('Warning', 'At least one spoke has negative tension. Results may not be accurate.')
+  }
 
   for (var i=0; i<theta.length; i++) {
   	theta[i] *= 360./parseFloat($('#spkNum').val());

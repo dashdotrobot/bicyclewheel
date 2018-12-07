@@ -18,3 +18,7 @@ div.hub-slider-left {
 div.hub-slider-right {
   padding-left: 0px !important;
 }
+
+div.alert {
+  font-size: 14px;
+}
