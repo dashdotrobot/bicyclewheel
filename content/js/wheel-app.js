@@ -670,8 +670,6 @@ function plot_deformation() {
     }
   ]
 
-  console.log(traces)
-
   var layout = {
     margin: {
       l: 25, r: 25, t: 25, b: 25
