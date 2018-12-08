@@ -294,8 +294,12 @@ function reset_calc_button() {
 }
 
 $('.result-navs').click(function() {
-  Plotly.Plots.resize(document.getElementById('deform-plot'))
-  Plotly.Plots.resize(document.getElementById('tension-plot'))
+  Plotly.Plots.resize(document.getElementById('deform-plot'));
+  Plotly.Plots.resize(document.getElementById('tension-plot'));
+})
+
+$('#scaleFactor').on('change', function() {
+  plot_deformation();
 })
 
 /* ------------------------------- FUNCTIONS ------------------------------ **
