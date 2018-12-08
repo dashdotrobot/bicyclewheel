@@ -484,9 +484,9 @@ function plot_tensions() {
 
   plot_canvas = document.getElementById('tension-plot');
 
-  theta = calc_result['tension']['spokes'].slice()
-  tension = calc_result['tension']['tension'].slice()
-  tension_0 = calc_result['tension']['tension_initial'].slice()
+  theta = calc_result['tension']['spokes'].slice();
+  tension = calc_result['tension']['tension'].slice();
+  tension_0 = calc_result['tension']['tension_initial'].slice();
 
   if (tension.some(function(e) {return e < 0})) {
     display_error('Warning', 'At least one spoke has negative tension. Results may not be accurate.')
@@ -494,6 +494,8 @@ function plot_tensions() {
 
   for (var i=0; i<theta.length; i++) {
   	theta[i] *= 360./parseFloat($('#spkNum').val());
+    tension[i] /= 9.81;
+    tension_0[i] /= 9.81;
   }
 
   if (true) {  // Separate traces for left and right spokes
@@ -568,7 +570,11 @@ function plot_tensions() {
     }
   }
 
-  Plotly.newPlot(plot_canvas, traces, layout, {responsive: true});
+  Plotly.newPlot(plot_canvas, traces, layout, {
+    responsive: true,
+    modeBarButtonsToRemove: ['sendDataToCloud', 'lasso2d', 'select2d'],
+    displaylogo: false
+  });
 }
 
 function show_summary() {
