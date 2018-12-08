@@ -612,7 +612,7 @@ function plot_deformation() {
 
   // Find in-plane and out-of-plane maxima
   max_def = [
-    Math.max.apply(null, def_rad.concat(def_tan).map(Math.abs)),
+    Math.max.apply(null, def_rad.map(Math.abs)),
     Math.max.apply(null, def_lat.concat(def_tor).map(Math.abs))
   ]
 
