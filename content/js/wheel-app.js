@@ -293,6 +293,10 @@ function reset_calc_button() {
   $('#btnPressMe').removeClass('disabled');
 }
 
+$('.result-navs').click(function() {
+  console.log('resize')
+  $('#deform-plot').trigger('resize')
+})
 
 /* ------------------------------- FUNCTIONS ------------------------------ **
 **
@@ -453,7 +457,10 @@ function update_results() {
   post_data = {
     'wheel': wheel_obj,
     'tension': {'forces': build_json_forces()},
-    'deformation': {'forces': build_json_forces()},
+    'deformation': {
+      'forces': build_json_forces(),
+      'theta_range': [0., 2*Math.PI, 100]
+    },
     'mass': {'empty': 0},
     'stiffness': {'empty': 0}
   }
@@ -615,15 +622,16 @@ function plot_deformation() {
   scale_factor_rad = scale_factor_percent / Math.max(max_def[0], max_def[1]);
   r_radtan = def_rad.slice();
   for (var i=0; i<theta_radtan.length; i++) {
-    r_radtan[i] = 1 + scale_factor_rad*def_rad[i];
-    // theta_radtan[i] = theta_radtan[i] + scale_factor_rad*(def_tan[i]-def_tan[0]);
+    theta_radtan[i] *= 180./Math.PI
+    r_radtan[i] = 1 - scale_factor_rad*def_rad[i];
   }
 
   // Lateral-torsional
   scale_factor_lat = scale_factor_percent / Math.max(max_def[0], max_def[1]);
   r_lat = def_lat.slice();
   r_tor = def_tor.slice();
-  for (var i=0; i<def_lat; i++) {
+  for (var i=0; i<def_lat.length; i++) {
+    theta_lattor[i] *= 180./Math.PI
     r_lat[i] = 1 + scale_factor_lat*def_lat[i];
     r_tor[i] = 1 + scale_factor_lat*def_tor[i];
   }
@@ -631,56 +639,66 @@ function plot_deformation() {
 
   traces = [
     {
-      r: r_radtan.concat(r_radtan[0]),
-      theta: theta_nds.concat(theta_nds[0]),
+      r: new Array(theta_radtan.length + 1).fill(1.),
+      theta: theta_radtan.concat(theta_radtan[0]),
       type: 'scatterpolar',
       mode: 'lines',
       showlegend: false,
-      line: {color: '#1f77b4', shape: 'spline'},
-      opacity: 0.5
+      line: {color: '#333333', shape: 'spline'},
     },
     {
-      r: T_0_ds.concat(T_0_ds[0]),
-      theta: theta_ds.concat(theta_ds[0]),
+      name: 'Radial',
+      r: r_radtan.concat(r_radtan[0]),
+      theta: theta_radtan.concat(theta_radtan[0]),
       type: 'scatterpolar',
       mode: 'lines',
-      showlegend: false,
+      showlegend: true,
+      line: {color: '#1f77b4', shape: 'spline'},
+    },
+    {
+      name: 'Lateral',
+      r: r_lat.concat(r_lat[0]),
+      theta: theta_lattor.concat(theta_lattor[0]),
+      type: 'scatterpolar',
+      mode: 'lines',
+      showlegend: true,
       line: {color: '#ff7f0e', shape: 'spline'},
-      opacity: 0.5
     }
   ]
 
-  // var layout = {
-  //   margin: {
-  //     l: 25, r: 25, t: 25, b: 25
-  //   },
-  //   legend: {
-  //     orientation: 'h'
-  //   },
-  //   polar: {
-  //     angularaxis: {
-  //       rotation: -90,
-  //       showgrid: true,
-  //       showticklabels: false,
-  //       tickmode: 'linear',
-  //       tick0: 0,
-  //       dtick: 360. / parseInt($('#spkNum').val()),
-  //       ticks: ''
-  //     },
-  //     radialaxis: {
-  //       angle: -90,
-  //       showgrid: false,
-  //       showticklabels: false
-  //     }
-  //   }
-  // }
+  console.log(traces)
 
-  // plot_canvas = document.getElementById('deform-plot');
-  // Plotly.newPlot(plot_canvas, traces, layout, {
-  //   responsive: true,
-  //   modeBarButtonsToRemove: ['sendDataToCloud', 'lasso2d', 'select2d'],
-  //   displaylogo: false
-  // });
+  var layout = {
+    margin: {
+      l: 25, r: 25, t: 25, b: 25
+    },
+    legend: {
+      orientation: 'h'
+    },
+    polar: {
+      angularaxis: {
+        rotation: -90,
+        showgrid: true,
+        showticklabels: false,
+        tickmode: 'linear',
+        tick0: 0,
+        dtick: 360. / parseInt($('#spkNum').val()),
+        ticks: ''
+      },
+      radialaxis: {
+        angle: -90,
+        showgrid: false,
+        showticklabels: false
+      }
+    }
+  }
+
+  plot_canvas = document.getElementById('deform-plot');
+  Plotly.newPlot(plot_canvas, traces, layout, {
+    responsive: true,
+    modeBarButtonsToRemove: ['sendDataToCloud', 'lasso2d', 'select2d'],
+    displaylogo: false
+  });
 }
 
 function show_summary() {
