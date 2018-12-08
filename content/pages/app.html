@@ -212,6 +212,9 @@
         <a class="nav-link p-1 px-2 active" id="plots-tab" data-toggle="tab" href="#resultPlots" role="tab" aria-controls="resultPlots" aria-selected="true">Spoke tensions</a>
       </li>
       <li class="nav-item">
+        <a class="nav-link p-1 px-2" id="deform-tab" data-toggle="tab" href="#resultDeform" role="tab" aria-controls="resultDeform" aria-selected="true">Deformation</a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link p-1 px-2" id="results-tab" data-toggle="tab" href="#resultSummary" role="tab" aria-controls="resultSummary" aria-selected="false">Summary</a>
       </li>
     </ul>
@@ -221,7 +224,12 @@
 
       <!-- Results: Plots -->
       <div class="tab-pane fade show active py-2" id="resultPlots" role="tabpanel" aria-labelledby="plots-tab">
-        <div id="tension-plot" border: 1px solid black;"></div>
+        <div id="tension-plot"></div>
+      </div>
+
+      <!-- Results: Deformation -->
+      <div class="tab-pane fade py-2" id="resultDeform" role="tabpanel" aria-labelledby="plots-tab">
+        <div id="deform-plot"></div>
       </div>
 
       <!-- Results: Summary -->
