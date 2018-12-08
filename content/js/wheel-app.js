@@ -294,8 +294,8 @@ function reset_calc_button() {
 }
 
 $('.result-navs').click(function() {
-  console.log('resize')
-  $('#deform-plot').trigger('resize')
+  Plotly.Plots.resize(document.getElementById('deform-plot'))
+  Plotly.Plots.resize(document.getElementById('tension-plot'))
 })
 
 /* ------------------------------- FUNCTIONS ------------------------------ **
