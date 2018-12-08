@@ -136,6 +136,7 @@ var RIM_PRESETS = {
 
 
 var calc_result = false;
+var wheel_obj;
 
 /* ---------------------------- INITIALIZE GUI ---------------------------- **
 **
@@ -447,9 +448,12 @@ function update_results() {
   $('#btnPressMe').text('Please wait...')
   $('#btnPressMe').addClass('disabled')
 
+  wheel_obj = build_json_wheel()
+
   post_data = {
-    'wheel': build_json_wheel(),
+    'wheel': wheel_obj,
     'tension': {'forces': build_json_forces()},
+    'deformation': {'forces': build_json_forces()},
     'mass': {'empty': 0},
     'stiffness': {'empty': 0}
   }
@@ -465,6 +469,7 @@ function update_results() {
       calc_result = result;
       console.log(calc_result)
       plot_tensions();
+      plot_deformation();
       show_summary();
       reset_calc_button();
     },
@@ -575,6 +580,107 @@ function plot_tensions() {
     modeBarButtonsToRemove: ['sendDataToCloud', 'lasso2d', 'select2d'],
     displaylogo: false
   });
+}
+
+function plot_deformation() {
+
+  if (!calc_result['deformation']['success']) {
+    display_error('Error calculating tensions', calc_result['deformation']['error'])
+    return false
+  }
+
+  rim_radius = wheel_obj['rim']['radius'];
+
+  theta_radtan = calc_result['deformation']['theta'].slice();
+  theta_lattor = calc_result['deformation']['theta'].slice();
+  def_rad = calc_result['deformation']['def_rad'].slice();
+  def_lat = calc_result['deformation']['def_lat'].slice();
+  def_tan = calc_result['deformation']['def_tan'].slice();
+  def_tor = calc_result['deformation']['def_tor'].slice();
+
+  // Convert twist to twist*R to normalize dimensions
+  for (var i=0; i<def_tor.length; i++) {
+    def_tor[i] *= rim_radius;
+  }
+
+  // Find in-plane and out-of-plane maxima
+  max_def = [
+    Math.max.apply(null, def_rad.concat(def_tan).map(Math.abs)),
+    Math.max.apply(null, def_lat.concat(def_tor).map(Math.abs))
+  ]
+
+  scale_factor_percent = parseFloat($('#scaleFactor').val()) / 100.
+
+  // Radial-tangential
+  scale_factor_rad = scale_factor_percent / Math.max(max_def[0], max_def[1]);
+  r_radtan = def_rad.slice();
+  for (var i=0; i<theta_radtan.length; i++) {
+    r_radtan[i] = 1 + scale_factor_rad*def_rad[i];
+    // theta_radtan[i] = theta_radtan[i] + scale_factor_rad*(def_tan[i]-def_tan[0]);
+  }
+
+  // Lateral-torsional
+  scale_factor_lat = scale_factor_percent / Math.max(max_def[0], max_def[1]);
+  r_lat = def_lat.slice();
+  r_tor = def_tor.slice();
+  for (var i=0; i<def_lat; i++) {
+    r_lat[i] = 1 + scale_factor_lat*def_lat[i];
+    r_tor[i] = 1 + scale_factor_lat*def_tor[i];
+  }
+
+
+  traces = [
+    {
+      r: r_radtan.concat(r_radtan[0]),
+      theta: theta_nds.concat(theta_nds[0]),
+      type: 'scatterpolar',
+      mode: 'lines',
+      showlegend: false,
+      line: {color: '#1f77b4', shape: 'spline'},
+      opacity: 0.5
+    },
+    {
+      r: T_0_ds.concat(T_0_ds[0]),
+      theta: theta_ds.concat(theta_ds[0]),
+      type: 'scatterpolar',
+      mode: 'lines',
+      showlegend: false,
+      line: {color: '#ff7f0e', shape: 'spline'},
+      opacity: 0.5
+    }
+  ]
+
+  // var layout = {
+  //   margin: {
+  //     l: 25, r: 25, t: 25, b: 25
+  //   },
+  //   legend: {
+  //     orientation: 'h'
+  //   },
+  //   polar: {
+  //     angularaxis: {
+  //       rotation: -90,
+  //       showgrid: true,
+  //       showticklabels: false,
+  //       tickmode: 'linear',
+  //       tick0: 0,
+  //       dtick: 360. / parseInt($('#spkNum').val()),
+  //       ticks: ''
+  //     },
+  //     radialaxis: {
+  //       angle: -90,
+  //       showgrid: false,
+  //       showticklabels: false
+  //     }
+  //   }
+  // }
+
+  // plot_canvas = document.getElementById('deform-plot');
+  // Plotly.newPlot(plot_canvas, traces, layout, {
+  //   responsive: true,
+  //   modeBarButtonsToRemove: ['sendDataToCloud', 'lasso2d', 'select2d'],
+  //   displaylogo: false
+  // });
 }
 
 function show_summary() {
