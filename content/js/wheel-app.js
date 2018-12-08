@@ -16,7 +16,7 @@ var RIM_MATLS = {
     'young_mod': 200e9,
     'shear_mod': 77e9
   }
-}
+};
 
 var SPK_MATLS = {
   'Alloy': {
@@ -31,7 +31,7 @@ var SPK_MATLS = {
     'density': 4500,
     'young_mod': 105e9
   }
-}
+};
 
 var RIM_SIZES = [
   '700C/29er (622)',
@@ -44,7 +44,7 @@ var RIM_SIZES = [
   '36-inch (787)',
   '48-inch high-wheel (610)',
   '52-inch high-wheel (660)'
-]
+];
 
 var RIM_PRESETS = {
   'Alex ALX-295': {
@@ -127,7 +127,15 @@ var RIM_PRESETS = {
     'EIlat': 150,
     'GJ': 25
   },
-}
+};
+
+
+/* ---------------------------- SESSION VARIABLES ---------------------------- **
+**
+** --------------------------------------------------------------------------- */
+
+
+var calc_result = false;
 
 /* ---------------------------- INITIALIZE GUI ---------------------------- **
 **
@@ -140,47 +148,47 @@ $('input.update-range').on('change input', function() {
 
 // Update value labels for hub width range sliders
 $('#hubWidthLeft').on('change input', function() {
-  $('#hubWidthLeft_label').html('<strong>' + (-parseInt($(this).val())).toString() + '</strong>')
+  $('#hubWidthLeft_label').html('<strong>' + (-parseInt($(this).val())).toString() + '</strong>');
 
   // If symmetric, update the other one to match
   if ($('#hubSymm').prop('checked')) {
-    $('#hubWidthRight').val(-parseInt($(this).val()))
-    $('#hubWidthRight_label').html('<strong>' + (-parseInt($(this).val())).toString() + '</strong>')
+    $('#hubWidthRight').val(-parseInt($(this).val()));
+    $('#hubWidthRight_label').html('<strong>' + (-parseInt($(this).val())).toString() + '</strong>');
   }
 })
 
 $('#hubWidthRight').on('change input', function() {
-  $('#hubWidthRight_label').html('<strong>' + $(this).val() + '</strong>')
+  $('#hubWidthRight_label').html('<strong>' + $(this).val() + '</strong>');
 
   // If symmetric, update the other one to match
   if ($('#hubSymm').prop('checked')) {
-    $('#hubWidthLeft').val(-parseInt($(this).val()))
-    $('#hubWidthLeft_label').html('<strong>' + (parseInt($(this).val())).toString() + '</strong>')
+    $('#hubWidthLeft').val(-parseInt($(this).val()));
+    $('#hubWidthLeft_label').html('<strong>' + (parseInt($(this).val())).toString() + '</strong>');
   }
 })
 
 $('#hubSymm').change(function() {
   if ($(this).prop('checked')) {
-    $('#hubWidthLeft').val(-parseInt($('#hubWidthRight').val()))
-    $('#hubWidthLeft_label').html('<strong>' + (parseInt($('#hubWidthRight').val())).toString() + '</strong>')
+    $('#hubWidthLeft').val(-parseInt($('#hubWidthRight').val()));
+    $('#hubWidthLeft_label').html('<strong>' + (parseInt($('#hubWidthRight').val())).toString() + '</strong>');
   }
 })
 
 
 // Populate rim presets dropdown
 for (var key in RIM_PRESETS) {
-  $('#rimPreset').append('<option value="' + key + '">' + key + '</option>')
+  $('#rimPreset').append('<option value="' + key + '">' + key + '</option>');
 }
 
 // Populate rim material dropdown
 for (var key in RIM_MATLS) {
-  $('#rimMatl').append('<option value="' + key + '">' + key + '</option>')
+  $('#rimMatl').append('<option value="' + key + '">' + key + '</option>');
 }
 
 // Populate rim size dropdown
 for (var i=0; i < RIM_SIZES.length; i++) {
   var size = RIM_SIZES[i]
-  $('#rimSize').append('<option value="' + size + '">' + size + '</option>')
+  $('#rimSize').append('<option value="' + size + '">' + size + '</option>');
 }
 
 
@@ -188,58 +196,58 @@ for (var i=0; i < RIM_SIZES.length; i++) {
 function load_rim_preset(name) {
 
   if (name != 'Custom') {
-    var rim = RIM_PRESETS[name]
+    var rim = RIM_PRESETS[name];
 
-    $('#rimMatl').val(rim['matl'])
-    $('#rimSize').val(rim['size'])
-    $('#rimMass').val(rim['mass']).trigger('change')
-    $('#rimRadStiff').val(rim['EIrad']).trigger('change')
-    $('#rimLatStiff').val(rim['EIlat']).trigger('change')
-    $('#rimTorStiff').val(rim['GJ']).trigger('change')
+    $('#rimMatl').val(rim['matl']);
+    $('#rimSize').val(rim['size']);
+    $('#rimMass').val(rim['mass']).trigger('change');
+    $('#rimRadStiff').val(rim['EIrad']).trigger('change');
+    $('#rimLatStiff').val(rim['EIlat']).trigger('change');
+    $('#rimTorStiff').val(rim['GJ']).trigger('change');
   }
 }
 
 $('#rimPreset').change(function() {
-  load_rim_preset($('#rimPreset').val())
+  load_rim_preset($('#rimPreset').val());
 })
 
 // Set default rim preset
-$('#rimPreset').val('Sun-Ringle CR18 700C, 36h').trigger('change')
+$('#rimPreset').val('Sun-Ringle CR18 700C, 36h').trigger('change');
 
 // Set rim preset to "Custom" if any fields are changed
 $('.rim-input').click(function() {
-  $('#rimPreset').val('Custom')
+  $('#rimPreset').val('Custom');
 })
 
 // Populate spoke material dropdowns
 for (var key in SPK_MATLS) {
-  $('#spkMatl').append('<option value="' + key + '">' + key + '</option>')
-  $('#spkMatlNDS').append('<option value="' + key + '">' + key + '</option>')
+  $('#spkMatl').append('<option value="' + key + '">' + key + '</option>');
+  $('#spkMatlNDS').append('<option value="' + key + '">' + key + '</option>');
 }
 
 // Show or hide the non-drive-side spoke panel
 $('#spkNDSSame').click(function() {
   if ($('#spkNDSSame').is(':checked')) {
-    $('#spkNDSPanel').collapse('hide')
+    $('#spkNDSPanel').collapse('hide');
 
     // Reset NDS values to match
     $('.spokes-ds').each(function() {
-      $('#' + $(this).prop('id') + 'NDS').val($(this).val()).trigger('change')
+      $('#' + $(this).prop('id') + 'NDS').val($(this).val()).trigger('change');
     })
   } else {
-    $('#spkNDSPanel').collapse('show')
+    $('#spkNDSPanel').collapse('show');
   }
 })
 
 // Set NDS properties equal if 'Same' is checked
 $('.spokes-ds').on('change', function() {
   if ($('#spkNDSSame').is(':checked')) {
-    $('#' + $(this).prop('id') + 'NDS').val($(this).val()).trigger('change')
+    $('#' + $(this).prop('id') + 'NDS').val($(this).val()).trigger('change');
   }
 })
 
 // Set default spoke material
-$('#spkMatl').val('Steel').trigger('change')
+$('#spkMatl').val('Steel').trigger('change');
 
 // Set spoke tension based on tension ratio
 $('#spkTens').on('change input', function() {
@@ -259,7 +267,7 @@ function initEditableTable() {
   $('#tableForces').editableTableWidget();
 
   $('.remove-row').click(function() {
-    $(this).parent().parent().remove()
+    $(this).parent().parent().remove();
   })
 }
 
@@ -268,20 +276,20 @@ $('.add-force').on('click', function() {
   $('#tableForces tr:last').after('<tr><th>' + $(this).text() + '</th><td>0</td><td>0</td><th><a class="remove-row" href="#"><i class="fas fa-trash-alt"></i></a></th></tr>');
 
   // Re-initialize to add callbacks to new row
-  initEditableTable()
+  initEditableTable();
 })
 
-initEditableTable()
+initEditableTable();
 
 
 // Work the magic!
 $('#btnPressMe').on('click', function() {
-  update_results()
+  update_results();
 })
 
 function reset_calc_button() {
-  $('#btnPressMe').text('Calculate')
-  $('#btnPressMe').removeClass('disabled')
+  $('#btnPressMe').text('Calculate');
+  $('#btnPressMe').removeClass('disabled');
 }
 
 
@@ -454,8 +462,10 @@ function update_results() {
     dataType: 'json',
     contentType: 'application/json',
     success: function (result) {
-      plot_tensions(result);
-      show_summary(result);
+      calc_result = result;
+      console.log(calc_result)
+      plot_tensions();
+      show_summary();
       reset_calc_button();
     },
     error: function (xhr, ajaxOptions, thrownError) {
@@ -465,19 +475,18 @@ function update_results() {
   });
 }
 
-function plot_tensions(data) {
-  console.log(data)
+function plot_tensions() {
 
-  if (!data['tension']['success']) {
-    display_error('Error calculating tensions', data['tension']['error'])
+  if (!calc_result['tension']['success']) {
+    display_error('Error calculating tensions', calc_result['tension']['error'])
     return false
   }
 
   plot_canvas = document.getElementById('tension-plot');
 
-  theta = data['tension']['spokes'].slice()
-  tension = data['tension']['tension'].slice()
-  tension_0 = data['tension']['tension_initial'].slice()
+  theta = calc_result['tension']['spokes'].slice()
+  tension = calc_result['tension']['tension'].slice()
+  tension_0 = calc_result['tension']['tension_initial'].slice()
 
   if (tension.some(function(e) {return e < 0})) {
     display_error('Warning', 'At least one spoke has negative tension. Results may not be accurate.')
@@ -562,36 +571,39 @@ function plot_tensions(data) {
   Plotly.newPlot(plot_canvas, traces, layout, {responsive: true});
 }
 
-function show_summary(data) {
-  console.log(data)
+function show_summary() {
 
   // Mass properties
-  if (data['mass']['success']) {
+  mass = calc_result['mass']
+ 
+  if (mass['success']) {
 
-    $('#sumMassGrams').html((1000*data['mass']['mass']).toFixed(0) + ' grams')
-    $('#sumMassLbs').html('(' + (2.20462*data['mass']['mass']).toFixed(2) + ' lbs)')
+    $('#sumMassGrams').html((1000*mass['mass']).toFixed(0) + ' grams')
+    $('#sumMassLbs').html('(' + (2.20462*mass['mass']).toFixed(2) + ' lbs)')
 
-    $('#sumMassRotGrams').html(Math.round(1000*data['mass']['mass_rotational']).toString() + ' grams')
-    $('#sumMassRotLbs').html('(' + (2.20462*data['mass']['mass_rotational']).toFixed(2) + ' lbs)')
+    $('#sumMassRotGrams').html(Math.round(1000*mass['mass_rotational']).toString() + ' grams')
+    $('#sumMassRotLbs').html('(' + (2.20462*mass['mass_rotational']).toFixed(2) + ' lbs)')
 
   } else {
-    display_error('Error calculating mass', data['mass']['error'])
+    display_error('Error calculating mass', calc_result['mass']['error'])
   }
 
   // Stiffness properties
-  if (data['stiffness']['success']) {
+  stiff = calc_result['stiffness']
 
-    $('#sumStiffRadSI').html((0.001*data['stiffness']['radial_stiffness']).toFixed(0) + ' N/mm')
-    $('#sumStiffRadLbs').html('(' + (0.224809*0.0254*data['stiffness']['radial_stiffness']).toFixed(0) + ' lbs/in)')
+  if (stiff['success']) {
 
-    $('#sumStiffLatSI').html((0.001*data['stiffness']['lateral_stiffness']).toFixed(1) + ' N/mm')
-    $('#sumStiffLatLbs').html('(' + (0.224809*0.0254*data['stiffness']['lateral_stiffness']).toFixed(0) + ' lbs/in)')
+    $('#sumStiffRadSI').html((0.001*stiff['radial_stiffness']).toFixed(0) + ' N/mm')
+    $('#sumStiffRadLbs').html('(' + (0.224809*0.0254*stiff['radial_stiffness']).toFixed(0) + ' lbs/in)')
 
-    $('#sumStiffTorSI').html((Math.PI/180.*data['stiffness']['torsional_stiffness']).toFixed(0) + ' N/deg')
-    $('#sumStiffTorLbs').html('(' + (Math.PI/180.*0.224809*data['stiffness']['torsional_stiffness']).toFixed(0) + ' lbs/deg)')
+    $('#sumStiffLatSI').html((0.001*stiff['lateral_stiffness']).toFixed(1) + ' N/mm')
+    $('#sumStiffLatLbs').html('(' + (0.224809*0.0254*stiff['lateral_stiffness']).toFixed(0) + ' lbs/in)')
+
+    $('#sumStiffTorSI').html((Math.PI/180.*stiff['torsional_stiffness']).toFixed(0) + ' N/deg')
+    $('#sumStiffTorLbs').html('(' + (Math.PI/180.*0.224809*stiff['torsional_stiffness']).toFixed(0) + ' lbs/deg)')
 
   } else {
-    display_error('Error calculating stiffness', data['stiffness']['error'])
+    display_error('Error calculating stiffness', stiff['error'])
   }
 }
 
