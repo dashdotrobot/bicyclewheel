@@ -318,11 +318,18 @@ function reset_calc_button() {
 }
 
 $('.result-navs').click(function() {
-  Plotly.Plots.resize(document.getElementById('deform-plot'));
-  Plotly.Plots.resize(document.getElementById('tension-plot'));
+  window.setTimeout(function() {
+    Plotly.Plots.resize(document.getElementById('deform-plot'));
+    Plotly.Plots.resize(document.getElementById('tension-plot'));
+  }, 0)
 })
 
 $('#scaleFactor').on('change', function() {
+  plot_deformation();
+})
+
+$('.deform-button').click(function() {
+  $(this).toggleClass('active');
   plot_deformation();
 })
 
@@ -648,8 +655,11 @@ function plot_deformation() {
       mode: 'lines',
       showlegend: false,
       line: {color: '#333333', shape: 'spline'},
-    },
-    {
+    }
+  ]
+
+  traces_deform = {
+    'Radial': {
       name: 'Radial',
       r: r_radtan.concat(r_radtan[0]),
       theta: theta_radtan.concat(theta_radtan[0]),
@@ -658,7 +668,7 @@ function plot_deformation() {
       showlegend: true,
       line: {color: '#1f77b4', shape: 'spline'},
     },
-    {
+    'Lateral': {
       name: 'Lateral',
       r: r_lat.concat(r_lat[0]),
       theta: theta_lattor.concat(theta_lattor[0]),
@@ -666,8 +676,27 @@ function plot_deformation() {
       mode: 'lines',
       showlegend: true,
       line: {color: '#ff7f0e', shape: 'spline'},
+    },
+    'Twist': {
+      name: 'Twist (R*phi)',
+      r: r_tor.concat(r_tor[0]),
+      theta: theta_lattor.concat(theta_lattor[0]),
+      type: 'scatterpolar',
+      mode: 'lines',
+      showlegend: true,
+      line: {color: '#2ca02c', shape: 'spline'},
     }
-  ]
+  }
+
+  if ($('#deformRadial').hasClass('active')) {
+    traces.push(traces_deform['Radial'])
+  }
+  if ($('#deformLateral').hasClass('active')) {
+    traces.push(traces_deform['Lateral'])
+  }
+  if ($('#deformTwist').hasClass('active')) {
+    traces.push(traces_deform['Twist'])
+  }
 
   plot_canvas = document.getElementById('deform-plot');
   Plotly.newPlot(plot_canvas, traces, POLAR_LAYOUT, {
