@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="english">
+<head>
+    <title>bicyclewheel.info - Instructions</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link href="../theme/css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta charset="utf-8" />
+</head>
+
+<body id="index" class="home">
+
+  <nav class="navbar navbar-expand-md navbar-light bg-light">
+    <a class="navbar-brand" href="../">bicyclewheel.info </a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link" href="/">The App</a></li>
+
+        <!-- Menu items -->
+
+        <!-- Pages -->
+        <li class="nav-item"><a class="nav-link active" href="../pages/instructions.html">Instructions</a></li>
+
+        <!-- Article categories -->
+        <li class="nav-item">
+          <a class="nav-link" href="../category/articles.html">Articles</a>
+        </li>
+
+      </ul>
+    </div>
+  </nav>
+
+<div class="container main-content">
+
+    <h2>How to use the Bicycle Wheel App</h2>
+<p>The Bicycle Wheel App is a tool for designing and simulating a virtual bicycle wheel. Calculate stiffness, mass, rotating inertia, and see how spoke tensions change when the wheel is subjected to forces.</p>
+<h3>Designing your wheel</h3>
+<p>Design your wheel using the options in the left panel.</p>
+<h4>Rim tab</h4>
+<p>You may choose from a short list of rims which have already been characterized, or design your own from scratch. The app does not perform any checks to ensure that your rim is feasible. For guidance on the values below, try choosing some presets to see what values they have.</p>
+<p><strong>Material</strong>: The material sets the <em>density</em>, the <a href="https://en.wikipedia.org/wiki/Young%27s_modulus"><em>Young's modulus</em></a>, and <a href="https://en.wikipedia.org/wiki/Shear_modulus"><em>shear modulus</em></a>. The density, together with the wheel size and mass, determines the cross-sectional area of the rim. The cross-sectional area generally has a very small effect on the mechanical behavior. The Young's modulus and shear modulus are already incorporated into the bending stiffnesses, and therefore have no direct effect on the mechanical behavior of the wheeel.</p>
+<p><strong>Wheel Size</strong>: Select from a list of standard wheel sizes. This determines the <em>radius</em> of the rim. Small wheels are inherently stiffer and stronger than large wheels.</p>
+<p><strong>Mass</strong>: The mass of the rim has a negligible effect on the mechanical properties (unless it is very small), but has a large effect on the inertial properties of the wheel.</p>
+<p><strong>Radial stiffness</strong>: The radial bending stiffness is the resistance of the rim cross-section to bending within its initial plane (think of a rim being squashed top-to-bottom). It is the product of the Young's Modulus and the <a href="https://en.wikipedia.org/wiki/Second_moment_of_area">second moment of area</a> of the rim cross-section in the radial direction. Deep rim sections have a higher radial stiffness than shallow rim sections.</p>
+<p><strong>Lateral stiffness</strong>: The lateral bending stiffness is the resistance of the rim cross-section to bending out of its initial plane (think of a rim being bent sideways). The lateral stiffness and torsional stiffness are coupled and both contribute to out-of-plane deformation. The overall lateral stiffness will be dominated by the lower of the two. The lateral stiffness is the product of the Young's Modulus and the <a href="https://en.wikipedia.org/wiki/Second_moment_of_area">second moment of area</a> of the rim cross-section in the lateral direction. Wide rim sections have a higher radial stiffness than narrow rim sections.</p>
+<p><strong>Torsional stiffness</strong>: The torsional stiffness is the resistance of the rim cross-section to twisting about its own centerline. As noted above, lateral deformations generally involve both lateral bending and twisting of the rim. The torsional stiffness is the product of the shear Modulus and the <a href="https://en.wikipedia.org/wiki/Torsion_constant">torsion constant</a> of the rim cross-section.</p>
+<h4>Hub tab</h4>
+<p><strong>Rim-to-flange distance</strong>: Specify the hub flange positions (lateral distance from the rim center-plane to each hub flange). The positive number is the distance to the <em>right</em> or <em>drive-side</em> flange, while the negative number is the distance to the <em>left</em> or <em>non-drive-side</em> flange. If the Symmetric option is selected, drag the right slider and the left slider will automatically mirror it. If the Asymmetric option is selected, you may independently set each flange position. Rear wheels and disc-brake wheels are commonly asymmetric due to the extra width needed for the sprocket or disc on one side of the hub. The flange position should be smaller on the side with the sprockets or disc.</p>
+<blockquote>
+<p>Note: The app assumes that all the spoke heads on a given flange have the same lateral position. This is not strictly true since inbound and outbound spokes will have slightly different lateral angles.</p>
+</blockquote>
+<p><strong>Flange diameter</strong>: Specify the hub flange diameter (the diameter of the circle of spoke holes).</p>
+<h4>Spokes tab</h4>
+<p><strong>Material</strong>: The material sets the <em>density</em> and <em>Young's modulus</em> of the spoke material. Stainless steel (very common) has a Young's Modulus of approximately 210 GPa.</p>
+<p><strong>Number of spokes</strong>: The total number of spokes for one wheel.</p>
+<p><strong>Diameter</strong>: The effective average diameter of the spoke. For a straight-gauge spoke, this is simply the diameter. for a bladed spoke, the effective diameter is <code>d_eff = sqrt(1.27 * area)</code>, where area is the cross-sectional area. The effective diameter for butted spokes is more complicated, but is generally close to the diameter of the swaged (thin) section.</p>
+<p><strong>Spoke tension</strong>: Set the drive-side spoke tension by dragging the "Drive-side tension" slider. The "Non-drive-side tension" slider will automatically update to the correct value based on the hub flange distances you have chosen. On a symmetric wheel, the drive-side and non-drive-side tension will be equal. On an asymmetric wheel, the tension will be higher on the side with the smaller rim-to-flange distance (i.e. the drive-side on a typical rear wheel).</p>
+<p><strong>Spoke pattern</strong>: Choose the spoke arrangement for the wheel. Increasing the number of crossings increases the torsional stiffness of the wheel dramatically, but slightly decreases the lateral and radial stiffness.</p>
+<blockquote>
+<p>Note: A radial-spoked wheel with no spoke tension has theoretically zero torsional stiffness, which leads to a "Singular Matrix" error.</p>
+</blockquote>
+<h3>Applying forces</h3>
+<p><em>Section under construction</em></p>
+
+</div>
+
+<footer>
+<div class="container-fluid text-center py-3">
+  <small>&copy; 2018 <a href="http://dashdotrobot.com" target="_blank">Matthew Ford</a>.
+    Powered by <a href="https://getpelican.com" target="_blank">Pelican</a> and <a href="https://getbootstrap.com/" target="_blank">Bootstrap</a>.
+  </small>
+</div>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+
+
+</body>
+</html>
