@@ -129,6 +129,30 @@ var RIM_PRESETS = {
   },
 };
 
+var POLAR_LAYOUT = {
+  margin: {
+    l: 25, r: 25, t: 25, b: 25
+  },
+  legend: {
+    orientation: 'h'
+  },
+  polar: {
+    angularaxis: {
+      rotation: -90,
+      showgrid: true,
+      showticklabels: false,
+      tickmode: 'linear',
+      tick0: 0,
+      dtick: 360. / parseInt($('#spkNum').val()),
+      ticks: ''
+    },
+    radialaxis: {
+      angle: -90,
+      showgrid: false,
+      showticklabels: false
+    }
+  }
+}
 
 /* ---------------------------- SESSION VARIABLES ---------------------------- **
 **
@@ -498,8 +522,6 @@ function plot_tensions() {
     return false
   }
 
-  plot_canvas = document.getElementById('tension-plot');
-
   theta = calc_result['tension']['spokes'].slice();
   tension = calc_result['tension']['tension'].slice();
   tension_0 = calc_result['tension']['tension_initial'].slice();
@@ -561,32 +583,9 @@ function plot_tensions() {
     ]
   }
 
-  var layout = {
-    margin: {
-      l: 25, r: 25, t: 25, b: 25
-    },
-    legend: {
-      orientation: 'h'
-    },
-    polar: {
-      angularaxis: {
-        rotation: -90,
-        showgrid: true,
-        showticklabels: false,
-        tickmode: 'linear',
-        tick0: 0,
-        dtick: 360. / parseInt($('#spkNum').val()),
-        ticks: ''
-      },
-      radialaxis: {
-        angle: -90,
-        showgrid: false,
-        showticklabels: false
-      }
-    }
-  }
+  plot_canvas = document.getElementById('tension-plot');
 
-  Plotly.newPlot(plot_canvas, traces, layout, {
+  Plotly.newPlot(plot_canvas, traces, POLAR_LAYOUT, {
     responsive: true,
     modeBarButtonsToRemove: ['sendDataToCloud', 'lasso2d', 'select2d'],
     displaylogo: false
@@ -670,33 +669,8 @@ function plot_deformation() {
     }
   ]
 
-  var layout = {
-    margin: {
-      l: 25, r: 25, t: 25, b: 25
-    },
-    legend: {
-      orientation: 'h'
-    },
-    polar: {
-      angularaxis: {
-        rotation: -90,
-        showgrid: true,
-        showticklabels: false,
-        tickmode: 'linear',
-        tick0: 0,
-        dtick: 360. / parseInt($('#spkNum').val()),
-        ticks: ''
-      },
-      radialaxis: {
-        angle: -90,
-        showgrid: false,
-        showticklabels: false
-      }
-    }
-  }
-
   plot_canvas = document.getElementById('deform-plot');
-  Plotly.newPlot(plot_canvas, traces, layout, {
+  Plotly.newPlot(plot_canvas, traces, POLAR_LAYOUT, {
     responsive: true,
     modeBarButtonsToRemove: ['sendDataToCloud', 'lasso2d', 'select2d'],
     displaylogo: false
