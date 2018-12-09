@@ -1,6 +1,7 @@
 Title: How Wheels Work
 Authors: Matthew Ford
 Slug: how-wheels-work
+Status: hidden
 
 # How does a bicycle wheel work?
 
