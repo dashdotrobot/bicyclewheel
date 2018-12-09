@@ -318,8 +318,10 @@ function reset_calc_button() {
 }
 
 $('.result-navs').click(function() {
-  Plotly.Plots.resize(document.getElementById('deform-plot'));
-  Plotly.Plots.resize(document.getElementById('tension-plot'));
+  window.setTimeout(function() {
+    Plotly.Plots.resize(document.getElementById('deform-plot'));
+    Plotly.Plots.resize(document.getElementById('tension-plot'));
+  }, 0)
 })
 
 $('#scaleFactor').on('change', function() {
