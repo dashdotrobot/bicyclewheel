@@ -262,24 +262,24 @@
 
       <!-- Results: Deformation -->
       <div class="tab-pane fade py-2" id="resultDeform" role="tabpanel" aria-labelledby="plots-tab">
-        <div class="form-row">
-          <div class="col">
-            <div class="btn-group btn-group-toggle align-middle" data-toggle="buttons">
-              <label class="btn btn-sm btn-primary active">
-                <input type="radio" id="deformRadTan" autocomplete="off" checked> In-plane
-              </label>
-              <label class="btn btn-sm btn-primary">
-                <input type="radio" id="deformLatTor" autocomplete="off"> Out-of-plane
-              </label>
-            </div>
-          </div>
-          <div class="col">
 
+        <div class="form-row">
+          <div class="col-sm-6">
+                <button type="button" id="deformRadial" class="btn btn-sm btn-primary deform-button active">
+                Radial
+              </button>
+              <button type="button" id="deformLateral" class="btn btn-sm btn-primary deform-button">
+                Lateral
+              </button>
+              <button type="button" id="deformTwist" class="btn btn-sm btn-primary deform-button">
+                Twist
+              </button>
+          </div>
+          <div class="col-sm-6">
             <div class="form-group form-group-sm">
               <label for="scaleFactor">Scale factor:&nbsp;</label><span><strong>20</strong></span>
               <input type="range" class="form-control-range custom-range update-range" id="scaleFactor" min="1" max="100" step="1" value="20">
             </div>
-
           </div>
         </div>
 
