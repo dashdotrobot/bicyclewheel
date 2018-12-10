@@ -134,7 +134,9 @@ var POLAR_LAYOUT = {
     l: 25, r: 25, t: 25, b: 25
   },
   legend: {
-    orientation: 'h'
+    orientation: 'h',
+    xanchor: 'center',
+    x: 0.5
   },
   polar: {
     angularaxis: {
