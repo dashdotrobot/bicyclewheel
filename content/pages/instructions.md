@@ -51,7 +51,7 @@ __Material__: The material sets the _density_ and _Young's modulus_ of the spoke
 
 __Diameter__: The effective average diameter of the spoke. For a straight-gauge spoke, this is simply the diameter. For a bladed spoke, the effective diameter is `d_eff = sqrt(1.273 * area)`, where area is the cross-sectional area. One could estimate the cross-sectional area by weighing a single spoke, knowing the density and length, or by measuring the short and long widths and [approximating the cross-section as an ellipse](https://en.wikipedia.org/wiki/Ellipse#Area). The effective diameter for butted spokes is more complicated, but is generally close to, but larger than the diameter of the thin section.
 
-__Spoke tension__: Set the average tension in each spoke. On a symmetric wheel, the drive-side and non-drive-side tension will be equal. On an asymmetric wheel, the tension will be higher on the side with the smaller rim-to-flange distance (i.e. the drive-side on a typical rear wheel). The app will automatically calculate the correct tension for the opposite side, regardless of which slider you control.
+__Spoke tension__: Set the average tension in each spoke, in [kgf](https://en.wikipedia.org/wiki/Kilogram-force). On a symmetric wheel, the drive-side and non-drive-side tension will be equal. On an asymmetric wheel, the tension will be higher on the side with the smaller rim-to-flange distance (i.e. the drive-side on a typical rear wheel). The app will automatically calculate the correct tension for the opposite side, regardless of which slider you control.
 
 ### Applying forces
 
@@ -60,3 +60,41 @@ Apply external forces to the rim using the __Forces__ tab. Use one of the button
 For the purposes of adding forces and calculating deformation, the hub acts as a rigid reference point. Whatever forces are applied to the rim, the solver will automatically constrain the hub using whatever combination of forces and torques are necessary to keep the wheel in [mechanical equilibrium](https://en.wikipedia.org/wiki/Mechanical_equilibrium). You cannot directly apply forces to the hub. This means, for example, that to simulate a drive torque, you must apply a positive tangential force at 0 degrees equal to the torque divided by the rim radius.
 
 > Note: To apply a braking force with a _disc brake_, apply a single, negative tangential force at 0 degrees (the ground). The torque from the disc will automatically be applied to the hub. To apply a braking force with a _rim brake_, apply a negative tangential force at 0 degrees, and an equal but positive tangential force at 180 degrees (the brake pads).
+
+### Interpreting results
+
+#### Tensions plot
+
+The tensions shows the spoke tensions in the deformed wheel in kgf units. Tensions less than zero cannot be shown. The initial tensions in the undeformed wheel are shown as blue and orange circles. If you accidentally rotate or zoom the plot by clicking on or touching it, double-tap on the plot to return.
+
+#### Deformation plot
+
+The deformation plot shows the distortion of the rim in each direction. Click on or touch the Radial, Lateral and Twist toggle buttons to add or remove traces from the plot. Radial deformation refers to distortion of the rim in its own plane. Lateral deformation refers to movement of the rim out of its plane. Twist refers to rotation of the rim cross-section, relative to its initial position. Since twist has units of angle (radians), twist is plotted as `radius*twist` so that it has the same units as radial and lateral deformation.
+
+The deformation is plotted as deviations from a unit circle. The deformations are scaled so that the largest displacement is equal to the scale factor. For lateral deformation, positive deviation means movement towards the non-drive side of the wheel. For twist deformation, positive deviation means rotation of the cross-section _in the same sense_ as a positive lateral deviation (think of the rim cross-section as a pendulum rotating about the hub: as the pendulum swings to the one side, the bob also rotates in the same direction).
+
+#### Summary results
+
+The app calculates the inertial properties and stiffness of the wheel.
+
+__Mass__: Mass of the rim and spokes ONLY (the hub, spoke nipples, tire, tube, etc are excluded). This is the mass that you "feel" when climbing a hill at a constant velocity.
+
+__Eff. rotating mass__: Since the wheel rotates as well as translates, it requires more energy to accelerate, per gram, than the frame or rider. The effective rotating mass is the equivalent mass which would require the same amount of energy to bring to the same velocity as the rotating wheel. This is the mass that you "feel" when accelerating the bike.
+
+> The effective rotating mass cannot theoretically exceed twice, and cannot be less than 1.333 times, the mass of the wheel.
+
+__Radial stiffness__: The radial force, applied at 0 degrees, which would produce a unit displacement in the radial direction.
+
+__Lateral stiffness__: The lateral force, applied at 0 degrees, which would produce a unit displacement in the lateral direction. This is the stiffness famously measured by [Damon Rinard](https://www.sheldonbrown.com/rinard/wheel_index.html).
+
+__Torsional stiffness__: The force, applied at 0 degrees, which would cause the hub to rotate by 1 degree relative to the rim. This is __not__ related to the torsional stiffness of the rim. The torsional stiffness of the wheel is almost entirely determined by the spoke pattern and properties.
+
+## Notes regarding the solver
+
+The full modeling assumptions and derivations underlying the app are described in detail in my Ph.D. thesis: [_Reinventing the Wheel: Stress Analysis, Stability, and Optimization of the Bicycle Wheel_](https://github.com/dashdotrobot/phd-thesis/releases/download/v1.0/Ford_BicycleWheelThesis_v1.0.pdf). The app uses the Mode Matrix Model described in Section 2.4.1 of the thesis.
+
+The mechanical properties and deformations are calculated using my [Bike Wheel API](https://github.com/dashdotrobot/bike-wheel-api). The API accepts options in JSON format and returns a JSON object with the results. The API is running at `bike-wheel-api.herokuapp.com`. The server accepts POST requests at `bike-wheel-api.herokuapp.com/calculate`. The API is built on [Python/Flask](http://flask.pocoo.org/). The Bike Wheel API is just a wrapper for my Python library, [bike-wheel-calc](https://github.com/dashdotrobot/bike-wheel-calc).
+
+## Got feedback? Found a bug?
+
+This app is __VERY__ much a work in progress. The code for the app and website is available on [GitHub](https://github.com/dashdotrobot/bicyclewheel). If you find bugs or want to suggest features, log an issue or contact me at `mford <at> u.northwestern.edu`.
