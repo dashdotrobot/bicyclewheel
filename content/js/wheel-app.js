@@ -483,13 +483,13 @@ function build_json_forces() {
   var dofs = {'Radial': 'f_rad', 'Lateral': 'f_lat', 'Tangential': 'f_tan'}
   var json = []
 
-  $('#tableForces > tbody > tr').not(':first').each(function() {
-    dof = $(this).find('th:first').text()
-    loc = $(this).find('td:first').text()
-    mag = $(this).find('td:last').text()
+  $('#tableForces > tbody > tr').not(':first').not(':last').each(function() {
+    dof = $(this).find('th:first').text().trim();
+    loc = $(this).find('td:first').text();
+    mag = $(this).find('td:last').text();
 
-    f = {'location': parseFloat(loc)*Math.PI/180.}  // Convert [deg] -> [rad]
-    f[dofs[dof]] = 9.81*parseFloat(mag)  // Convert [kgf] -> [N]
+    f = {'location': parseFloat(loc)*Math.PI/180.};  // Convert [deg] -> [rad]
+    f[dofs[dof]] = 9.81*parseFloat(mag);             // Convert [kgf] -> [N]
 
     json.push(f)
   })
