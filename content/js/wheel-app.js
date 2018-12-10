@@ -134,7 +134,9 @@ var POLAR_LAYOUT = {
     l: 25, r: 25, t: 25, b: 25
   },
   legend: {
-    orientation: 'h'
+    orientation: 'h',
+    xanchor: 'center',
+    x: 0.5
   },
   polar: {
     angularaxis: {
@@ -322,6 +324,10 @@ $('.result-navs').click(function() {
     Plotly.Plots.resize(document.getElementById('deform-plot'));
     Plotly.Plots.resize(document.getElementById('tension-plot'));
   }, 0)
+})
+
+$('#scaleFactor').on('change input', function() {
+  $(this).prev().html('<strong>' + $(this).val() + '%</strong>');
 })
 
 $('#scaleFactor').on('change', function() {
