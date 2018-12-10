@@ -158,6 +158,22 @@ var POLAR_LAYOUT = {
 
 var FORCE_TYPES = ['Radial', 'Lateral', 'Tangential'];
 
+var FORCE_PRESETS = {
+  'Weight of bike + rider': [
+    {'dof': 'Radial', 'loc': 0, 'mag': 50}
+  ],
+  'Pedaling torque': [
+    {'dof': 'Tangential', 'loc': 0, 'mag': 15}
+  ],
+  'Rim braking': [
+    {'dof': 'Tangential', 'loc': 0, 'mag': -15},
+    {'dof': 'Tangential', 'loc': 180, 'mag': 15}
+  ],
+  'Side force': [
+    {'dof': 'Lateral', 'loc': 0, 'mag': 15}
+  ]
+}
+
 /* ---------------------------- SESSION VARIABLES ---------------------------- **
 **
 ** --------------------------------------------------------------------------- */
@@ -291,7 +307,22 @@ $('#spkTensNDS').on('change input', function() {
 })
 
 
-// Editable table
+// Force presets
+for (var key in FORCE_PRESETS) {
+  $('#forcePresetDropdown').append('<a class="dropdown-item btn-sm force-preset" href="#">' + key + '</a>');
+}
+
+// Select a force preset
+$('.force-preset').click(function() {
+  forces = FORCE_PRESETS[$(this).text()];
+  for (var i=0; i < forces.length; i++) {
+    addForce(forces[i]['dof'],
+             forces[i]['loc'],
+             forces[i]['mag']);
+  }
+})
+
+// Editable force table
 function initEditableTable() {
   $('#tableForces').editableTableWidget();
 
@@ -308,12 +339,20 @@ function initEditableTable() {
 
 }
 
-// Add row callback
-$('.add-force').click( function() {
-  $('#tableForces tr:last').before('<tr><th class="force-type text-nowrap">Radial <i class="fas fa-angle-double-down"></i></th><td>0</td><td>0</td><th><a class="remove-row" href="#"><i class="fas fa-trash-alt"></i></a></th></tr>');
+function addForce(dof, loc, mag) {
+  $('#tableForces tr:last').before('<tr><th class="force-type text-nowrap">' + dof +
+                                   ' <i class="fas fa-angle-double-down"></i></th>' +
+                                   '<td>' + loc.toString() + '</td>' +
+                                   '<td>' + mag.toString() + '</td>' +
+                                   '<th><a class="remove-row" href="#"><i class="fas fa-trash-alt"></i></a></th></tr>');
 
   // Re-initialize to add callbacks to new row
   initEditableTable();
+}
+
+// Add row callback
+$('.add-force').click(function() {
+  addForce('Radial', 0, 0)
 })
 
 initEditableTable();
