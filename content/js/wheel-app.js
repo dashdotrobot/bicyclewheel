@@ -156,6 +156,8 @@ var POLAR_LAYOUT = {
   }
 }
 
+var FORCE_TYPES = ['Radial', 'Lateral', 'Tangential'];
+
 /* ---------------------------- SESSION VARIABLES ---------------------------- **
 **
 ** --------------------------------------------------------------------------- */
@@ -293,14 +295,22 @@ $('#spkTensNDS').on('change input', function() {
 function initEditableTable() {
   $('#tableForces').editableTableWidget();
 
+  // Remove row callback
   $('.remove-row').click(function() {
     $(this).parent().parent().remove();
   })
+
+  // Change force type callback
+  $('.force-type').click(function() {
+    i_new = (FORCE_TYPES.indexOf($(this).text().trim()) + 1) % 3;
+    $(this).html(FORCE_TYPES[i_new] + ' <i class="fas fa-angle-double-down"></i>');
+  })
+
 }
 
 // Add row callback
-$('.add-force').on('click', function() {
-  $('#tableForces tr:last').after('<tr><th>' + $(this).text() + '</th><td>0</td><td>0</td><th><a class="remove-row" href="#"><i class="fas fa-trash-alt"></i></a></th></tr>');
+$('.add-force').click( function() {
+  $('#tableForces tr:last').before('<tr><th class="force-type text-nowrap">Radial <i class="fas fa-angle-double-down"></i></th><td>0</td><td>0</td><th><a class="remove-row" href="#"><i class="fas fa-trash-alt"></i></a></th></tr>');
 
   // Re-initialize to add callbacks to new row
   initEditableTable();
