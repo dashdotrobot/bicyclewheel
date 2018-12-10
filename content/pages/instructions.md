@@ -55,4 +55,8 @@ __Spoke tension__: Set the average tension in each spoke. On a symmetric wheel, 
 
 ### Applying forces
 
-_Section under construction_
+Apply external forces to the rim using the __Forces__ tab. Use one of the buttons: Radial, Lateral, or Tangential to add a new force in that direction. To specify the location (counter-clockwise from the ground) and magnitude, touch or click on the corresponding value in the Forces table. Press the trash icon to delete a force.
+
+For the purposes of adding forces and calculating deformation, the hub acts as a rigid reference point. Whatever forces are applied to the rim, the solver will automatically constrain the hub using whatever combination of forces and torques are necessary to keep the wheel in [mechanical equilibrium](https://en.wikipedia.org/wiki/Mechanical_equilibrium). You cannot directly apply forces to the hub. This means, for example, that to simulate a drive torque, you must apply a positive tangential force at 0 degrees equal to the torque divided by the rim radius.
+
+> Note: To apply a braking force with a _disc brake_, apply a single, negative tangential force at 0 degrees (the ground). The torque from the disc will automatically be applied to the hub. To apply a braking force with a _rim brake_, apply a negative tangential force at 0 degrees, and an equal but positive tangential force at 180 degrees (the brake pads).
