@@ -326,6 +326,10 @@ $('.result-navs').click(function() {
   }, 0)
 })
 
+$('#scaleFactor').on('change input', function() {
+  $(this).prev().html('<strong>' + $(this).val() + '%</strong>');
+})
+
 $('#scaleFactor').on('change', function() {
   plot_deformation();
 })
