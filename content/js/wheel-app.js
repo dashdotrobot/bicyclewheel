@@ -145,7 +145,6 @@ var POLAR_LAYOUT = {
       showticklabels: false,
       tickmode: 'linear',
       tick0: 0,
-      dtick: 360. / parseInt($('#spkNum').val()),
       ticks: ''
     },
     radialaxis: {
@@ -645,13 +644,32 @@ function plot_tensions() {
     ]
   }
 
+  var layout = $.extend({}, POLAR_LAYOUT);
+  layout['polar']['angularaxis']['dtick'] = 360. / parseInt($('#spkNum').val());
+
   plot_canvas = document.getElementById('tension-plot');
 
-  Plotly.newPlot(plot_canvas, traces, POLAR_LAYOUT, {
+  Plotly.newPlot(plot_canvas, traces, layout, {
     responsive: true,
     modeBarButtonsToRemove: ['sendDataToCloud', 'lasso2d', 'select2d'],
     displaylogo: false
   });
+}
+
+function array_mult_scalar(x, a) {
+  // Multiple each element in an array 'x' a scalar 'a'
+  for (var i=0; i < x.length; i++) {
+    x[i] *= a
+  }
+  return x
+}
+
+function array_add_scalar(x, a) {
+  // Add a scalar 'a' to each element in an array 'x'
+  for (var i=0; i < x.length; i++) {
+    x[i] += a
+  }
+  return x
 }
 
 function plot_deformation() {
@@ -663,49 +681,66 @@ function plot_deformation() {
 
   rim_radius = wheel_obj['rim']['radius'];
 
-  theta_radtan = calc_result['deformation']['theta'].slice();
-  theta_lattor = calc_result['deformation']['theta'].slice();
-  def_rad = calc_result['deformation']['def_rad'].slice();
+  theta = array_mult_scalar(calc_result['deformation']['theta'].slice(), 180./Math.PI);
+  def_rad = array_mult_scalar(calc_result['deformation']['def_rad'].slice(), -1);
   def_lat = calc_result['deformation']['def_lat'].slice();
-  def_tan = calc_result['deformation']['def_tan'].slice();
-  def_tor = calc_result['deformation']['def_tor'].slice();
+  def_tor = array_mult_scalar(calc_result['deformation']['def_tor'].slice(), rim_radius);
 
-  // Convert twist to twist*R to normalize dimensions
-  for (var i=0; i<def_tor.length; i++) {
-    def_tor[i] *= rim_radius;
+  var traces_deform = {
+    'Radial': {
+      name: 'Radial',
+      def: def_rad,
+      def_max: Math.max.apply(null, def_rad.map(Math.abs)),
+      line: {color: '#1f77b4', shape: 'spline'},
+    },
+    'Lateral': {
+      name: 'Lateral',
+      def: def_lat,
+      def_max: Math.max.apply(null, def_lat.map(Math.abs)),
+      line: {color: '#ff7f0e', shape: 'spline'},
+    },
+    'Twist': {
+      name: 'Twist (R*phi)',
+      def: def_tor,
+      def_max: Math.max.apply(null, def_tor.map(Math.abs)),
+      line: {color: '#2ca02c', shape: 'spline'},
+    }
   }
 
-  // Find in-plane and out-of-plane maxima
-  max_def = [
-    Math.max.apply(null, def_rad.map(Math.abs)),
-    Math.max.apply(null, def_lat.concat(def_tor).map(Math.abs))
-  ]
+  // Add selected traces to a new list
+  var trace_select = [];
+  var def_max = [];
+  $('.deform-button').each(function() {
+    if ($(this).hasClass('active')) {
+      trace_select.push(traces_deform[$(this).text().trim()]);
+      def_max.push(traces_deform[$(this).text().trim()]['def_max']);
+    }
+  })
 
-  scale_factor_percent = parseFloat($('#scaleFactor').val()) / 100.
+  // Calculate scaling factor
+  scale_factor = parseFloat($('#scaleFactor').val()) / 100. / Math.max(...def_max)
 
-  // Radial-tangential
-  scale_factor_rad = scale_factor_percent / Math.max(max_def[0], max_def[1]);
-  r_radtan = def_rad.slice();
-  for (var i=0; i<theta_radtan.length; i++) {
-    theta_radtan[i] *= 180./Math.PI
-    r_radtan[i] = 1 - scale_factor_rad*def_rad[i];
+  // Apply scaling factor to each trace
+  for (var t=0; t < trace_select.length; t++) {
+    tr = trace_select[t];
+    tr['r'] = array_add_scalar(array_mult_scalar(tr['def'], scale_factor), 1.);
+    tr['theta'] = theta.slice();
+
+    // Connect trace to its endpoint
+    tr['theta'].push(tr['theta'][0]);
+    tr['r'].push(tr['r'][0]);
+
+    // Line options
+    tr['type'] = 'scatterpolar';
+    tr['mode'] = 'lines';
+    tr['showlegend'] = true;
   }
 
-  // Lateral-torsional
-  scale_factor_lat = scale_factor_percent / Math.max(max_def[0], max_def[1]);
-  r_lat = def_lat.slice();
-  r_tor = def_tor.slice();
-  for (var i=0; i<def_lat.length; i++) {
-    theta_lattor[i] *= 180./Math.PI
-    r_lat[i] = 1 + scale_factor_lat*def_lat[i];
-    r_tor[i] = 1 + scale_factor_lat*def_tor[i];
-  }
-
-
-  traces = [
+  // Add a gray reference circle
+  trace_unitcircle = [
     {
-      r: new Array(theta_radtan.length + 1).fill(1.),
-      theta: theta_radtan.concat(theta_radtan[0]),
+      r: new Array(theta.length + 1).fill(1.),
+      theta: theta.concat(theta[0]),
       type: 'scatterpolar',
       mode: 'lines',
       showlegend: false,
@@ -713,48 +748,11 @@ function plot_deformation() {
     }
   ]
 
-  traces_deform = {
-    'Radial': {
-      name: 'Radial',
-      r: r_radtan.concat(r_radtan[0]),
-      theta: theta_radtan.concat(theta_radtan[0]),
-      type: 'scatterpolar',
-      mode: 'lines',
-      showlegend: true,
-      line: {color: '#1f77b4', shape: 'spline'},
-    },
-    'Lateral': {
-      name: 'Lateral',
-      r: r_lat.concat(r_lat[0]),
-      theta: theta_lattor.concat(theta_lattor[0]),
-      type: 'scatterpolar',
-      mode: 'lines',
-      showlegend: true,
-      line: {color: '#ff7f0e', shape: 'spline'},
-    },
-    'Twist': {
-      name: 'Twist (R*phi)',
-      r: r_tor.concat(r_tor[0]),
-      theta: theta_lattor.concat(theta_lattor[0]),
-      type: 'scatterpolar',
-      mode: 'lines',
-      showlegend: true,
-      line: {color: '#2ca02c', shape: 'spline'},
-    }
-  }
-
-  if ($('#deformRadial').hasClass('active')) {
-    traces.push(traces_deform['Radial'])
-  }
-  if ($('#deformLateral').hasClass('active')) {
-    traces.push(traces_deform['Lateral'])
-  }
-  if ($('#deformTwist').hasClass('active')) {
-    traces.push(traces_deform['Twist'])
-  }
+  var layout = $.extend({}, POLAR_LAYOUT);
+  layout['polar']['angularaxis']['dtick'] = 360. / parseInt($('#spkNum').val());
 
   plot_canvas = document.getElementById('deform-plot');
-  Plotly.newPlot(plot_canvas, traces, POLAR_LAYOUT, {
+  Plotly.newPlot(plot_canvas, trace_unitcircle.concat(trace_select), layout, {
     responsive: true,
     modeBarButtonsToRemove: ['sendDataToCloud', 'lasso2d', 'select2d'],
     displaylogo: false
