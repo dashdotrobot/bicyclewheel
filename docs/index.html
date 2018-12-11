@@ -1,13 +1,25 @@
 <!doctype html>
 <html lang="english">
 <head>
-    <title>bicyclewheel.info - Bicycle Wheel Designer</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link href="./theme/css/style.css" rel="stylesheet" />
-    <link rel="stylesheet" href="css/wheel-app.css" type="text/css" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta charset="utf-8" />
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-63010494-2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-63010494-2');
+  </script>
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link href="./theme/css/style.css" rel="stylesheet" />
+  <link rel="stylesheet" href="css/wheel-app.css" type="text/css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+  <title>bicyclewheel.info - Bicycle Wheel Designer</title>
 </head>
 
 <body id="index" class="home">
@@ -216,18 +228,21 @@
       <!-- FORCES TOOLBAR -->
       <div class="tab-pane fade py-2" id="panelForces" role="tabpanel" aria-labelledby="tabForces">
 
-        <p class="form-label-sm"><strong>Click on a number to edit it:</strong></p>
+        <p>Choose from force presets, or add forces manually in the table below. Click on any cell to edit.</p>
+
+        <div class="dropdown show my-2">
+          <a class="btn btn-primary btn-sm dropdown-toggle" href="#" role="button" id="forcePreset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Add a force scenario
+          </a>
+          <div class="dropdown-menu" id="forcePresetDropdown" aria-labelledby="forcePreset"></div>
+        </div>
+
         <table class="table table-striped table-hover table-sm" id="tableForces">
-          <tr><th>Type</th><th>Location [deg]</th><th>Magnitude [kgf]</th><th></th></tr>
-          <tr><th>Radial</th><td>0</td><td>50</td><th><a class="remove-row" href="#"><i class="fas fa-trash-alt"></i></a></th></tr>
+          <tr><th>Type</th><th>Loc. [deg]</th><th>Mag. [kgf]</th><th></th></tr>
+          <tr><th class="force-type text-nowrap">Radial <i class="fas fa-angle-double-down"></i></th><td>0</td><td>50</td><th><a class="remove-row" href="#"><i class="fas fa-trash-alt"></i></a></th></tr>
+          <tr><th colspan="3">Add a force</th><th><a class="add-force" href="#"><i class="fas fa-plus-circle"></i></a></th></tr>
         </table>
 
-        <p class="form-label-sm"><strong>Add a force:</strong></p>
-        <div class="form-group">
-          <button type="button" class="btn btn-primary btn-sm add-force">Radial</button>
-          <button type="button" class="btn btn-primary btn-sm add-force">Lateral</button>
-          <button type="button" class="btn btn-primary btn-sm add-force">Tangential</button>
-        </div>
       </div>
 
       <div class="form-group">
