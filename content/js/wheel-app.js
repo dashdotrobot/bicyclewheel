@@ -572,6 +572,7 @@ function update_results() {
     error: function (xhr, ajaxOptions, thrownError) {
       // TODO
       reset_calc_button();
+      display_error('AJAX error')
     }
   });
 }
