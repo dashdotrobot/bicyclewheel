@@ -1,4 +1,13 @@
 
+// Add a forEach function
+if (typeof Array.prototype.forEach != 'function') {
+  Array.prototype.forEach = function(callback){
+    for (var i = 0; i < this.length; i++){
+      callback.apply(this, [this[i], i, this]);
+    }
+  };
+}
+
 /* -------------------------------- CONSTANTS -------------------------------- **
 **
 ** --------------------------------------------------------------------------- */
@@ -153,7 +162,7 @@ var POLAR_LAYOUT = {
       showticklabels: false
     }
   }
-}
+};
 
 var FORCE_TYPES = ['Radial', 'Lateral', 'Tangential'];
 
@@ -171,7 +180,7 @@ var FORCE_PRESETS = {
   'Side force': [
     {'dof': 'Lateral', 'loc': 0, 'mag': 15}
   ]
-}
+};
 
 /* ---------------------------- SESSION VARIABLES ---------------------------- **
 **
@@ -407,18 +416,18 @@ function calc_tension_ratio() {
   w = build_json_wheel()
 
   // Drive-side spoke vector
-  theta_h_ds = 4*Math.PI/w['spokes_ds']['num'] * w['spokes_ds']['num_cross']
-  n_ds_1 = w['hub']['width_ds']/1000
-  n_ds_2 = w['rim']['radius'] - w['hub']['diameter']/2*Math.cos(theta_h_ds)
-  n_ds_3 = w['hub']['diameter']/2*Math.sin(theta_h_ds)
-  l_ds = Math.sqrt(n_ds_1**2 + n_ds_2**2 + n_ds_3**2)
+  theta_h_ds = 4*Math.PI/w['spokes_ds']['num'] * w['spokes_ds']['num_cross'];
+  n_ds_1 = w['hub']['width_ds']/1000;
+  n_ds_2 = w['rim']['radius'] - w['hub']['diameter']/2*Math.cos(theta_h_ds);
+  n_ds_3 = w['hub']['diameter']/2*Math.sin(theta_h_ds);
+  l_ds = Math.hypot(n_ds_1, n_ds_2, n_ds_3);
 
   // Non-drive-side spoke vector
-  theta_h_nds = 4*Math.PI/w['spokes_nds']['num'] * w['spokes_nds']['num_cross']
-  n_nds_1 = w['hub']['width_nds']/1000
-  n_nds_2 = w['rim']['radius'] - w['hub']['diameter']/2*Math.cos(theta_h_nds)
-  n_nds_3 = w['hub']['diameter']/2*Math.sin(theta_h_nds)
-  l_nds = Math.sqrt(n_ds_1**2 + n_ds_2**2 + n_ds_3**2)
+  theta_h_nds = 4*Math.PI/w['spokes_nds']['num'] * w['spokes_nds']['num_cross'];
+  n_nds_1 = w['hub']['width_nds']/1000;
+  n_nds_2 = w['rim']['radius'] - w['hub']['diameter']/2*Math.cos(theta_h_nds);
+  n_nds_3 = w['hub']['diameter']/2*Math.sin(theta_h_nds);
+  l_nds = Math.hypot(n_nds_1, n_nds_2, n_nds_3);
 
   c1_ds = n_ds_1 / l_ds
   c1_nds = n_nds_1 / l_nds
@@ -433,7 +442,7 @@ function build_json_rim() {
   var rimJSON = {}
 
   // Load form data
-  $('#formRim').serializeArray().forEach(e => { rimForm[e['name']] = e['value']; })
+  $('#formRim').serializeArray().forEach(function(e) { rimForm[e['name']] = e['value']; })
 
   // ISO diameter
   rimJSON['radius'] = 0.001*(parseFloat(/\((\d+)\)/g.exec(rimForm['rimSize'])[1])/2 - 5)
@@ -462,7 +471,7 @@ function build_json_hub() {
   var json = {}
 
   // Load form data
-  $('#formHub').serializeArray().forEach(e => { form[e['name']] = e['value']; })
+  $('#formHub').serializeArray().forEach(function(e) { form[e['name']] = e['value']; })
 
   json['diameter'] = 0.001*parseFloat(form['hubDiameter'])
   json['width_ds'] = 0.001*parseFloat(form['hubWidthRight'])
@@ -477,7 +486,7 @@ function build_json_spokes(form_obj) {
   var json = {}
 
   // Load form data
-  form_obj.serializeArray().forEach(e => { form[e['name']] = e['value']; })
+  form_obj.serializeArray().forEach(function(e) { form[e['name']] = e['value']; })
 
   // Pattern
   if (form['spkPattern'] == 'Radial') {
@@ -599,13 +608,13 @@ function plot_tensions() {
   }
 
   if (true) {  // Separate traces for left and right spokes
-    theta_nds = theta.filter((e, i) => {return i%2 === 0})
-    T_nds = tension.filter((e, i) => {return i%2 === 0})
-    T_0_nds = tension_0.filter((e, i) => {return i%2 === 0})
+    theta_nds = theta.filter(function(e, i) {return i%2 === 0})
+    T_nds = tension.filter(function(e, i) {return i%2 === 0})
+    T_0_nds = tension_0.filter(function(e, i) {return i%2 === 0})
 
-    theta_ds = theta.filter((e, i) => {return i%2 === 1})
-    T_ds = tension.filter((e, i) => {return i%2 === 1})
-    T_0_ds = tension_0.filter((e, i) => {return i%2 === 1})
+    theta_ds = theta.filter(function(e, i) {return i%2 === 1})
+    T_ds = tension.filter(function(e, i) {return i%2 === 1})
+    T_0_ds = tension_0.filter(function(e, i) {return i%2 === 1})
 
     traces = [
       {
