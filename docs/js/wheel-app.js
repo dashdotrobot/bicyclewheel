@@ -308,7 +308,6 @@ $('#spkTensNDS').on('change input', function() {
 
 // Force presets
 for (var key in FORCE_PRESETS) {
-  alert('new force preset');
   $('#forcePresetDropdown').append('<a class="dropdown-item btn-sm force-preset" href="#">' + key + '</a>');
 }
 
@@ -333,7 +332,6 @@ function initEditableTable() {
 
   // Change force type callback
   $('.force-type').click(function() {
-    alert('callback');
     i_new = (FORCE_TYPES.indexOf($(this).text().trim()) + 1) % 3;
     $(this).html(FORCE_TYPES[i_new] + ' <i class="fas fa-angle-double-down"></i>');
   })
@@ -574,7 +572,7 @@ function update_results() {
     error: function (xhr, ajaxOptions, thrownError) {
       // TODO
       reset_calc_button();
-      display_error('AJAX error')
+      display_error('AJAX error', '');
     }
   });
 }
