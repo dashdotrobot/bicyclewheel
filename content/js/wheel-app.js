@@ -420,14 +420,14 @@ function calc_tension_ratio() {
   n_ds_1 = w['hub']['width_ds']/1000;
   n_ds_2 = w['rim']['radius'] - w['hub']['diameter']/2*Math.cos(theta_h_ds);
   n_ds_3 = w['hub']['diameter']/2*Math.sin(theta_h_ds);
-  l_ds = Math.hypot(n_ds_1, n_ds_2, n_ds_3);
+  l_ds = Math.sqrt(Math.pow(n_ds_1, 2), Math.pow(n_ds_2, 2), Math.pow(n_ds_3, 2));
 
   // Non-drive-side spoke vector
   theta_h_nds = 4*Math.PI/w['spokes_nds']['num'] * w['spokes_nds']['num_cross'];
   n_nds_1 = w['hub']['width_nds']/1000;
   n_nds_2 = w['rim']['radius'] - w['hub']['diameter']/2*Math.cos(theta_h_nds);
   n_nds_3 = w['hub']['diameter']/2*Math.sin(theta_h_nds);
-  l_nds = Math.hypot(n_nds_1, n_nds_2, n_nds_3);
+  l_nds = Math.sqrt(Math.pow(n_nds_1, 2), Math.pow(n_nds_2, 2), Math.pow(n_nds_3, 2));
 
   c1_ds = n_ds_1 / l_ds
   c1_nds = n_nds_1 / l_nds
@@ -692,6 +692,7 @@ function plot_deformation() {
   rim_radius = wheel_obj['rim']['radius'];
 
   theta = array_mult_scalar(calc_result['deformation']['theta'].slice(), 180./Math.PI);
+  ones = array_add_scalar(array_mult_scalar(theta.slice(), 0.), 1);  // THIS IS PROBABLY NOT EFFICIENT
   def_rad = array_mult_scalar(calc_result['deformation']['def_rad'].slice(), -1);
   def_lat = calc_result['deformation']['def_lat'].slice();
   def_tor = array_mult_scalar(calc_result['deformation']['def_tor'].slice(), rim_radius);
@@ -749,7 +750,7 @@ function plot_deformation() {
   // Add a gray reference circle
   trace_unitcircle = [
     {
-      r: new Array(theta.length + 1).fill(1.),
+      r: ones.concat(ones[0]),
       theta: theta.concat(theta[0]),
       type: 'scatterpolar',
       mode: 'lines',
