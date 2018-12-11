@@ -59,7 +59,9 @@ __Spoke tension__: Set the average tension in each spoke, in [kgf](https://en.wi
 
 ### Applying forces
 
-Apply external forces to the rim using the __Forces__ tab. Use one of the buttons: Radial, Lateral, or Tangential to add a new force in that direction. To specify the location (counter-clockwise from the ground) and magnitude, touch or click on the corresponding value in the Forces table. Press the trash icon to delete a force.
+Apply external forces to the rim either by choosing from preset force scenarios (e.g. "Weight," "Pedaling torque," etc), or by adding your own force using the table. To add a preset force scenario, select a scenario from the dropdown list and it will be automatically added to the table. Note that adding a scenario does not remove previously added scenarios. The "Weight" scenario is already added by default. If you add it again, the total weight applied will be doubled.
+
+Add your on forces manually by clicking on the plus sign at the bottom of the forces table. To edit an existing force, click on any cell in the forces table. Clicking on the force type (Radial, Lateral, or Tangential) will cycle through the available types. Clicking on the Loc. or Mag. values will allow you to enter custom values. The location is specified in degrees counter-clockwise from the bottom of the wheel. The magnitude is specified in units of kgf.
 
 For the purposes of adding forces and calculating deformation, the hub acts as a rigid reference point. Whatever forces are applied to the rim, the solver will automatically constrain the hub using whatever combination of forces and torques are necessary to keep the wheel in [mechanical equilibrium](https://en.wikipedia.org/wiki/Mechanical_equilibrium). You cannot directly apply forces to the hub. This means, for example, that to simulate a drive torque, you must apply a positive tangential force at 0 degrees equal to the torque divided by the rim radius.
 
