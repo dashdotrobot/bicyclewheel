@@ -728,7 +728,7 @@ function plot_deformation() {
   })
 
   // Calculate scaling factor
-  scale_factor = parseFloat($('#scaleFactor').val()) / 100. / Math.max(...def_max)
+  scale_factor = parseFloat($('#scaleFactor').val()) / 100. / Math.max.apply(null, def_max); //Math.max(...def_max)
 
   // Apply scaling factor to each trace
   for (var t=0; t < trace_select.length; t++) {
