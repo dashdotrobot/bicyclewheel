@@ -7,9 +7,13 @@ Show_in_menu: true
 
 The Bicycle Wheel App is a tool for designing and simulating a virtual bicycle wheel. Calculate stiffness, mass, rotating inertia, and see how spoke tensions change when the wheel is subjected to forces.
 
+### Coordinate system
+
+<img alt="Bicycle wheel coordinate system" class="img-fluid" src="{filename}/images/coordinate_system.png">
+
 ### Designing your wheel
 
-Design your wheel using the options in the left panel.
+Design your wheel by selecting options for the rim, hub, and spokes.
 
 #### Rim tab
 
