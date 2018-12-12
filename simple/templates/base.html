@@ -77,10 +77,27 @@
     </div>
   </nav>
 
-<div class="container{% if page %}{% if page.layout_fluid %}-fluid{% endif %}{% endif %} main-content">
+
+{% if page and page.layout_fluid %}
+<div class="container-fluid main-content">
+{% else %}
+<div class="container main-content">
+  <div class="row">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-8">
+{% endif %}
+
   {% block content %}
   {% endblock %}
+
+{% if page and page.layout_fluid %}
 </div>
+{% else %}
+    </div>
+    <div class="col-lg-2"></div>
+  </div>
+</div>
+{% endif %}
 
 <footer>
 <div class="container-fluid text-center py-3">
