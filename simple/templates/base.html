@@ -77,7 +77,7 @@
     </div>
   </nav>
 
-<div class="container main-content">
+<div class="container{% if page %}{% if page.layout_fluid %}-fluid{% endif %}{% endif %} main-content">
   {% block content %}
   {% endblock %}
 </div>
