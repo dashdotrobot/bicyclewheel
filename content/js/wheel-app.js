@@ -294,7 +294,7 @@ function calc_average_tension() {
   var n_ds = calc_spoke_vector('ds');
   var n_nds = calc_spoke_vector('nds');
 
-  return T_ds/2 * (n_ds[1] + n_nds[1]*(n_nds[0]/n_ds[0]));
+  return T_ds/2 * (n_ds[1] + n_nds[1]*(n_ds[0]/n_nds[0]));
 }
 
 // Build JSON request object to send to wheel-api
@@ -662,7 +662,7 @@ function show_summary() {
   }
 
   // Stiffness properties
-  stiff = calc_result['stiffness'];
+  var stiff = calc_result['stiffness'];
 
   if (stiff['success']) {
 
@@ -675,9 +675,32 @@ function show_summary() {
     $('#sumStiffTorSI').html((Math.PI/180.*stiff['torsional_stiffness']).toFixed(0) + ' N/deg');
     $('#sumStiffTorLbs').html('(' + (Math.PI/180.*0.224809*stiff['torsional_stiffness']).toFixed(0) + ' lbs/deg)');
 
+    // 'Strength' properties
+
   } else {
     display_error('Error calculating stiffness', stiff['error']);
   }
+
+  // Tension properties
+  var tens = calc_result['buckling_tension']
+
+  if (tens['success']) {
+    var T_ds = parseFloat($('#spkTens').val());
+    $('#sumTensDSSI').html((T_ds).toFixed(0) + ' kgf');
+    $('#sumTensDSLbs').html('(' + (2.20462*T_ds).toFixed(2) + ' lbs)');
+
+    var T_nds = T_ds / calc_tension_ratio();
+    $('#sumTensNDSSI').html((T_nds).toFixed(0) + ' kgf');
+    $('#sumTensNDSLbs').html('(' + (2.20462*T_nds).toFixed(2) + ' lbs)');
+
+    var T_avg = calc_average_tension();
+    $('#sumTensAvgSI').html((T_avg).toFixed(0) + ' kgf');
+    $('#sumTensAvgLbs').html('(' + (2.20462*T_avg).toFixed(2) + ' lbs)');
+
+    $('#sumTensMaxSI').html((tens['buckling_tension']/9.81).toFixed(0) + ' kgf');
+    $('#sumTensMaxLbs').html('(' + (2.20462/9.81*tens['buckling_tension']).toFixed(2) + ' lbs)');
+  }
+
 }
 
 
