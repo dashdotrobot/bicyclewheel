@@ -189,7 +189,6 @@ var FORCE_PRESETS = {
 
 
 var calc_result = false;
-var wheel_obj;
 
 
 /* --------------------------- DEFINE FUNCTIONS --------------------------- **
@@ -197,17 +196,16 @@ var wheel_obj;
 ** ------------------------------------------------------------------------ */
 
 /* ------------------------- WHEEL CALC FUNCTIONS ------------------------- */
-function calc_spoke_vector(side) {
+function calc_spoke_vector(wheel, side) {
   // Calculate spoke vector for side = 'ds' or 'nds'
 
   if (side == 'ds' | side == 'nds') {
-    var w = build_json_wheel();
 
     // Drive-side spoke vector
-    var theta_h = 4*Math.PI/w['spokes_' + side]['num'] * w['spokes_' + side]['num_cross'];
-    var n_1 = w['hub']['width_' + side]/1000;
-    var n_2 = w['rim']['radius'] - w['hub']['diameter']/2*Math.cos(theta_h);
-    var n_3 = w['hub']['diameter']/2*Math.sin(theta_h);
+    var theta_h = 4*Math.PI/wheel['spokes_' + side]['num'] * wheel['spokes_' + side]['num_cross'];
+    var n_1 = wheel['hub']['width_' + side]/1000;
+    var n_2 = wheel['rim']['radius'] - wheel['hub']['diameter']/2*Math.cos(theta_h);
+    var n_3 = wheel['hub']['diameter']/2*Math.sin(theta_h);
     var l = Math.sqrt(Math.pow(n_1, 2) + Math.pow(n_2, 2) + Math.pow(n_3, 2));
 
     return [n_1/l, n_2/l, n_3/l];
@@ -217,23 +215,34 @@ function calc_spoke_vector(side) {
   }
 }
 
-function calc_tension_ratio() {
+function calc_tension_ratio(wheel) {
   // Calculate spoke tension ratio, T_ds / T_nds
 
-  var n_ds = calc_spoke_vector('ds');
-  var n_nds = calc_spoke_vector('nds');
+  var n_ds = calc_spoke_vector(wheel, 'ds');
+  var n_nds = calc_spoke_vector(wheel, 'nds');
 
   return n_nds[0] / n_ds[0];
 }
 
-function calc_average_tension() {
+function calc_average_tension(wheel) {
   // Calculate average radial tension
+  var n_ds = calc_spoke_vector(wheel, 'ds');
+  var n_nds = calc_spoke_vector(wheel, 'nds');
 
-  var T_ds = parseFloat($('#spkTens').val());
-  var n_ds = calc_spoke_vector('ds');
-  var n_nds = calc_spoke_vector('nds');
+  return wheel['spokes_ds']['tension']/2 * (n_ds[1] + n_nds[1]*(n_ds[0]/n_nds[0]));
+}
 
-  return T_ds/2 * (n_ds[1] + n_nds[1]*(n_ds[0]/n_nds[0]));
+function calc_P_sb_lat() {
+  // Maximum force before spokes buckle
+
+  var ds = build_json_spokes($('#formSpokesDS'));
+  var nds = build_json_spokes($('#formSpokesNDS'));
+
+  Ks_ds = ds['young_mod']*Math.PI/4*Math.pow(ds['diameter'], 2);
+  Ks_nds = ds['young_mod']*Math.PI/4*Math.pow(ds['diameter'], 2);
+
+  // TODO
+
 }
 
 /* ------------------------- UI UTILITY FUNCTIONS ------------------------- */
@@ -418,10 +427,8 @@ function update_results() {
   $('#btnPressMe').text('Please wait...');
   $('#btnPressMe').addClass('disabled');
 
-  wheel_obj = build_json_wheel();
-
   var post_data = {
-    'wheel': wheel_obj,
+    'wheel': build_json_wheel(),
     'tension': {'forces': build_json_forces()},
     'deformation': {
       'forces': build_json_forces(),
@@ -444,7 +451,7 @@ function update_results() {
       console.log(calc_result);
 
       // Check if tension exceeds buckling tension
-      if (9.81*calc_average_tension() >= 0.95*calc_result['buckling_tension']['buckling_tension']) {
+      if (calc_average_tension(calc_result['wheel']) >= 0.95*calc_result['buckling_tension']['buckling_tension']) {
         display_error('Warning', 'Average tension is close to or greater than maximum tension. Results may be innacurate.');
       }
 
@@ -565,7 +572,7 @@ function plot_deformation() {
     return false;
   }
 
-  var rim_radius = wheel_obj['rim']['radius'];
+  var rim_radius = calc_result['wheel']['rim']['radius'];
 
   var theta = array_mult_scalar(calc_result['deformation']['theta'].slice(), 180./Math.PI);
   var ones = array_add_scalar(array_mult_scalar(theta.slice(), 0.), 1);  // THIS IS PROBABLY NOT EFFICIENT
@@ -687,15 +694,15 @@ function show_summary() {
   var tens = calc_result['buckling_tension']
 
   if (tens['success']) {
-    var T_ds = parseFloat($('#spkTens').val());
+    var T_ds = calc_result['wheel']['spokes_ds']['tension']/9.81;  // Convert N -> kgf
     $('#sumTensDSSI').html((T_ds).toFixed(0) + ' kgf');
     $('#sumTensDSLbs').html('(' + (2.20462*T_ds).toFixed(2) + ' lbs)');
 
-    var T_nds = T_ds / calc_tension_ratio();
+    var T_nds = calc_result['wheel']['spokes_nds']['tension']/9.81;  // Convert N -> kgf
     $('#sumTensNDSSI').html((T_nds).toFixed(0) + ' kgf');
     $('#sumTensNDSLbs').html('(' + (2.20462*T_nds).toFixed(2) + ' lbs)');
 
-    var T_avg = calc_average_tension();
+    var T_avg = calc_average_tension(calc_result['wheel']) / 9.81; // Convert N -> kgf
     $('#sumTensAvgSI').html((T_avg).toFixed(0) + ' kgf');
     $('#sumTensAvgLbs').html('(' + (2.20462*T_avg).toFixed(2) + ' lbs)');
 
@@ -810,12 +817,14 @@ $(function() {
 
   // Set spoke tension based on tension ratio
   $('#spkTens').on('change input', function() {
-    var T_ratio = calc_tension_ratio()
+    var w = build_json_wheel();
+    var T_ratio = calc_tension_ratio(w)
     $('#spkTensNDS').val($(this).val() / T_ratio)
     $('#spkTensNDS').prev().html('<strong>' + $('#spkTensNDS').val() + '</strong>');
   });
   $('#spkTensNDS').on('change input', function() {
-    var T_ratio = calc_tension_ratio()
+    var w = build_json_wheel();
+    var T_ratio = calc_tension_ratio(w)
     $('#spkTens').val($(this).val() * T_ratio)
     $('#spkTens').prev().html('<strong>' + $('#spkTens').val() + '</strong>');
   });
