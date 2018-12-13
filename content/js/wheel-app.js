@@ -442,7 +442,9 @@ function update_results() {
       console.log(calc_result);
 
       // Check if tension exceeds buckling tension
-      // T_avg = 
+      if (9.81*calc_average_tension() >= 0.95*calc_result['buckling_tension']['buckling_tension']) {
+        display_error('Warning', 'Average tension is close to or greater than maximum tension. Results may be innacurate.');
+      }
 
       plot_tensions();
       plot_deformation();
