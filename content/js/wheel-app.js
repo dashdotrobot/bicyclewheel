@@ -203,7 +203,7 @@ function calc_spoke_vector(wheel, side) {
 
     // Drive-side spoke vector
     var theta_h = 4*Math.PI/wheel['spokes_' + side]['num'] * wheel['spokes_' + side]['num_cross'];
-    var n_1 = wheel['hub']['width_' + side]/1000;
+    var n_1 = wheel['hub']['width_' + side];
     var n_2 = wheel['rim']['radius'] - wheel['hub']['diameter']/2*Math.cos(theta_h);
     var n_3 = wheel['hub']['diameter']/2*Math.sin(theta_h);
     var l = Math.sqrt(Math.pow(n_1, 2) + Math.pow(n_2, 2) + Math.pow(n_3, 2));
@@ -238,16 +238,36 @@ function calc_P_sb_lat() {
   var n_nds = calc_spoke_vector(calc_result['wheel'], 'nds');
 
   var Ks_ds = (calc_result['wheel']['spokes_ds']['young_mod']*
-               Math.PI/4*Math.pow(calc_result['wheel']['spokes_ds']['diameter'], 2) /
+               Math.PI/4.*Math.pow(calc_result['wheel']['spokes_ds']['diameter'], 2) /
                n_ds[3]);
   var Ks_nds = (calc_result['wheel']['spokes_nds']['young_mod']*
-                Math.PI/4*Math.pow(calc_result['wheel']['spokes_nds']['diameter'], 2) /
+                Math.PI/4.*Math.pow(calc_result['wheel']['spokes_nds']['diameter'], 2) /
                 n_nds[3]);
 
   K_lat = calc_result['stiffness']['lateral_stiffness'];
 
-  return Math.min(K_lat*calc_result['wheel']['ds']['tension']/(Ks_ds*n_ds[0]),
-                  K_lat*calc_result['wheel']['nds']['tension']/(Ks_nds*n_nds[0]));
+  return Math.min(K_lat*calc_result['wheel']['spokes_ds']['tension']/(Ks_ds*n_ds[0]),
+                  K_lat*calc_result['wheel']['spokes_nds']['tension']/(Ks_nds*n_nds[0]));
+
+}
+
+function calc_P_sb_rad() {
+  // Maximum force before spokes buckle
+
+  var n_ds = calc_spoke_vector(calc_result['wheel'], 'ds');
+  var n_nds = calc_spoke_vector(calc_result['wheel'], 'nds');
+
+  var Ks_ds = (calc_result['wheel']['spokes_ds']['young_mod']*
+               Math.PI/4.*Math.pow(calc_result['wheel']['spokes_ds']['diameter'], 2) /
+               n_ds[3]);
+  var Ks_nds = (calc_result['wheel']['spokes_nds']['young_mod']*
+                Math.PI/4.*Math.pow(calc_result['wheel']['spokes_nds']['diameter'], 2) /
+                n_nds[3]);
+
+  K_rad = calc_result['stiffness']['radial_stiffness'];
+
+  return Math.min(K_rad*calc_result['wheel']['spokes_ds']['tension']/(Ks_ds*n_ds[1]),
+                  K_rad*calc_result['wheel']['spokes_nds']['tension']/(Ks_nds*n_nds[1]));
 
 }
 
@@ -691,6 +711,13 @@ function show_summary() {
     $('#sumStiffTorLbs').html('(' + (Math.PI/180.*0.224809*stiff['torsional_stiffness']).toFixed(0) + ' lbs/deg)');
 
     // 'Strength' properties
+    var P_sb_lat = calc_P_sb_lat();
+    $('#sumForceLatSI').html((P_sb_lat/9.81).toFixed(1) + ' kgf');
+    $('#sumForceLatLbs').html('(' + (2.20462*P_sb_lat/9.81).toFixed(1) + ' lbs)');
+
+    var P_sb_rad = calc_P_sb_rad();
+    $('#sumForceRadSI').html((P_sb_rad/9.81).toFixed(1) + ' kgf');
+    $('#sumForceRadLbs').html('(' + (2.20462*P_sb_rad/9.81).toFixed(1) + ' lbs)');
 
   } else {
     display_error('Error calculating stiffness', stiff['error']);
