@@ -97,12 +97,28 @@ __Lateral stiffness__: The lateral force, applied at 0 degrees, which would prod
 
 __Torsional stiffness__: The force, applied at 0 degrees, which would cause the hub to rotate by 1 degree relative to the rim. This is __not__ related to the torsional stiffness of the rim. The torsional stiffness of the wheel is almost entirely determined by the spoke pattern and properties.
 
+__Drive-side/Non-drive-side tension__: Spoke tensions on each side of the wheel, in kgf.
+
+__Average tension__: The average _radial_ tension acting on the rim. This is the average tension supported by the rim. The average tension is slightly less than then the tension on either side (in a symmetric wheel) because the spokes are not perfectly radial.
+
+__Maximum average tension__: The rim can only withstand a certain amount of tension without buckling. The _maximum average tension_ is the theoretical average radial tension which would cause the rim to taco during building. In practice, you can generally get to about half of the theoretical tension before the rim becomes too distorted. [Jobst Brandt [2]](#references) advocated using this method to determine the proper tension for a wheel. The maximum tension is calculated from Equation 4.4 in [reference [1]](#references).
+
+__Lateral/Radial force to buckle spokes__: The maximum force that can be applied before the first spoke buckles. Beyond this point the wheel will lose stiffness and strength.
+
+> Lateral forces are usually also accompanied by a radial force (due to the weight of the bike and rider). Therefore the actual lateral force to buckle spokes would be reduced if a radial load is present.
+
 ## Notes regarding the solver
 
-The full modeling assumptions and derivations underlying the app are described in detail in my Ph.D. thesis: [_Reinventing the Wheel: Stress Analysis, Stability, and Optimization of the Bicycle Wheel_](https://github.com/dashdotrobot/phd-thesis/releases/download/v1.0/Ford_BicycleWheelThesis_v1.0.pdf). The app uses the Mode Matrix Model described in Section 2.4.1 of the thesis.
+The full modeling assumptions and derivations underlying the app are described in detail in my Ph.D. thesis: [_Reinventing the Wheel: Stress Analysis, Stability, and Optimization of the Bicycle Wheel_](#references). The app uses the Mode Matrix Model described in Section 2.4.1 of the thesis.
 
 The mechanical properties and deformations are calculated using my [Bike Wheel API](https://github.com/dashdotrobot/bike-wheel-api). The API accepts options in JSON format and returns a JSON object with the results. The API is running at `bike-wheel-api.herokuapp.com`. The server accepts POST requests at `bike-wheel-api.herokuapp.com/calculate`. The API is built on [Python/Flask](http://flask.pocoo.org/). The Bike Wheel API is just a wrapper for my Python library, [bike-wheel-calc](https://github.com/dashdotrobot/bike-wheel-calc).
 
 ## Got feedback? Found a bug?
 
 This app is __VERY__ much a work in progress. The code for the app and website is available on [GitHub](https://github.com/dashdotrobot/bicyclewheel). If you find bugs or want to suggest features, log an issue or contact me at `mford <at> u.northwestern.edu`.
+
+## References
+
+[1] Matthew Ford, [Reinventing the Wheel: Stress Analysis, Stability, and Optimization of the Bicycle Wheel](https://github.com/dashdotrobot/phd-thesis/releases/download/v1.0/Ford_BicycleWheelThesis_v1.0.pdf), Ph.D. Thesis, Northwestern University (2018)
+
+[2] Jobst Brandt, _The Bicycle Wheel_, Avocet (1993).
