@@ -258,29 +258,43 @@ function display_error(title, text) {
   $('#alerts').append(div_text);
 }
 
-// Calculate spoke tension ratio, T_ds / T_nds
+function calc_spoke_vector(side) {
+  // Calculate spoke vector for side = 'ds' or 'nds'
+
+  if (side == 'ds' | side == 'nds') {
+    var w = build_json_wheel();
+
+    // Drive-side spoke vector
+    var theta_h = 4*Math.PI/w['spokes_' + side]['num'] * w['spokes_' + side]['num_cross'];
+    var n_1 = w['hub']['width_' + side]/1000;
+    var n_2 = w['rim']['radius'] - w['hub']['diameter']/2*Math.cos(theta_h);
+    var n_3 = w['hub']['diameter']/2*Math.sin(theta_h);
+    var l = Math.sqrt(Math.pow(n_1, 2) + Math.pow(n_2, 2) + Math.pow(n_3, 2));
+
+    return [n_1/l, n_2/l, n_3/l];
+
+  } else {
+    return false;
+  }
+}
+
 function calc_tension_ratio() {
+  // Calculate spoke tension ratio, T_ds / T_nds
 
-  var w = build_json_wheel();
+  var n_ds = calc_spoke_vector('ds');
+  var n_nds = calc_spoke_vector('nds');
 
-  // Drive-side spoke vector
-  var theta_h_ds = 4*Math.PI/w['spokes_ds']['num'] * w['spokes_ds']['num_cross'];
-  var n_ds_1 = w['hub']['width_ds']/1000;
-  var n_ds_2 = w['rim']['radius'] - w['hub']['diameter']/2*Math.cos(theta_h_ds);
-  var n_ds_3 = w['hub']['diameter']/2*Math.sin(theta_h_ds);
-  var l_ds = Math.sqrt(Math.pow(n_ds_1, 2) + Math.pow(n_ds_2, 2) + Math.pow(n_ds_3, 2));
+  return n_nds[0] / n_ds[0];
+}
 
-  // Non-drive-side spoke vector
-  var theta_h_nds = 4*Math.PI/w['spokes_nds']['num'] * w['spokes_nds']['num_cross'];
-  var n_nds_1 = w['hub']['width_nds']/1000;
-  var n_nds_2 = w['rim']['radius'] - w['hub']['diameter']/2*Math.cos(theta_h_nds);
-  var n_nds_3 = w['hub']['diameter']/2*Math.sin(theta_h_nds);
-  var l_nds = Math.sqrt(Math.pow(n_nds_1, 2) + Math.pow(n_nds_2, 2) + Math.pow(n_nds_3, 2));
+function calc_average_tension() {
+  // Calculate average radial tension
 
-  var c1_ds = n_ds_1 / l_ds;
-  var c1_nds = n_nds_1 / l_nds;
+  var T_ds = parseFloat($('#spkTens').val());
+  var n_ds = calc_spoke_vector('ds');
+  var n_nds = calc_spoke_vector('nds');
 
-  return c1_nds / c1_ds;
+  return T_ds/2 * (n_ds[1] + n_nds[1]*(n_nds[0]/n_ds[0]));
 }
 
 // Build JSON request object to send to wheel-api
@@ -412,7 +426,8 @@ function update_results() {
       'theta_range': [0., 2*Math.PI, 100]
     },
     'mass': {'empty': 0},
-    'stiffness': {'empty': 0}
+    'stiffness': {'empty': 0},
+    'buckling_tension': {'approx': 'linear'}
   };
 
   console.log(post_data);
@@ -424,7 +439,11 @@ function update_results() {
     contentType: 'application/json',
     success: function (result) {
       calc_result = result;
-      console.log(calc_result)
+      console.log(calc_result);
+
+      // Check if tension exceeds buckling tension
+      // T_avg = 
+
       plot_tensions();
       plot_deformation();
       show_summary();
@@ -449,8 +468,9 @@ function plot_tensions() {
   var tension = calc_result['tension']['tension'].slice();
   var tension_0 = calc_result['tension']['tension_initial'].slice();
 
+  // Check if any spoke tensions are negative
   if (tension.some(function(e) {return e < 0})) {
-    display_error('Warning', 'At least one spoke has negative tension. Results may not be accurate.');
+    display_error('Warning', 'At least one spoke has negative tension. Tension and deformation results may not be accurate.');
   }
 
   for (var i=0; i<theta.length; i++) {
@@ -770,7 +790,7 @@ $(function() {
   $('#spkTensNDS').on('change input', function() {
     var T_ratio = calc_tension_ratio()
     $('#spkTens').val($(this).val() * T_ratio)
-    $('#spkTens').prev().html('<strong>' + $('#spkTensNDS').val() + '</strong>');
+    $('#spkTens').prev().html('<strong>' + $('#spkTens').val() + '</strong>');
   });
 
   // Set default spoke material
