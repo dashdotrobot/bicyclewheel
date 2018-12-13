@@ -12,7 +12,8 @@ if (typeof Array.prototype.forEach != 'function') {
 **
 ** --------------------------------------------------------------------------- */
 
-var API_ENDPOINT = 'https://bike-wheel-api.herokuapp.com/calculate';
+// var API_ENDPOINT = 'https://bike-wheel-api.herokuapp.com/calculate';
+var API_ENDPOINT = 'http://127.0.0.1:5000/calculate';
 
 var RIM_MATLS = {
   'Alloy': {
@@ -401,13 +402,17 @@ $('.deform-button').click(function() {
 ** ------------------------------------------------------------------------ */
 
 function display_error(title, text) {
-  var div_text = '<div class="alert alert-danger alert-dismissible fade show" role="alert">'
-  div_text += '<strong>' + title + ': </strong>' + text
+  var div_text = '<div class="alert alert-danger alert-dismissible fade show" role="alert">';
+  div_text += '<strong>' + title + '</strong>';
 
-  div_text += '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'
-  div_text += '<span aria-hidden="true">&times;</span></button></div>'
+  if (text || false) {
+    div_text += ': ' + text;
+  }
 
-  $('#alerts').append(div_text)
+  div_text += '<button type="button" class="close" data-dismiss="alert" aria-label="Close">';
+  div_text += '<span aria-hidden="true">&times;</span></button></div>';
+
+  $('#alerts').append(div_text);
 }
 
 // Calculate spoke tension ratio, T_ds / T_nds
@@ -475,7 +480,7 @@ function build_json_hub() {
 
   json['diameter'] = 0.001*parseFloat(form['hubDiameter'])
   json['width_ds'] = 0.001*parseFloat(form['hubWidthRight'])
-  json['width_nds'] = -0.001*parseFloat(form['hubWidthLeft'])
+  json['width_nds'] = 0.001*Math.abs(parseFloat(form['hubWidthLeft']))
 
   return json
 }
@@ -546,6 +551,9 @@ function build_json_forces() {
 
 function update_results() {
 
+  // Clear previous errors and warnings
+  $('#alerts').html('');
+
   // Disable "Calculate" button
   $('#btnPressMe').text('Please wait...')
   $('#btnPressMe').addClass('disabled')
@@ -579,9 +587,9 @@ function update_results() {
       reset_calc_button();
     },
     error: function (xhr, ajaxOptions, thrownError) {
-      // TODO
       reset_calc_button();
-      display_error('AJAX error', '');
+      display_error('AJAX error');
+      console.log(thrownError);
     }
   });
 }
