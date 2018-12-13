@@ -103,6 +103,10 @@ __Average tension__: The average _radial_ tension acting on the rim. This is the
 
 __Maximum average tension__: The rim can only withstand a certain amount of tension without buckling. The _maximum average tension_ is the theoretical average radial tension which would cause the rim to taco during building. In practice, you can generally get to about half of the theoretical tension before the rim becomes too distorted. [Jobst Brandt [2]](#references) advocated using this method to determine the proper tension for a wheel. The maximum tension is calculated from Equation 4.4 in [reference [1]](#references).
 
+__Lateral/Radial force to buckle spokes__: The maximum force that can be applied before the first spoke buckles. Beyond this point the wheel will lose stiffness and strength.
+
+> Lateral forces are usually also accompanied by a radial force (due to the weight of the bike and rider). Therefore the actual lateral force to buckle spokes would be reduced if a radial load is present.
+
 ## Notes regarding the solver
 
 The full modeling assumptions and derivations underlying the app are described in detail in my Ph.D. thesis: [_Reinventing the Wheel: Stress Analysis, Stability, and Optimization of the Bicycle Wheel_](#references). The app uses the Mode Matrix Model described in Section 2.4.1 of the thesis.
