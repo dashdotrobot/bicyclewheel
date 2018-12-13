@@ -191,60 +191,10 @@ var FORCE_PRESETS = {
 var calc_result = false;
 var wheel_obj;
 
-/* ---------------------------- INITIALIZE GUI ---------------------------- **
+
+/* ---------------------------- DEFINE FUNCTIONS -------------------------- **
 **
 ** ------------------------------------------------------------------------ */
-
-// Update value labels for all range sliders with class .update-range
-$('input.update-range').on('change input', function() {
-  $(this).prev().html('<strong>' + $(this).val() + '</strong>');
-});
-
-// Update value labels for hub width range sliders
-$('#hubWidthLeft').on('change input', function() {
-  $('#hubWidthLeft_label').html('<strong>' + (-parseInt($(this).val())).toString() + '</strong>');
-
-  // If symmetric, update the other one to match
-  if ($('#hubSymm').prop('checked')) {
-    $('#hubWidthRight').val(-parseInt($(this).val()));
-    $('#hubWidthRight_label').html('<strong>' + (-parseInt($(this).val())).toString() + '</strong>');
-  }
-});
-
-$('#hubWidthRight').on('change input', function() {
-  $('#hubWidthRight_label').html('<strong>' + $(this).val() + '</strong>');
-
-  // If symmetric, update the other one to match
-  if ($('#hubSymm').prop('checked')) {
-    $('#hubWidthLeft').val(-parseInt($(this).val()));
-    $('#hubWidthLeft_label').html('<strong>' + (parseInt($(this).val())).toString() + '</strong>');
-  }
-});
-
-$('#hubSymm').change(function() {
-  if ($(this).prop('checked')) {
-    $('#hubWidthLeft').val(-parseInt($('#hubWidthRight').val()));
-    $('#hubWidthLeft_label').html('<strong>' + (parseInt($('#hubWidthRight').val())).toString() + '</strong>');
-  }
-});
-
-
-// Populate rim presets dropdown
-for (var key in RIM_PRESETS) {
-  $('#rimPreset').append('<option value="' + key + '">' + key + '</option>');
-}
-
-// Populate rim material dropdown
-for (var key in RIM_MATLS) {
-  $('#rimMatl').append('<option value="' + key + '">' + key + '</option>');
-}
-
-// Populate rim size dropdown
-for (var i=0; i < RIM_SIZES.length; i++) {
-  var size = RIM_SIZES[i]
-  $('#rimSize').append('<option value="' + size + '">' + size + '</option>');
-}
-
 
 // Load a specified rim preset
 function load_rim_preset(name) {
@@ -261,76 +211,6 @@ function load_rim_preset(name) {
   }
 }
 
-$('#rimPreset').change(function() {
-  load_rim_preset($('#rimPreset').val());
-});
-
-// Set default rim preset
-$('#rimPreset').val('Sun-Ringle CR18 700C, 36h').trigger('change');
-
-// Set rim preset to "Custom" if any fields are changed
-$('.rim-input').click(function() {
-  $('#rimPreset').val('Custom');
-});
-
-// Populate spoke material dropdowns
-for (var key in SPK_MATLS) {
-  $('#spkMatl').append('<option value="' + key + '">' + key + '</option>');
-  $('#spkMatlNDS').append('<option value="' + key + '">' + key + '</option>');
-}
-
-// Show or hide the non-drive-side spoke panel
-$('#spkNDSSame').click(function() {
-  if ($('#spkNDSSame').is(':checked')) {
-    $('#spkNDSPanel').collapse('hide');
-
-    // Reset NDS values to match
-    $('.spokes-ds').each(function() {
-      $('#' + $(this).prop('id') + 'NDS').val($(this).val()).trigger('change');
-    })
-  } else {
-    $('#spkNDSPanel').collapse('show');
-  }
-});
-
-// Set NDS properties equal if 'Same' is checked
-$('.spokes-ds').on('change', function() {
-  if ($('#spkNDSSame').is(':checked')) {
-    $('#' + $(this).prop('id') + 'NDS').val($(this).val()).trigger('change');
-  }
-});
-
-// Set default spoke material
-$('#spkMatl').val('Steel').trigger('change');
-
-// Set spoke tension based on tension ratio
-$('#spkTens').on('change input', function() {
-  var T_ratio = calc_tension_ratio()
-  $('#spkTensNDS').val($(this).val() / T_ratio)
-  $('#spkTensNDS').prev().html('<strong>' + $('#spkTensNDS').val() + '</strong>');
-});
-$('#spkTensNDS').on('change input', function() {
-  var T_ratio = calc_tension_ratio()
-  $('#spkTens').val($(this).val() * T_ratio)
-  $('#spkTens').prev().html('<strong>' + $('#spkTensNDS').val() + '</strong>');
-});
-
-
-// Force presets
-for (var key in FORCE_PRESETS) {
-  $('#forcePresetDropdown').append('<a class="dropdown-item btn-sm force-preset" href="#">' + key + '</a>');
-}
-
-// Select a force preset
-$('.force-preset').click(function() {
-  forces = FORCE_PRESETS[$(this).text()];
-  for (var i=0; i < forces.length; i++) {
-    addForce(forces[i]['dof'],
-             forces[i]['loc'],
-             forces[i]['mag']);
-  }
-});
-
 // Editable force table
 function initEditableTable() {
   $('#tableForces').editableTableWidget();
@@ -345,7 +225,6 @@ function initEditableTable() {
     i_new = (FORCE_TYPES.indexOf($(this).text().trim()) + 1) % 3;
     $(this).html(FORCE_TYPES[i_new] + ' <i class="fas fa-angle-double-down"></i>');
   });
-
 }
 
 function addForce(dof, loc, mag) {
@@ -359,47 +238,10 @@ function addForce(dof, loc, mag) {
   initEditableTable();
 }
 
-// Add row callback
-$('.add-force').click(function() {
-  addForce('Radial', 0, 0)
-});
-
-initEditableTable();
-
-
-// Work the magic!
-$('#btnPressMe').on('click', function() {
-  update_results();
-});
-
 function reset_calc_button() {
   $('#btnPressMe').text('Calculate');
   $('#btnPressMe').removeClass('disabled');
 }
-
-$('.result-navs').click(function() {
-  window.setTimeout(function() {
-    Plotly.Plots.resize(document.getElementById('deform-plot'));
-    Plotly.Plots.resize(document.getElementById('tension-plot'));
-  }, 0)
-});
-
-$('#scaleFactor').on('change input', function() {
-  $(this).prev().html('<strong>' + $(this).val() + '%</strong>');
-});
-
-$('#scaleFactor').on('change', function() {
-  plot_deformation();
-});
-
-$('.deform-button').click(function() {
-  $(this).toggleClass('active');
-  plot_deformation();
-});
-
-/* ------------------------------- FUNCTIONS ------------------------------ **
-**
-** ------------------------------------------------------------------------ */
 
 function display_error(title, text) {
   var div_text = '<div class="alert alert-danger alert-dismissible fade show" role="alert">';
@@ -816,4 +658,185 @@ function show_summary() {
   }
 }
 
-update_results();
+
+/* ---------------------------- INITIALIZE GUI ---------------------------- **
+**
+** ------------------------------------------------------------------------ */
+
+$(function() {
+
+  // Update value labels for all range sliders with class .update-range
+  $('input.update-range').on('change input', function() {
+    $(this).prev().html('<strong>' + $(this).val() + '</strong>');
+  });
+
+
+  /* ----------------------------- HUB PANEL ------------------------------ */
+  // Update value labels for hub width range sliders
+  $('#hubWidthLeft').on('change input', function() {
+    $('#hubWidthLeft_label').html('<strong>' + (-parseInt($(this).val())).toString() + '</strong>');
+
+    // If symmetric, update the other one to match
+    if ($('#hubSymm').prop('checked')) {
+      $('#hubWidthRight').val(-parseInt($(this).val()));
+      $('#hubWidthRight_label').html('<strong>' + (-parseInt($(this).val())).toString() + '</strong>');
+    }
+  });
+
+  $('#hubWidthRight').on('change input', function() {
+    $('#hubWidthRight_label').html('<strong>' + $(this).val() + '</strong>');
+
+    // If symmetric, update the other one to match
+    if ($('#hubSymm').prop('checked')) {
+      $('#hubWidthLeft').val(-parseInt($(this).val()));
+      $('#hubWidthLeft_label').html('<strong>' + (parseInt($(this).val())).toString() + '</strong>');
+    }
+  });
+
+  // Force hub symmetry if "Symmetric" is checked
+  $('#hubSymm').change(function() {
+    if ($(this).prop('checked')) {
+      $('#hubWidthLeft').val(-parseInt($('#hubWidthRight').val()));
+      $('#hubWidthLeft_label').html('<strong>' + (parseInt($('#hubWidthRight').val())).toString() + '</strong>');
+    }
+  });
+
+
+  /* ----------------------------- RIM PANEL ------------------------------ */
+  // Populate rim presets dropdown
+  for (var key in RIM_PRESETS) {
+    $('#rimPreset').append('<option value="' + key + '">' + key + '</option>');
+  }
+
+  // Populate rim material dropdown
+  for (var key in RIM_MATLS) {
+    $('#rimMatl').append('<option value="' + key + '">' + key + '</option>');
+  }
+
+  // Populate rim size dropdown
+  for (var i=0; i < RIM_SIZES.length; i++) {
+    var size = RIM_SIZES[i]
+    $('#rimSize').append('<option value="' + size + '">' + size + '</option>');
+  }
+
+  // Set rim preset on select
+  $('#rimPreset').change(function() {
+    load_rim_preset($('#rimPreset').val());
+  });
+
+  // Set rim preset to "Custom" if any fields are changed
+  $('.rim-input').click(function() {
+    $('#rimPreset').val('Custom');
+  });
+
+  // Set default rim preset
+  $('#rimPreset').val('Sun-Ringle CR18 700C, 36h').trigger('change');
+
+
+  /* ---------------------------- SPOKES PANEL ---------------------------- */
+  // Populate spoke material dropdowns
+  for (var key in SPK_MATLS) {
+    $('#spkMatl').append('<option value="' + key + '">' + key + '</option>');
+    $('#spkMatlNDS').append('<option value="' + key + '">' + key + '</option>');
+  }
+
+  // Show or hide the non-drive-side spoke panel
+  $('#spkNDSSame').click(function() {
+    if ($('#spkNDSSame').is(':checked')) {
+      $('#spkNDSPanel').collapse('hide');
+
+      // Reset NDS values to match
+      $('.spokes-ds').each(function() {
+        $('#' + $(this).prop('id') + 'NDS').val($(this).val()).trigger('change');
+      })
+    } else {
+      $('#spkNDSPanel').collapse('show');
+    }
+  });
+
+  // Set NDS properties if any DS properties are changed and 'Same' is checked
+  $('.spokes-ds').on('change', function() {
+    if ($('#spkNDSSame').is(':checked')) {
+      $('#' + $(this).prop('id') + 'NDS').val($(this).val()).trigger('change');
+    }
+  });
+
+  // Set spoke tension based on tension ratio
+  $('#spkTens').on('change input', function() {
+    var T_ratio = calc_tension_ratio()
+    $('#spkTensNDS').val($(this).val() / T_ratio)
+    $('#spkTensNDS').prev().html('<strong>' + $('#spkTensNDS').val() + '</strong>');
+  });
+  $('#spkTensNDS').on('change input', function() {
+    var T_ratio = calc_tension_ratio()
+    $('#spkTens').val($(this).val() * T_ratio)
+    $('#spkTens').prev().html('<strong>' + $('#spkTensNDS').val() + '</strong>');
+  });
+
+  // Set default spoke material
+  $('#spkMatl').val('Steel').trigger('change');
+
+
+  /* ---------------------------- FORCES PANEL ---------------------------- */
+  // Populate force presets dropdown
+  for (var key in FORCE_PRESETS) {
+    $('#forcePresetDropdown').append('<a class="dropdown-item btn-sm force-preset" href="#">' + key + '</a>');
+  }
+
+  // Select a force preset
+  $('.force-preset').click(function() {
+    forces = FORCE_PRESETS[$(this).text()];
+    for (var i=0; i < forces.length; i++) {
+      addForce(forces[i]['dof'],
+               forces[i]['loc'],
+               forces[i]['mag']);
+    }
+  });
+
+  // Add row to forces table
+  $('.add-force').click(function() {
+    addForce('Radial', 0, 0)
+  });
+
+  // Make the forces table editable
+  initEditableTable();
+
+
+  /* ---------------------------- RESULT PANEL ---------------------------- */
+
+  // Try to resize plots when changing result panels
+  $('.result-navs').click(function() {
+    window.setTimeout(function() {
+      Plotly.Plots.resize(document.getElementById('deform-plot'));
+      Plotly.Plots.resize(document.getElementById('tension-plot'));
+    }, 0);
+  });
+
+  // Show scale factor as a percent
+  $('#scaleFactor').on('change input', function() {
+    $(this).prev().html('<strong>' + $(this).val() + '%</strong>');
+  });
+
+  // Re-plot deformation when scale factor is changed
+  $('#scaleFactor').on('change', function() {
+    plot_deformation();
+  });
+
+  // Toggle deformation components
+  $('.deform-button').click(function() {
+    $(this).toggleClass('active');
+    plot_deformation();
+  });
+
+
+  /* -------------------------- CALCULATE BUTTON -------------------------- */
+  // Work the magic!
+  $('#btnPressMe').on('click', function() {
+    update_results();
+  });
+
+
+  // Calculate initial results
+  update_results();
+
+});
