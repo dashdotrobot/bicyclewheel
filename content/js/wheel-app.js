@@ -192,13 +192,53 @@ var calc_result = false;
 var wheel_obj;
 
 
-/* ---------------------------- DEFINE FUNCTIONS -------------------------- **
+/* --------------------------- DEFINE FUNCTIONS --------------------------- **
 **
 ** ------------------------------------------------------------------------ */
 
-// Load a specified rim preset
-function load_rim_preset(name) {
+/* ------------------------- WHEEL CALC FUNCTIONS ------------------------- */
+function calc_spoke_vector(side) {
+  // Calculate spoke vector for side = 'ds' or 'nds'
 
+  if (side == 'ds' | side == 'nds') {
+    var w = build_json_wheel();
+
+    // Drive-side spoke vector
+    var theta_h = 4*Math.PI/w['spokes_' + side]['num'] * w['spokes_' + side]['num_cross'];
+    var n_1 = w['hub']['width_' + side]/1000;
+    var n_2 = w['rim']['radius'] - w['hub']['diameter']/2*Math.cos(theta_h);
+    var n_3 = w['hub']['diameter']/2*Math.sin(theta_h);
+    var l = Math.sqrt(Math.pow(n_1, 2) + Math.pow(n_2, 2) + Math.pow(n_3, 2));
+
+    return [n_1/l, n_2/l, n_3/l];
+
+  } else {
+    return false;
+  }
+}
+
+function calc_tension_ratio() {
+  // Calculate spoke tension ratio, T_ds / T_nds
+
+  var n_ds = calc_spoke_vector('ds');
+  var n_nds = calc_spoke_vector('nds');
+
+  return n_nds[0] / n_ds[0];
+}
+
+function calc_average_tension() {
+  // Calculate average radial tension
+
+  var T_ds = parseFloat($('#spkTens').val());
+  var n_ds = calc_spoke_vector('ds');
+  var n_nds = calc_spoke_vector('nds');
+
+  return T_ds/2 * (n_ds[1] + n_nds[1]*(n_ds[0]/n_nds[0]));
+}
+
+/* ------------------------- UI UTILITY FUNCTIONS ------------------------- */
+function load_rim_preset(name) {
+  // Load a specified rim preset
   if (name != 'Custom') {
     var rim = RIM_PRESETS[name];
 
@@ -211,8 +251,8 @@ function load_rim_preset(name) {
   }
 }
 
-// Editable force table
 function initEditableTable() {
+  // Make force table editable
   $('#tableForces').editableTableWidget();
 
   // Remove row callback
@@ -258,47 +298,9 @@ function display_error(title, text) {
   $('#alerts').append(div_text);
 }
 
-function calc_spoke_vector(side) {
-  // Calculate spoke vector for side = 'ds' or 'nds'
-
-  if (side == 'ds' | side == 'nds') {
-    var w = build_json_wheel();
-
-    // Drive-side spoke vector
-    var theta_h = 4*Math.PI/w['spokes_' + side]['num'] * w['spokes_' + side]['num_cross'];
-    var n_1 = w['hub']['width_' + side]/1000;
-    var n_2 = w['rim']['radius'] - w['hub']['diameter']/2*Math.cos(theta_h);
-    var n_3 = w['hub']['diameter']/2*Math.sin(theta_h);
-    var l = Math.sqrt(Math.pow(n_1, 2) + Math.pow(n_2, 2) + Math.pow(n_3, 2));
-
-    return [n_1/l, n_2/l, n_3/l];
-
-  } else {
-    return false;
-  }
-}
-
-function calc_tension_ratio() {
-  // Calculate spoke tension ratio, T_ds / T_nds
-
-  var n_ds = calc_spoke_vector('ds');
-  var n_nds = calc_spoke_vector('nds');
-
-  return n_nds[0] / n_ds[0];
-}
-
-function calc_average_tension() {
-  // Calculate average radial tension
-
-  var T_ds = parseFloat($('#spkTens').val());
-  var n_ds = calc_spoke_vector('ds');
-  var n_nds = calc_spoke_vector('nds');
-
-  return T_ds/2 * (n_ds[1] + n_nds[1]*(n_ds[0]/n_nds[0]));
-}
-
-// Build JSON request object to send to wheel-api
+/* ---------------------- FORM PROCESSING FUNCTIONS ----------------------- */
 function build_json_rim() {
+  // Build JSON request object to send to wheel-api
 
   var rimForm = {};
   var rimJSON = {};
