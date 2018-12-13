@@ -136,10 +136,10 @@
 
           <div class="form-group form-group-sm form-row">
             <div class="col-6 hub-slider-left">
-              <input type="range" class="form-control-range custom-range" name="hubWidthLeft" id="hubWidthLeft" min="-50" max="0" step="1" value="-25">
+              <input type="range" class="form-control-range custom-range" name="hubWidthLeft" id="hubWidthLeft" min="-50" max="-1" step="1" value="-25">
             </div>
             <div class="col-6 hub-slider-right">
-              <input type="range" class="form-control-range custom-range" name="hubWidthRight" id="hubWidthRight" min="0" max="50" step="1" value="25">
+              <input type="range" class="form-control-range custom-range" name="hubWidthRight" id="hubWidthRight" min="1" max="50" step="1" value="25">
             </div>
           </div>
 
@@ -318,6 +318,20 @@
           <tr><th>Radial stiffness</th><td id="sumStiffRadSI">-</td><td id="sumStiffRadLbs">-</td></tr>
           <tr><th>Lateral stiffness</th><td id="sumStiffLatSI">-</td><td id="sumStiffLatLbs">-</td></tr>
           <tr><th>Torsional stiffness</th><td id="sumStiffTorSI">-</td><td id="sumStiffTorLbs">-</td></tr>
+        </table>
+
+        <h6>Spoke tension</h6>
+        <table class="table table-sm table-hover">
+          <tr><th>Drive-side tension</th><td id="sumTensDSSI">-</td><td id="sumTensDSLbs">-</td></tr>
+          <tr><th>Non-drive-side tension</th><td id="sumTensNDSSI">-</td><td id="sumTensNDSLbs">-</td></tr>
+          <tr><th>Average tension</th><td id="sumTensAvgSI">-</td><td id="sumTensAvgLbs">-</td></tr>
+          <tr><th>Maximum average tension</th><td id="sumTensMaxSI">-</td><td id="sumTensMaxLbs">-</td></tr>
+        </table>
+
+        <h6>Strength</h6>
+        <table class="table table-sm table-hover">
+          <tr><th>Lateral force to buckle spokes</th><td id="sumForceLatSI">-</td><td id="sumForceLatLbs">-</td></tr>
+          <tr><th>Radial force to buckle spokes</th><td id="sumForceRadSI">-</td><td id="sumForceRadLbs">-</td></tr>
         </table>
 
       </div>
