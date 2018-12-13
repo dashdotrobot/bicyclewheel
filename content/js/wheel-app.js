@@ -12,8 +12,11 @@ if (typeof Array.prototype.forEach != 'function') {
 **
 ** --------------------------------------------------------------------------- */
 
-// var API_ENDPOINT = 'https://bike-wheel-api.herokuapp.com/calculate';
-var API_ENDPOINT = 'http://127.0.0.1:5000/calculate';
+// Use live API for production
+var API_ENDPOINT = 'https://bike-wheel-api.herokuapp.com/calculate';
+
+// Use local API for development
+// var API_ENDPOINT = 'http://127.0.0.1:5000/calculate';
 
 var RIM_MATLS = {
   'Alloy': {
