@@ -13,6 +13,8 @@ The Bicycle Wheel App is a tool for designing and simulating a virtual bicycle w
 
 Forces and deformation are both specified in terms of three directions: radial, lateral, and tangential. The positive __radial__ direction points inwards towards the center of the hub. The positive __lateral__ direction points towards the left side of the bike. The positive __tangential__ direction points along the rim in the counter-clockwise direction. Positive rim __twist__ is defined as a right-handed rotation around the tangential direction (imagine pointing your thumb along the tangential direction, and curling your fingers: that's the direction of positive rim twist).
 
+The bottom-most spoke is a __non-drive-side leading (pushing) spoke__. The spokes alternate NDS, DS, NDS, ... and leading, leading, trailing, trailing...
+
 ### Designing your wheel
 
 Design your wheel by selecting options for the rim, hub, and spokes.

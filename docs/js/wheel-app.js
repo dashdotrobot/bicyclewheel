@@ -13,7 +13,8 @@ if (typeof Array.prototype.forEach != 'function') {
 ** --------------------------------------------------------------------------- */
 
 // Use live API for production
-var API_ENDPOINT = 'https://bike-wheel-api.herokuapp.com/calculate';
+// var API_ENDPOINT = 'https://bike-wheel-api.herokuapp.com/calculate';
+var API_ENDPOINT = 'https://2fihr40x10.execute-api.us-east-2.amazonaws.com/default/bike-wheel-api/'
 
 // Use local API for development
 // var API_ENDPOINT = 'http://127.0.0.1:5000/calculate';
