@@ -1,7 +1,7 @@
 Title: Introducing the Bicycle Wheel Simulator
 Date: 17 Dec 2018
 Slug: intro-to-app
-Summary: 
+Summary: Example calculations using the Bicycle Wheel Simulator
 
 The [tensioned wire wheel](http://en.wikipedia.org/wiki/Wire_wheels) is one of the most elegant, successful, and enduring technologies of the 19th century. Although materials and manufacturing methods have continually improved, the basic design of the bicycle wheel has not changed fundamentally in the last century: a central hub is connected to a hoop-shaped outer rim by a set of tensioned spokes, which are threaded into adjustable spoke nipples set into the inside of the rim. The bicycle wheel is a type of [tensegrity](http://en.wikipedia.org/wiki/Tensegrity) structure: it combines elements which only carry tension (spokes) with elements which predominately carry compression (rim). When the weight of the rider is applied to the hub (through the ball bearings) the load is transmitted to the rim (and ultimately the road) primarily due to the shortening of the spokes directly underneath the hub.
 
@@ -9,7 +9,7 @@ When a wheelbuilder [builds a wheel](http://sheldonbrown.com/wheelbuild.html), t
 
 ## Examples
 
-Many wheel enthusiasts are familiar with [Jobst Brandt's calculations](http://caravan.hobby.ru/materiel/Bicycle_Wheel_-_Jobst_Brandt.pdf) of wheel deformation under weight, braking and pedalingg forces. His simulation neglected lateral deformation (his model is 2-dimensional), but nevertheless demonstrated some important points about how wheels work. Below are some examples of calculations using the [Bicycle Wheel Simulator](/).
+Many wheel enthusiasts are familiar with [Jobst Brandt's calculations](http://caravan.hobby.ru/materiel/Bicycle_Wheel_-_Jobst_Brandt.pdf) of wheel deformation under weight, braking and pedaling forces. His simulation neglected lateral deformation (his model is 2-dimensional), but nevertheless demonstrated some important points about how wheels work. Below are some examples of calculations using the [Bicycle Wheel Simulator](/).
 
 ### Weight of the bike and rider
 
@@ -36,4 +36,6 @@ When the rider presses on the pedals, the wheel transmits the torque from the sp
   <div class="col-sm-6"><img class="img-fluid" alt="Deformation under combined load" src="{filename}/images/intro-to-app/asymm_rad_lat_torque_def.png" /></div>
 </div>
 
-Some wheelbuilders advocate using a different spoke pattern on the drive side and non-drive side
+Some wheelbuilders advocate using a different spoke pattern on the drive side and non-drive side. For example, using radial spokes on the drive-side can slightly increase the spoke angle, and therefore decrease the difference between DS and NDS tensions. This means that virtually all of the torque is transferred by the NDS spokes.
+
+If a lateral load is added (maybe due to skidding or tipping the bike while traveling forwards), the spokes increase in tension on one side and decrease on the other side to balance the side load. The wheel is very flexible in the lateral direction and lateral loads can easily cause spokes to buckle or the rim to collapse. In this case, the lateral deformation is so large that the radial deformation cannot be seen in the plot at all.
