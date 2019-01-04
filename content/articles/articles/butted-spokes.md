@@ -21,7 +21,7 @@ The difference in weight is small but undeniable: the wheel with DB spokes is ab
 
 ## More flexibility
 
-Oh noes, my stiffnezz! The DB wheel is 14% less radially stiff and 18% less laterally stiff. Won't it rob me of my precious watts?
+Oh noes, my stiffnezz! The DB wheel is 14% less radially stiff and 18% less laterally stiff than the SG wheel. Won't it rob me of my precious watts?
 
 ## Flexibility is (ironically) strength
 
@@ -43,9 +43,6 @@ going to 36 spokes reduces force by about 7%
 
 Analogy: Crowd-surfing with a flexible surfboard. The more flexible the surfboard, the more load is transferred to the people right underneath the surfer.
 
-## Flexibility is strength!
-
-...
 
 
 ### Average diameter
