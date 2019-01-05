@@ -425,6 +425,10 @@ function build_json_wheel() {
   json['spokes_ds'] = dsJSON;
   json['spokes_nds'] = ndsJSON;
 
+  // Set NDS spoke tension to precise value
+  T_ratio = calc_tension_ratio(json)
+  json['spokes_nds']['tension'] = json['spokes_ds']['tension'] / T_ratio
+
   return json;
 }
 
@@ -772,6 +776,10 @@ $(function() {
       $('#hubWidthRight').val(-parseInt($(this).val()));
       $('#hubWidthRight_label').html('<strong>' + (-parseInt($(this).val())).toString() + '</strong>');
     }
+
+    // Re-calculate NDS spoke tension
+    $('#spkTens').trigger('change')
+
   });
 
   $('#hubWidthRight').on('change input', function() {
@@ -782,6 +790,10 @@ $(function() {
       $('#hubWidthLeft').val(-parseInt($(this).val()));
       $('#hubWidthLeft_label').html('<strong>' + (parseInt($(this).val())).toString() + '</strong>');
     }
+
+    // Re-calculate NDS spoke tension
+    $('#spkTens').trigger('change')
+
   });
 
   // Force hub symmetry if "Symmetric" is checked
@@ -790,6 +802,10 @@ $(function() {
       $('#hubWidthLeft').val(-parseInt($('#hubWidthRight').val()));
       $('#hubWidthLeft_label').html('<strong>' + (parseInt($('#hubWidthRight').val())).toString() + '</strong>');
     }
+
+    // Re-calculate NDS spoke tension
+    $('#spkTens').trigger('change')
+
   });
 
 
