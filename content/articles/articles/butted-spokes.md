@@ -46,24 +46,35 @@ The extent to which load is shared between neighboring spokes depends on the rat
 ##### Another metaphor:
 Imagine a crowd surfer at a show. Our crowd surfer is a germophobe, so they always use a surfboard when crowd surfing. The people under the board lend their support, proportional to how much the surfboard dips. The lower it dips, the harder they push. Now, if the surfboard is very flexible, it will dip a lot in the center, and the unfortunate concert-goer directly underneath our crowd surfer will end up doing most of the work. If, on the other hand, the surfboard is very stiff (and the crowd is compliant), a more equitable distribution will result.
 
-Generally, it requires pretty big changes in rim and spoke stiffness to significantly change the load distribution. 
+Generally, it requires pretty big changes in rim and spoke stiffness to significantly change the load distribution. As an extreme example, the wheels have the same geometry and number of spokes, but in the left wheel the rim is twice as stiff and the spokes are twice as flexible.
 
 <img class="img-fluid" alt="Spoke tensions under radial load" src="{filename}/images/butted-spokes/char_length_comparison.png" />
-<div class="figure-caption">Spoke tension distribution in a radially-loaded wheel. <em>Left:</em> stiff rim with 1 mm diameter spokes. <em>Right:</em> flexible rim with 3 mm diameter spokes.</div>
+<div class="figure-caption">Spoke tension distribution in a radially-loaded wheel. <em>Left:</em> stiff rim with 1.4 mm diameter spokes. <em>Right:</em> flexible rim with 2 mm diameter spokes.</div>
 
-32 spokes
-straight: 23.82 / 50 = 0.476
-butted:   22.68 / 50 = 0.454
-Difference of 1.14 kg for 50 kg load (about -5%)
+The butted spokes in our example calculation are 19% less stiff than the straight-gauge spokes. Under a 50 kg radial load, the bottom-most spoke sheds 23.82 kg and 22.68 kg in the SG and DB wheel, respectively. This difference (1.14 kg) works out to a 5% reduction in the stress change seen by the spoke. To put this in perspective, going from 32 spokes to 36 spokes reduces the stress seen by a single spoke by about 7%.
 
-36 spokes
-straight: 22.17 / 50 = 0.443
-butted:   21.07 / 50 = 0.421
-Difference of 1.1 kg for 50 kg load (about -5%)
+That was for radial loads (carrying weight or hitting potholes). For lateral loads the benefit is less than 1% and for tangential loads (like braking or accelerating) the benefit is virtually non-existent. On the other hard, getting the same benefit as a 36-spoke wheel for even less weight can be easily justified if most of the cost of your wheelset is in the rim, hub and labor.
 
-going to 36 spokes reduces force by about 7%
+## Careful: durability is _not_ strength
 
-Analogy: Crowd-surfing with a flexible surfboard. The more flexible the surfboard, the more load is transferred to the people right underneath the surfer.
+<!-- 32 spokes -->
+<!-- straight: 23.82 / 50 = 0.476 -->
+<!-- butted:   22.68 / 50 = 0.454 -->
+<!-- Difference of 1.14 kg for 50 kg load (about -5%) -->
+
+<!-- 36 spokes -->
+<!-- straight: 22.17 / 50 = 0.443 -->
+<!-- butted:   21.07 / 50 = 0.421 -->
+<!-- Difference of 1.1 kg for 50 kg load (about -5%) -->
+
+<!-- 36 spokes -->
+<!-- straight: 22.17 / 10 = 0.443 -->
+<!-- butted:   21.07 / 50 = 0.421 -->
+<!-- Difference of 1.1 kg for 50 kg load (about -5%) -->
+
+<!-- going to 36 spokes reduces force by 1.65 kg (about -7%) -->
+
+<!-- Analogy: Crowd-surfing with a flexible surfboard. The more flexible the surfboard, the more load is transferred to the people right underneath the surfer. -->
 
 
 
