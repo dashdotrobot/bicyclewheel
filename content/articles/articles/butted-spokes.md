@@ -15,19 +15,29 @@ Let's take a quantitative look at these claims using the [Bicycle Wheel App](/).
   <tr><td>CR18</td><td>DB 2.0/1.7/2.0</td><td>4.39 kN/mm</td><td>81.8 N/mm</td><td>747</td><td>1362</td></tr>
 </table>
 
+What exactly does the extra investment in butted spokes buy you?
+
 ## Less weight
 
-The difference in weight is small but undeniable: the wheel with DB spokes is about 6% lighter. The rotating mass (the mass you "feel" when accelerating) is only about 5% smaller because it's dominated by the rim mass which is the same in both wheels. The app is using an approximation here: it doesn't know exactly how long the thin section is, but it's close enough. Once you factor in the rotating mass of the tire and the nipples the relative weight savings will be even less. Still, many people are willing to pay to shed a few grams... So what about the mechanical properties?
+The difference in weight is small but undeniable: the wheel with DB spokes is about 6% lighter. The rotating mass (the mass you "feel" when accelerating) is only about 5% smaller because it's dominated by the rim mass which is the same in both wheels. The app is using an approximation here because it doesn't know exactly how long the thin section is, but it's close enough. Once you factor in the rotating mass of the tire and the nipples the relative weight savings will be even less. Still, many people are willing to pay to shed a few grams.
 
 ## More flexibility
 
-Oh noes, my stiffnezz! The DB wheel is 14% less radially stiff and 18% less laterally stiff than the SG wheel. Won't it rob me of my precious watts?
+Oh noes, my stiffnezz! The DB wheel is 14% less radially stiff and 18% less laterally stiff than the SG wheel. Won't it rob me of my precious watts? Probably not. First of all, the radial stiffness is inconsequential because the radial stiffness of the tire is so much smaller. The total vertical stiffness is completely dominated by the tire.
 
-## Flexibility is (ironically) strength
+What about the lateral stiffness? The wheel can flex laterally when you are sprinting out of the saddle and rocking the bike sideways. A popular misconception holds that the energy that goes into flexing the bike is somehow lost. This is greatly exaggerated. The stiff materials used in frames return this energy when they spring back.
+
+Most riders (and therefore bike manufacturers) try to maximize the stiffness (at least laterally) of their ride. But many people will tell you that butted spokes give a "better ride quality" due to the increased flexibility. So there doesn't seem to be a consensus on what is desirable here.
+
+## Sharing the load
+
+Now for the most-touted benefit of butted spokes: they last longer.
 
 Not every part of the spoke works equally hard. The center section experiences only pure tension (provided the spoke never goes slack) and the fluctuations in the tension are generally small (e.g. less than 25% of the initial tension for the rolling stress). Side loads and impacts can cause larger fluctuations, but the center section will usually absorb these with no problem.
 
-The ends of the spoke (the elbow and the nipple) experience much more complicated stress states.
+The ends of the spoke experience much more complicated stresses. The elbow is subjected to bending stresses depending on how the head and the J-bend are supported. The thread is essentially a long, spiraling notch cut or formed into the spoke, and stresses are concentrated at the tip of a notch. For these reasons, the vast majority of spoke breakages happen near the elbow or nipple. Any design change which reduces these stresses will make your spokes last longer.
+
+
 
 32 spokes
 straight: 23.82 / 50 = 0.476
