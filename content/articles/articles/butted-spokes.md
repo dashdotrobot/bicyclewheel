@@ -11,8 +11,8 @@ Let's take a quantitative look at these claims using the [Bicycle Wheel App](/).
 
 <table class="table table-hover">
   <tr><th>Rim</th><th>Spokes</th><th>Radial stiffness</th><th>Lateral stiffness</th><th>Mass [grams]</th><th>Rotating mass [grams]</th></tr>
-  <tr><td>CR18</td><td>SG 2.0</td><td>5.13 kN/mm</td><td>100 N/mm</td><td>795</td><td>1428</td></tr>
-  <tr><td>CR18</td><td>DB 2.0/1.7/2.0</td><td>4.39 kN/mm</td><td>81.8 N/mm</td><td>747</td><td>1362</td></tr>
+  <tr><td>CR18</td><td>SG 2.0</td><td>4.7 kN/mm</td><td>92.4 N/mm</td><td>767</td><td>1389</td></tr>
+  <tr><td>CR18</td><td>DB 2.0/1.7/2.0</td><td>4.0 kN/mm</td><td>75.5 N/mm</td><td>724</td><td>1330</td></tr>
 </table>
 
 What exactly does the extra investment in butted spokes buy you?
@@ -51,11 +51,15 @@ Generally, it requires pretty big changes in rim and spoke stiffness to signific
 <img class="img-fluid" alt="Spoke tensions under radial load" src="{filename}/images/butted-spokes/char_length_comparison.png" />
 <div class="figure-caption">Spoke tension distribution in a radially-loaded wheel. <em>Left:</em> stiff rim with 1.4 mm diameter spokes. <em>Right:</em> flexible rim with 2 mm diameter spokes.</div>
 
-The butted spokes in our example calculation are 19% less stiff than the straight-gauge spokes. Under a 50 kg radial load, the bottom-most spoke sheds 23.82 kg and 22.68 kg in the SG and DB wheel, respectively. This difference (1.14 kg) works out to a 5% reduction in the stress change seen by the spoke. To put this in perspective, going from 32 spokes to 36 spokes reduces the stress seen by a single spoke by about 7%.
+The butted spokes in our example calculation are 19% less stiff than the straight-gauge spokes. Under a 50 kg radial load, the bottom-most spoke sheds 23.82 kg and 22.68 kg in the SG and DB wheel, respectively. This difference (1.14 kg) works out to a 5% reduction in the stress change seen by the spoke. To put this in perspective, going from 32 spokes to 36 spokes reduces the stress seen by a single spoke by about 7%. This reduction in stress, especially for large impacts, increases the fatigue life of the spoke.
 
 That was for radial loads (carrying weight or hitting potholes). For lateral loads the benefit is less than 1% and for tangential loads (like braking or accelerating) the benefit is virtually non-existent. On the other hard, getting the same benefit as a 36-spoke wheel for even less weight can be easily justified if most of the cost of your wheelset is in the rim, hub and labor.
 
 ## Careful: durability is _not_ strength
+
+On the road, the most common mode of failure is spoke fatigue - the slow build-up of damage resulting from sub-critical loads. A wheel can also fail by rim buckling (generally called "taco"-ing) if a large enough force is applied. The strength of the wheel depends on many factors, but the most important factor is the lateral stiffness. A stiffer wheel has a greater tendency to maintain its shape and resist buckling.
+
+As seen in the table above, the 
 
 <!-- 32 spokes -->
 <!-- straight: 23.82 / 50 = 0.476 -->
