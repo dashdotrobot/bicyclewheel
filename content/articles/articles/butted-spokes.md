@@ -55,11 +55,13 @@ The butted spokes in our example calculation are 19% less stiff than the straigh
 
 That was for radial loads (carrying weight or hitting potholes). For lateral loads the benefit is less than 1% and for tangential loads (like braking or accelerating) the benefit is virtually non-existent. On the other hard, getting the same benefit as a 36-spoke wheel for even less weight can be easily justified if most of the cost of your wheelset is in the rim, hub and labor.
 
-## Careful: durability is _not_ strength
+## Durability is _not_ strength
 
-On the road, the most common mode of failure is spoke fatigue - the slow build-up of damage resulting from sub-critical loads. A wheel can also fail by rim buckling (generally called "taco"-ing) if a large enough force is applied. The strength of the wheel depends on many factors, but the most important factor is the lateral stiffness. A stiffer wheel has a greater tendency to maintain its shape and resist buckling.
+On the road, the most common mode of failure is spoke fatigue - the slow build-up of damage resulting from sub-critical loads. A wheel can also fail by rim buckling (generally called "taco-ing") if a large enough force is applied. The strength of the wheel depends on many factors, but the most important factor is the lateral stiffness. A stiffer wheel has a greater tendency to maintain its shape and resist buckling.
 
-As seen in the table above, the 
+As seen in the table above, the lateral stiffness of the DB wheel is about 18% lower than the SG wheel. The radial buckling strength is complicated because it also depends on the ability of the spoke to resist buckling, but a rough approximation depending on the spoke stiffness, wheel stiffness, and maximum tension can be derived (see [Chapter 5 of my thesis](#references) for the details). This model predicts a radial buckling strength of 456 kg for the SG wheel and 403 kg for the DB wheel, a 12% reduction in strength.
+
+If you are building wheels for an extreme application where taco failure is likely, you will want as much lateral stiffness as you can get. In this case, it's probably better to use either straight-gauge spokes, or single-butted spokes with reinforced elbows (2.3/2.0 mm).
 
 <!-- 32 spokes -->
 <!-- straight: 23.82 / 50 = 0.476 -->
@@ -80,6 +82,8 @@ As seen in the table above, the
 
 <!-- Analogy: Crowd-surfing with a flexible surfboard. The more flexible the surfboard, the more load is transferred to the people right underneath the surfer. -->
 
-
-
 ### Average diameter
+
+## References
+
+[1] Matthew Ford, [Reinventing the Wheel: Stress Analysis, Stability, and Optimization of the Bicycle Wheel](https://github.com/dashdotrobot/phd-thesis/releases/download/v1.0/Ford_BicycleWheelThesis_v1.0.pdf), Ph.D. Thesis, Northwestern University (2018)
