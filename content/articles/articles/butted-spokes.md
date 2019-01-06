@@ -37,7 +37,19 @@ Not every part of the spoke works equally hard. The center section experiences o
 
 The ends of the spoke experience much more complicated stresses. The elbow is subjected to bending stresses depending on how the head and the J-bend are supported. The thread is essentially a long, spiraling notch cut or formed into the spoke, and stresses are concentrated at the tip of a notch. For these reasons, the vast majority of spoke breakages happen near the elbow or nipple. Any design change which reduces these stresses will make your spokes last longer.
 
+You will hear some people say that butted spokes "concentrate" the strain in the middle section, thereby taking strain off of the ends. This is not strictly true, or at least it's a little misleading. If you apply the same force to a SG spoke and a DB spoke, the stress, and therefore the strain, will be the same in the ends of each spoke. However, it is true that if you apply the same _stretch_ to the two spokes, the force, and therefore the strain in the ends, will be lower in the DB spoke because it is more flexible overall and requires less force to stretch.
 
+The reason why butted spokes see lower stresses at the ends is because more flexible spokes share load between neighboring spokes more easily. Perhaps you have a "rigid" friend or co-worker who has trouble sharing work or asking for help because they need things to be done their way. Perhaps if they were a little more "flexible," they would have an easier time sharing the load.
+
+The extent to which load is shared between neighboring spokes depends on the ratio between the rim stiffness and the spoke stiffness. In engineering terms, this ratio (actually, the 1/4th power of this ratio) is called the "characteristic length." The higher the rim stiffness, the more spokes will share the load. The higher the spoke stiffness, the fewer spokes will share the load.
+
+##### Another metaphor:
+Imagine a crowd surfer at a show. Our crowd surfer is a germophobe, so they always use a surfboard when crowd surfing. The people under the board lend their support, proportional to how much the surfboard dips. The lower it dips, the harder they push. Now, if the surfboard is very flexible, it will dip a lot in the center, and the unfortunate concert-goer directly underneath our crowd surfer will end up doing most of the work. If, on the other hand, the surfboard is very stiff (and the crowd is compliant), a more equitable distribution will result.
+
+Generally, it requires pretty big changes in rim and spoke stiffness to significantly change the load distribution. 
+
+<img class="img-fluid" alt="Spoke tensions under radial load" src="{filename}/images/butted-spokes/char_length_comparison.png" />
+<div class="figure-caption">Spoke tension distribution in a radially-loaded wheel. <em>Left:</em> stiff rim with 1 mm diameter spokes. <em>Right:</em> flexible rim with 3 mm diameter spokes.</div>
 
 32 spokes
 straight: 23.82 / 50 = 0.476
