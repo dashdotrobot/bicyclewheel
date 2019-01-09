@@ -39,7 +39,7 @@ DEFAULT_PAGINATION = False
 RELATIVE_URLS = True
 
 PLUGIN_PATHS = ['../../pelican-plugins']
-PLUGINS = ['pelican_javascript']
+PLUGINS = ['pelican_javascript', 'render_math']
 
 MARKDOWN = {
     'extension_configs': {
