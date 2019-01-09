@@ -69,25 +69,6 @@ As seen in the table above, the lateral stiffness of the DB wheel is about 18% l
 
 If you are building wheels for an extreme application where taco failure is likely, you will want as much lateral stiffness as you can get. In this case, it's probably better to use either straight-gauge spokes, or single-butted spokes with reinforced elbows (2.3/2.0 mm).
 
-<!-- 32 spokes -->
-<!-- straight: 23.82 / 50 = 0.476 -->
-<!-- butted:   22.68 / 50 = 0.454 -->
-<!-- Difference of 1.14 kg for 50 kg load (about -5%) -->
-
-<!-- 36 spokes -->
-<!-- straight: 22.17 / 50 = 0.443 -->
-<!-- butted:   21.07 / 50 = 0.421 -->
-<!-- Difference of 1.1 kg for 50 kg load (about -5%) -->
-
-<!-- 36 spokes -->
-<!-- straight: 22.17 / 10 = 0.443 -->
-<!-- butted:   21.07 / 50 = 0.421 -->
-<!-- Difference of 1.1 kg for 50 kg load (about -5%) -->
-
-<!-- going to 36 spokes reduces force by 1.65 kg (about -7%) -->
-
-<!-- Analogy: Crowd-surfing with a flexible surfboard. The more flexible the surfboard, the more load is transferred to the people right underneath the surfer. -->
-
 ### Average diameter
 
 The "average diameter" that we put into the simulator is actually the diameter of an equivalent straight gauge spoke which has the _same stiffness_ as the desired butted spoke. In order to determine the effective diameter, we first need to calculate the stiffness of the butted spoke. If the spoke has two distinct diameters, the effective diameter is calculated as follows:
