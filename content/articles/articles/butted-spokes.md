@@ -46,12 +46,6 @@ The reason why butted spokes see lower stresses at the ends is because more flex
 
 The extent to which load is shared between neighboring spokes depends on the ratio between the rim stiffness and the spoke stiffness. In engineering terms, this ratio (actually, the 1/4th power of this ratio) is called the "characteristic length." The higher the rim stiffness, the more spokes will share the load. The higher the spoke stiffness, the fewer spokes will share the load.
 
-##### Another metaphor:
-Imagine a crowd surfer at a show. Our crowd surfer is a germophobe, so they always use a surfboard when crowd surfing. The people under the board lend their support, proportional to how much the surfboard dips. The lower it dips, the harder they push. Now, if the surfboard is very flexible, it will dip a lot in the center, and the unfortunate concert-goer directly underneath our crowd surfer will end up doing most of the work. If, on the other hand, the surfboard is very stiff (and the crowd is compliant), a more equitable distribution will result.
-
-<img class="img-fluid" alt="Spoke tensions under radial load" src="{filename}/images/butted-spokes/crowd_surfer.png" />
-<div class="figure-caption">A crowd surfer on a flexible surfboard.</div>
-
 Generally, it requires pretty big changes in rim and spoke stiffness to significantly change the load distribution. As an extreme example, the wheels have the same geometry and number of spokes, but in the left wheel the rim is twice as stiff and the spokes are twice as flexible.
 
 <img class="img-fluid" alt="Spoke tensions under radial load" src="{filename}/images/butted-spokes/char_length_comparison.png" />
