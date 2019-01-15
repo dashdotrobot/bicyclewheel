@@ -183,6 +183,9 @@ var FORCE_PRESETS = {
     {'dof': 'Tangential', 'loc': 0, 'mag': -15},
     {'dof': 'Tangential', 'loc': 180, 'mag': 15}
   ],
+  'Disc braking': [
+    {'dof': 'Tangential', 'loc': 0, 'mag': -15}
+  ],
   'Side force': [
     {'dof': 'Lateral', 'loc': 0, 'mag': 15}
   ]
