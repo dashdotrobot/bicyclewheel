@@ -53,8 +53,9 @@ var RIM_SIZES = [
   '650B (584)',
   '26-inch dec. (559)',
   '26-inch x 1 3/8 (590)',
-  '24-inch dec. (507)',
+  '16-inch (349)',
   '20-inch dec. (406)',
+  '24-inch dec. (507)',
   '36-inch (787)',
   '48-inch high-wheel (610)',
   '52-inch high-wheel (660)'
