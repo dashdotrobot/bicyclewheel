@@ -1,17 +1,18 @@
 # bicyclewheel.info
 
-Pelican website about bicycle wheels.
+Interactive app and blog about bicycle wheels.
 
-### Build with Pelican
+## Building and publishing
 
-If custom.scss has changed, navigate to `simple/bootstrap-custom` and run
-
-```
-sass --no-source-map custom.scss ../static/css/bootstrap-custom.css
-```
+The website is built using the [Pelican](getpelican.com) static website generator. Content is in the `/content` directory. HTML files are generated in the `/docs` directory.
 
 To build the website, navigate to the project root and run
 
 ```
 pelican content
 ```
+
+To publish to the web, just commit to the `master` branch and commit.
+
+## Wheel simulator app
+
