@@ -12,12 +12,12 @@ if (typeof Array.prototype.forEach != 'function') {
 **
 ** --------------------------------------------------------------------------- */
 
-// Use live API for production
-// var API_ENDPOINT = 'https://bike-wheel-api.herokuapp.com/calculate';
-var API_ENDPOINT = 'https://2fihr40x10.execute-api.us-east-2.amazonaws.com/default/bike-wheel-api/'
+// PRODUCTION API
+// var API_ENDPOINT = 'https://2fihr40x10.execute-api.us-east-2.amazonaws.com/default/bike-wheel-api/'
 
-// Use local API for development
-// var API_ENDPOINT = 'http://127.0.0.1:5000/calculate';
+// DEVELOPMENT API
+var API_ENDPOINT = 'https://2fihr40x10.execute-api.us-east-2.amazonaws.com/default/bike-wheel-api-dev/'
+
 
 var RIM_MATLS = {
   'Alloy': {
@@ -480,6 +480,24 @@ function build_json_forces() {
   return json;
 }
 
+function build_json_adjust() {
+
+  var json = [];
+
+  var spk; var mag; var f;
+  $('#tableAdjust > tbody > tr').not(':first').not(':last').each(function() {
+    spk = $(this).find('td:first').text();
+    mag = $(this).find('td:last').text();
+
+    f = {'spoke': parseInt(spk)-1,
+         'adjustment': parseFloat(mag)*0.0254/56.};
+
+    json.push(f);
+  })
+
+  return json;
+}
+
 function update_results() {
 
   // Clear previous errors and warnings
@@ -491,9 +509,13 @@ function update_results() {
 
   var post_data = {
     'wheel': build_json_wheel(),
-    'tension': {'forces': build_json_forces()},
+    'tension': {
+      'forces': build_json_forces(),
+      'spoke_adjustments': build_json_adjust()
+    },
     'deformation': {
       'forces': build_json_forces(),
+      'spoke_adjustments': build_json_adjust(),
       'theta_range': [0., 2*Math.PI, 100]
     },
     'mass': {'empty': 0},
@@ -937,7 +959,7 @@ $(function() {
 
   // Add row to adjustments table
   $('.add-adjust').click(function() {
-    addAdjust(0, 0)
+    addAdjust(1, 0)
   });
 
   // Make the forces table editable
