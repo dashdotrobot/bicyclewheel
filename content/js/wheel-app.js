@@ -294,7 +294,7 @@ function load_rim_preset(name) {
   }
 }
 
-function initEditableTable() {
+function initForcesTable() {
   // Make force table editable
   $('#tableForces').editableTableWidget();
 
@@ -318,7 +318,31 @@ function addForce(dof, loc, mag) {
                                    '<th><a class="remove-row" href="#"><i class="fas fa-trash-alt"></i></a></th></tr>');
 
   // Re-initialize to add callbacks to new row
-  initEditableTable();
+  initForcesTable();
+}
+
+function initAdjustTable() {
+  // Make adjustments table editable
+  $('#tableAdjust').editableTableWidget();
+
+  // Remove row callback
+  $('.remove-row').click(function() {
+    $(this).parent().parent().remove();
+  });
+}
+
+function addAdjust(spk, mag) {
+  $('#tableAdjust tr:last').before('<tr><td>' + spk.toString() + '</td>' +
+                                   '<td>' + mag.toString() + '</td>' +
+                                   '<th><a class="remove-row" href="#"><i class="fas fa-trash-alt"></i></a></th></tr>');
+
+  // Re-initialize to add callbacks to new row
+  initAdjustTable();
+}
+
+function reset_calc_button() {
+  $('#btnPressMe').text('Calculate');
+  $('#btnPressMe').removeClass('disabled');
 }
 
 function reset_calc_button() {
@@ -911,8 +935,14 @@ $(function() {
     addForce('Radial', 0, 0)
   });
 
+  // Add row to adjustments table
+  $('.add-adjust').click(function() {
+    addAdjust(0, 0)
+  });
+
   // Make the forces table editable
-  initEditableTable();
+  initForcesTable();
+  initAdjustTable();
 
 
   /* ---------------------------- RESULT PANEL ---------------------------- */
