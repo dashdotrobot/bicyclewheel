@@ -363,7 +363,7 @@ function update_results() {
       }
 
       if (calc_result['tension']['success']) {
-        plot_tensions_polar();
+        plot_tensions('bar');
       } else {
         display_error('Error calculating tensions', calc_result['tension']['error']);
       }

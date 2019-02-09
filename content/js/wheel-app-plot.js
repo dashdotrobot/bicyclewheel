@@ -41,7 +41,7 @@ function array_add_scalar(x, a) {
   return x;
 }
 
-function plot_tensions_polar() {
+function plot_tensions(plot_type) {
 
   var theta = calc_result['tension']['spokes'].slice();
   var tension = calc_result['tension']['tension'].slice();
@@ -53,20 +53,21 @@ function plot_tensions_polar() {
   }
 
   for (var i=0; i<theta.length; i++) {
-  	theta[i] *= 360./parseFloat($('#spkNum').val());
+    theta[i] *= 360./parseFloat($('#spkNum').val());
     tension[i] /= 9.81;
     tension_0[i] /= 9.81;
   }
 
-  if (true) {  // Separate traces for left and right spokes
-    var theta_nds = theta.filter(function(e, i) {return i%2 === 0});
-    var T_nds = tension.filter(function(e, i) {return i%2 === 0});
-    var T_0_nds = tension_0.filter(function(e, i) {return i%2 === 0});
+  // Separate traces for left and right spokes
+  var theta_nds = theta.filter(function(e, i) {return i%2 === 0});
+  var T_nds = tension.filter(function(e, i) {return i%2 === 0});
+  var T_0_nds = tension_0.filter(function(e, i) {return i%2 === 0});
 
-    var theta_ds = theta.filter(function(e, i) {return i%2 === 1});
-    var T_ds = tension.filter(function(e, i) {return i%2 === 1});
-    var T_0_ds = tension_0.filter(function(e, i) {return i%2 === 1});
+  var theta_ds = theta.filter(function(e, i) {return i%2 === 1});
+  var T_ds = tension.filter(function(e, i) {return i%2 === 1});
+  var T_0_ds = tension_0.filter(function(e, i) {return i%2 === 1});
 
+  if (plot_type == 'polar') {
     var traces = [
       {
         name: 'Non-drive-side spokes',
@@ -103,10 +104,31 @@ function plot_tensions_polar() {
         opacity: 0.5
       }
     ]
-  };
 
-  var layout = $.extend({}, POLAR_LAYOUT);
-  layout['polar']['angularaxis']['dtick'] = 360. / parseInt($('#spkNum').val());
+    var layout = $.extend({}, POLAR_LAYOUT);
+    layout['polar']['angularaxis']['dtick'] = 360. / parseInt($('#spkNum').val());
+  } else if (plot_type == 'bar') {
+    var traces = [
+      {
+        name: 'Non-drive-side spokes',
+        x: theta_nds,
+        y: T_nds,
+        type: 'bar',
+        marker: {'color': '#1f77b4'}
+      },
+      {
+        name: 'Drive-side spoke',
+        x: theta_ds,
+        y: T_ds,
+        type: 'bar',
+        marker: {'color': '#ff7f0e'}
+      }
+    ]
+
+    var layout = {
+
+    }
+  }
 
   var plot_canvas = document.getElementById('tension-plot');
 
@@ -115,6 +137,11 @@ function plot_tensions_polar() {
     modeBarButtonsToRemove: ['sendDataToCloud', 'lasso2d', 'select2d'],
     displaylogo: false
   });
+}
+
+function plot_tensions_bar() {
+  var traces = [
+  ]
 }
 
 function plot_deformation_polar() {
