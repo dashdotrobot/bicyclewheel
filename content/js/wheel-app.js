@@ -362,18 +362,15 @@ function update_results() {
         display_error('Warning', 'Average tension is close to or greater than maximum tension. Results may be innacurate.');
       }
 
-      if (calc_result['tension']['success']) {
-        plot_tensions('bar');
-      } else {
+      if (!calc_result['tension']['success']) {
         display_error('Error calculating tensions', calc_result['tension']['error']);
       }
       
-      if (calc_result['deformation']['success']) {
-        plot_deformation_polar();
-      } else {
+      if (!calc_result['deformation']['success']) {
         display_error('Error calculating tensions', calc_result['deformation']['error']);
       }
 
+      update_plots();
       show_summary();
       reset_calc_button();
     },
@@ -383,6 +380,22 @@ function update_results() {
       console.log(thrownError);
     }
   });
+}
+
+function update_plots() {
+
+  // Tension plots
+
+  var tension_plot_type = $('#tension-plot-type').find(':checked').parent().text().trim().toLowerCase()
+
+  if (tension_plot_type == 'column') {
+    plot_tensions('column');
+  } else {
+    plot_tensions('polar');
+  }
+
+  // Deformation plots
+  plot_deformation_polar();
 }
 
 function show_summary() {
@@ -631,15 +644,19 @@ $(function() {
 
   // Re-plot deformation when scale factor is changed
   $('#scaleFactor').on('change', function() {
-    plot_deformation();
+    update_plots();
   });
 
   // Toggle deformation components
   $('.deform-button').click(function() {
     $(this).toggleClass('active');
-    plot_deformation();
+    update_plots();
   });
 
+  //
+  $("#tension-plot-type :input").change(function() {
+    update_plots();
+  });
 
   /* -------------------------- CALCULATE BUTTON -------------------------- */
   // Work the magic!
