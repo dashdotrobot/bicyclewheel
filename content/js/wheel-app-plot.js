@@ -37,6 +37,7 @@ var BAR_LAYOUT = {
   xaxis: {
     tickmode: 'linear',
     tick0: 0,
+    dtick: 1,
     ticks: 'outside',
     showticklabels: false,
   }
@@ -65,7 +66,17 @@ function array_shift(x, n) {
   }
 }
 
+function array_range(start, stop, stride) {
+  var x = [];
+  for (i=start; i < stop; i+=stride) {
+    x.push(i);
+  }
+  return x;
+}
+
 function plot_tensions(plot_type) {
+
+  var spk_num = parseInt($('#spkNum').val())
 
   var theta = array_mult_scalar(calc_result['tension']['spokes'].slice(),
                                 360./parseFloat($('#spkNum').val()));
@@ -76,23 +87,29 @@ function plot_tensions(plot_type) {
   var tension_d = array_mult_scalar(calc_result['tension']['tension_change'].slice(),
                                     1./9.81);
 
+  array_shift(theta, spk_num/2)
+  array_shift(tension, spk_num/2)
+  array_shift(tension_0, spk_num/2)
+  array_shift(tension_d, spk_num/2)
+
   // Check if any spoke tensions are negative
   if (tension.some(function(e) {return e < 0})) {
     display_error('Warning', 'At least one spoke has negative tension. Tension and deformation results may not be accurate.');
   }
 
   // Separate traces for left and right spokes
-  var theta_nds = theta.filter(function(e, i) {return i%2 === 0});
-  var T_nds = tension.filter(function(e, i) {return i%2 === 0});
-  var T_0_nds = tension_0.filter(function(e, i) {return i%2 === 0});
+  nds_ind = (spk_num/2) % 2
+  var theta_nds = theta.filter(function(e, i) {return i%2 === nds_ind});
+  var T_nds = tension.filter(function(e, i) {return i%2 === nds_ind});
+  var T_0_nds = tension_0.filter(function(e, i) {return i%2 === nds_ind});
 
-  var theta_ds = theta.filter(function(e, i) {return i%2 === 1});
-  var T_ds = tension.filter(function(e, i) {return i%2 === 1});
-  var T_0_ds = tension_0.filter(function(e, i) {return i%2 === 1});
-
-  var spk_num = parseInt($('#spkNum').val())
+  ds_ind = (spk_num/2 + 1) % 2
+  var theta_ds = theta.filter(function(e, i) {return i%2 === ds_ind});
+  var T_ds = tension.filter(function(e, i) {return i%2 === ds_ind});
+  var T_0_ds = tension_0.filter(function(e, i) {return i%2 === ds_ind});
 
   if (plot_type == 'polar') {
+
     var traces = [
       {
         name: 'Non-drive-side spokes',
@@ -132,22 +149,20 @@ function plot_tensions(plot_type) {
 
     var layout = $.extend({}, POLAR_LAYOUT);
     layout['polar']['angularaxis']['dtick'] = 360. / spk_num;
-  } else if (plot_type == 'column') {
 
-    array_shift(theta_nds, spk_num/4)
-    array_shift(theta_ds, spk_num/4)
+  } else if (plot_type == 'column') {
 
     var traces = [
       {
         name: 'Non-drive-side spokes',
-        x: theta_nds,
+        x: array_range(nds_ind, spk_num, 2),
         y: T_nds,
         type: 'bar',
         marker: {'color': '#1f77b4'}
       },
       {
         name: 'Drive-side spoke',
-        x: theta_ds,
+        x: array_range(ds_ind, spk_num, 2),
         y: T_ds,
         type: 'bar',
         marker: {'color': '#ff7f0e'}
@@ -155,7 +170,6 @@ function plot_tensions(plot_type) {
     ]
 
     var layout = $.extend({}, BAR_LAYOUT);
-    layout['xaxis']['dtick'] = 360. / parseInt($('#spkNum').val());
   }
 
   var plot_canvas = document.getElementById('tension-plot');
