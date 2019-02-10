@@ -74,7 +74,7 @@ function array_range(start, stop, stride) {
   return x;
 }
 
-function plot_tensions(plot_type) {
+function plot_tensions(plot_type, tension_diff) {
 
   var spk_num = parseInt($('#spkNum').val())
 
@@ -102,11 +102,13 @@ function plot_tensions(plot_type) {
   var theta_nds = theta.filter(function(e, i) {return i%2 === nds_ind});
   var T_nds = tension.filter(function(e, i) {return i%2 === nds_ind});
   var T_0_nds = tension_0.filter(function(e, i) {return i%2 === nds_ind});
+  var T_d_nds = tension_d.filter(function(e, i) {return i%2 === nds_ind});
 
   ds_ind = (spk_num/2 + 1) % 2
   var theta_ds = theta.filter(function(e, i) {return i%2 === ds_ind});
   var T_ds = tension.filter(function(e, i) {return i%2 === ds_ind});
   var T_0_ds = tension_0.filter(function(e, i) {return i%2 === ds_ind});
+  var T_d_ds = tension_d.filter(function(e, i) {return i%2 === ds_ind});
 
   if (plot_type == 'polar') {
 
@@ -152,18 +154,26 @@ function plot_tensions(plot_type) {
 
   } else if (plot_type == 'column') {
 
+    if (tension_diff == 'difference') {
+      y_nds = T_d_nds;
+      y_ds = T_d_ds;
+    } else {
+      y_nds = T_nds;
+      y_ds = T_ds;
+    }
+
     var traces = [
       {
         name: 'Non-drive-side spokes',
         x: array_range(nds_ind, spk_num, 2),
-        y: T_nds,
+        y: y_nds,
         type: 'bar',
         marker: {'color': '#1f77b4'}
       },
       {
         name: 'Drive-side spoke',
         x: array_range(ds_ind, spk_num, 2),
-        y: T_ds,
+        y: y_ds,
         type: 'bar',
         marker: {'color': '#ff7f0e'}
       }

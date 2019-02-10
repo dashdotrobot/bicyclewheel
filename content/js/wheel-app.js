@@ -385,14 +385,10 @@ function update_results() {
 function update_plots() {
 
   // Tension plots
-
   var tension_plot_type = $('#tension-plot-type').find(':checked').parent().text().trim().toLowerCase()
+  var tension_diff = $('#tension-diff').find(':checked').parent().text().trim().toLowerCase()
 
-  if (tension_plot_type == 'column') {
-    plot_tensions('column');
-  } else {
-    plot_tensions('polar');
-  }
+  plot_tensions(tension_plot_type, tension_diff);
 
   // Deformation plots
   plot_deformation_polar();
@@ -653,8 +649,17 @@ $(function() {
     update_plots();
   });
 
-  //
+  // Tension plot options
   $("#tension-plot-type :input").change(function() {
+    if ($('#tension-plot-type').find(':checked').parent().text().trim().toLowerCase() == 'column') {
+      $('#tension-diff-container').collapse('show')
+    } else {
+      $('#tension-diff-container').collapse('hide')
+    }
+    update_plots();
+  });
+
+  $("#tension-diff :input").change(function() {
     update_plots();
   });
 
