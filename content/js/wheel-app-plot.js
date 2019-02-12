@@ -325,7 +325,7 @@ function plot_deformation_polar(plot_type) {
     }
 
     var layout = $.extend({}, LINE_LAYOUT);
-    layout['height'] = 0.9 * $('#deform-plot').width();
+    layout['height'] = Math.min(0.9 * $('#deform-plot').width(), 450);
   }
 
   var plot_canvas = document.getElementById('deform-plot');
