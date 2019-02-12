@@ -140,6 +140,8 @@ function plot_tensions(plot_type, tension_diff) {
   var T_0_ds = tension_0.filter(function(e, i) {return i%2 === ds_ind});
   var T_d_ds = tension_d.filter(function(e, i) {return i%2 === ds_ind});
 
+  var layout;
+
   if (plot_type == 'polar') {
 
     var traces = [
@@ -179,7 +181,7 @@ function plot_tensions(plot_type, tension_diff) {
       }
     ]
 
-    var layout = $.extend({}, POLAR_LAYOUT);
+    layout = $.extend({}, POLAR_LAYOUT);
     layout['polar']['angularaxis']['dtick'] = 360. / spk_num;
     layout['height'] = 450;
 
@@ -210,7 +212,7 @@ function plot_tensions(plot_type, tension_diff) {
       }
     ]
 
-    var layout = $.extend({}, BAR_LAYOUT);
+    layout = $.extend({}, BAR_LAYOUT);
     layout['height'] = Math.min(0.9 * $('#tension-plot').width(), 450);
   }
 
@@ -270,6 +272,8 @@ function plot_deformation_polar(plot_type) {
     }
   });
 
+  var layout;
+
   if (plot_type == 'polar') {
 
     // Invert radial deformation (negative = inwards)
@@ -308,7 +312,7 @@ function plot_deformation_polar(plot_type) {
 
     traces = trace_unitcircle.concat(traces)
 
-    var layout = $.extend({}, POLAR_LAYOUT);
+    layout = $.extend({}, POLAR_LAYOUT);
     layout['polar']['angularaxis']['dtick'] = 360. / parseInt($('#spkNum').val());
     layout['height'] = 450;
 
@@ -326,7 +330,7 @@ function plot_deformation_polar(plot_type) {
       tr['showlegend'] = true;
     }
 
-    var layout = $.extend({}, LINE_LAYOUT);
+    layout = $.extend({}, LINE_LAYOUT);
     layout['height'] = Math.min(0.9 * $('#deform-plot').width(), 450);
   }
 
