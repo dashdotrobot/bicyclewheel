@@ -308,6 +308,7 @@ function plot_deformation_polar(plot_type) {
 
     var layout = $.extend({}, POLAR_LAYOUT);
     layout['polar']['angularaxis']['dtick'] = 360. / parseInt($('#spkNum').val());
+    layout['height'] = 450;
 
   } else if (plot_type == 'line') {
 
@@ -324,11 +325,11 @@ function plot_deformation_polar(plot_type) {
     }
 
     var layout = $.extend({}, LINE_LAYOUT);
-    // layout['xaxis']['dtick'] = 360. / parseInt($('#spkNum').val());
-
+    layout['height'] = 0.9 * $('#deform-plot').width();
   }
 
   var plot_canvas = document.getElementById('deform-plot');
+
   Plotly.newPlot(plot_canvas, traces, layout, {
     responsive: true,
     modeBarButtonsToRemove: ['sendDataToCloud', 'lasso2d', 'select2d'],
