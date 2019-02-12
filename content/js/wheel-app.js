@@ -13,10 +13,10 @@ if (typeof Array.prototype.forEach != 'function') {
 ** --------------------------------------------------------------------------- */
 
 // PRODUCTION API
-// var API_ENDPOINT = 'https://2fihr40x10.execute-api.us-east-2.amazonaws.com/default/bike-wheel-api/'
+var API_ENDPOINT = 'https://2fihr40x10.execute-api.us-east-2.amazonaws.com/default/bike-wheel-api/'
 
 // DEVELOPMENT API
-var API_ENDPOINT = 'https://2fihr40x10.execute-api.us-east-2.amazonaws.com/default/bike-wheel-api-dev/'
+// var API_ENDPOINT = 'https://2fihr40x10.execute-api.us-east-2.amazonaws.com/default/bike-wheel-api-dev/'
 
 /* --------------------------- SESSION VARIABLES -------------------------- **
 **
