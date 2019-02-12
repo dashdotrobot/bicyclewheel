@@ -123,32 +123,6 @@ var RIM_PRESETS = {
   },
 };
 
-var POLAR_LAYOUT = {
-  margin: {
-    l: 25, r: 25, t: 25, b: 25
-  },
-  legend: {
-    orientation: 'h',
-    xanchor: 'center',
-    x: 0.5
-  },
-  polar: {
-    angularaxis: {
-      rotation: -90,
-      showgrid: true,
-      showticklabels: false,
-      tickmode: 'linear',
-      tick0: 0,
-      ticks: ''
-    },
-    radialaxis: {
-      angle: -90,
-      showgrid: false,
-      showticklabels: false
-    }
-  }
-};
-
 var FORCE_TYPES = ['Radial', 'Lateral', 'Tangential'];
 
 var FORCE_PRESETS = {
