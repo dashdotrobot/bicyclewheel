@@ -669,7 +669,6 @@ $(function() {
     update_results();
   });
 
-
   // Calculate initial results
   update_results();
 
