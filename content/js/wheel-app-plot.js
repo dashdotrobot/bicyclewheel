@@ -45,7 +45,7 @@ var BAR_LAYOUT = {
 
 var LINE_LAYOUT = {
   margin: {
-    l: 75, r: 75, t: 30, b: 30
+    l: 75, r: 30, t: 30, b: 30
   },
   legend: {
     orientation: 'h',
@@ -54,7 +54,11 @@ var LINE_LAYOUT = {
   },
   xaxis: {
     ticks: 'outside',
-    showticklabels: false,
+    tickmode: 'linear',
+    tick0: -180,
+    dtick: 30,
+    range: [-180, 180]
+    // showticklabels: false,
   },
   yaxis: {title: 'Deformation [mm]'},
 }
@@ -93,10 +97,11 @@ function array_range(start, stop, stride) {
 function remap_theta(theta) {
   var y = theta.slice();
   for (var i=0; i < theta.length; i++) {
-    if (theta[i] >= Math.PI) {
-      y[i] = theta[i] - 2*Math.PI;
+    if (theta[i] >= 180.) {
+      y[i] = theta[i] - 360.;
     }
   }
+  return y;
 }
 
 function plot_tensions(plot_type, tension_diff) {
@@ -237,19 +242,19 @@ function plot_deformation_polar(plot_type) {
       name: 'Radial',
       def: def_rad,
       def_max: Math.max.apply(null, def_rad.map(Math.abs)),
-      line: {color: '#1f77b4', shape: 'linear'},
+      line: {color: '#1f77b4', shape: 'spline'},
     },
     'Lateral': {
       name: 'Lateral',
       def: def_lat,
       def_max: Math.max.apply(null, def_lat.map(Math.abs)),
-      line: {color: '#ff7f0e', shape: 'linear'},
+      line: {color: '#ff7f0e', shape: 'spline'},
     },
     'Twist': {
       name: 'Twist (R*phi)',
       def: def_tor,
       def_max: Math.max.apply(null, def_tor.map(Math.abs)),
-      line: {color: '#2ca02c', shape: 'linear'},
+      line: {color: '#2ca02c', shape: 'spline'},
     }
   };
 
