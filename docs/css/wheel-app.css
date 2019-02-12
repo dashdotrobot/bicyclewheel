@@ -30,3 +30,7 @@ div.alert {
 p {
   font-size: 14px;
 }
+
+.btn-secondary:hover {
+  background-color: #6c757d;
+}
