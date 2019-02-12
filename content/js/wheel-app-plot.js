@@ -27,7 +27,7 @@ var POLAR_LAYOUT = {
 
 var BAR_LAYOUT = {
   margin: {
-    l: 25, r: 25, t: 25, b: 25
+    l: 30, r: 30, t: 25, b: 25
   },
   legend: {
     orientation: 'h',
@@ -181,6 +181,7 @@ function plot_tensions(plot_type, tension_diff) {
 
     var layout = $.extend({}, POLAR_LAYOUT);
     layout['polar']['angularaxis']['dtick'] = 360. / spk_num;
+    layout['height'] = 450;
 
   } else if (plot_type == 'column') {
 
@@ -210,6 +211,7 @@ function plot_tensions(plot_type, tension_diff) {
     ]
 
     var layout = $.extend({}, BAR_LAYOUT);
+    layout['height'] = Math.min(0.9 * $('#tension-plot').width(), 450);
   }
 
   var plot_canvas = document.getElementById('tension-plot');
