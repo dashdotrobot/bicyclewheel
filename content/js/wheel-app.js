@@ -391,7 +391,9 @@ function update_plots() {
   plot_tensions(tension_plot_type, tension_diff);
 
   // Deformation plots
-  plot_deformation_polar();
+  var deform_plot_type = $('#deform-plot-type').find(':checked').parent().text().trim().toLowerCase()
+
+  plot_deformation_polar(deform_plot_type);
 }
 
 function show_summary() {
@@ -660,6 +662,11 @@ $(function() {
   });
 
   $("#tension-diff :input").change(function() {
+    update_plots();
+  });
+
+  // Deformation plot options
+  $("#deform-plot-type :input").change(function() {
     update_plots();
   });
 

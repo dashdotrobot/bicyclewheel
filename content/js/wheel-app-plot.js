@@ -43,6 +43,22 @@ var BAR_LAYOUT = {
   }
 }
 
+var LINE_LAYOUT = {
+  margin: {
+    l: 75, r: 75, t: 30, b: 30
+  },
+  legend: {
+    orientation: 'h',
+    xanchor: 'center',
+    x: 0.5
+  },
+  xaxis: {
+    ticks: 'outside',
+    showticklabels: false,
+  },
+  yaxis: {title: 'Deformation [mm]'},
+}
+
 function array_mult_scalar(x, a) {
   // Multiple each element in an array 'x' a scalar 'a'
   for (var i=0; i < x.length; i++) {
@@ -191,15 +207,15 @@ function plot_tensions(plot_type, tension_diff) {
   });
 }
 
-function plot_deformation_polar() {
+function plot_deformation_polar(plot_type) {
 
   var rim_radius = calc_result['wheel']['rim']['radius'];
 
   var theta = array_mult_scalar(calc_result['deformation']['theta'].slice(), 180./Math.PI);
   var ones = array_add_scalar(array_mult_scalar(theta.slice(), 0.), 1);  // THIS IS PROBABLY NOT EFFICIENT
-  var def_rad = array_mult_scalar(calc_result['deformation']['def_rad'].slice(), -1);
-  var def_lat = calc_result['deformation']['def_lat'].slice();
-  var def_tor = array_mult_scalar(calc_result['deformation']['def_tor'].slice(), rim_radius);
+  var def_rad = array_mult_scalar(calc_result['deformation']['def_rad'].slice(), 1000.);
+  var def_lat = array_mult_scalar(calc_result['deformation']['def_lat'].slice(), 1000.);
+  var def_tor = array_mult_scalar(calc_result['deformation']['def_tor'].slice(), 1000.*rim_radius);
 
   var traces_deform = {
     'Radial': {
@@ -223,51 +239,77 @@ function plot_deformation_polar() {
   };
 
   // Add selected traces to a new list
-  var trace_select = [];
+  var traces = [];
   var def_max = [];
   $('.deform-button').each(function() {
     if ($(this).hasClass('active')) {
-      trace_select.push(traces_deform[$(this).text().trim()]);
+      traces.push(traces_deform[$(this).text().trim()]);
       def_max.push(traces_deform[$(this).text().trim()]['def_max']);
     }
   });
 
-  // Calculate scaling factor
-  var scale_factor = parseFloat($('#scaleFactor').val()) / 100. / Math.max.apply(null, def_max);
+  if (plot_type == 'polar') {
 
-  // Apply scaling factor to each trace
-  for (var t=0; t < trace_select.length; t++) {
-    var tr = trace_select[t];
-    tr['r'] = array_add_scalar(array_mult_scalar(tr['def'], scale_factor), 1.);
-    tr['theta'] = theta.slice();
+    // Invert radial deformation (negative = inwards)
+    traces_deform['Radial']['def'] = array_mult_scalar(traces_deform['Radial']['def'], -1);
 
-    // Connect trace to its endpoint
-    tr['theta'].push(tr['theta'][0]);
-    tr['r'].push(tr['r'][0]);
+    // Calculate scaling factor
+    var scale_factor = parseFloat($('#scaleFactor').val()) / 100. / Math.max.apply(null, def_max);
 
-    // Line options
-    tr['type'] = 'scatterpolar';
-    tr['mode'] = 'lines';
-    tr['showlegend'] = true;
+    // Apply scaling factor to each trace
+    for (var t=0; t < traces.length; t++) {
+      var tr = traces[t];
+      tr['r'] = array_add_scalar(array_mult_scalar(tr['def'], scale_factor), 1.);
+      tr['theta'] = theta.slice();
+
+      // Connect trace to its endpoint
+      tr['theta'].push(tr['theta'][0]);
+      tr['r'].push(tr['r'][0]);
+
+      // Line options
+      tr['type'] = 'scatterpolar';
+      tr['mode'] = 'lines';
+      tr['showlegend'] = true;
+    }
+
+    // Add a gray reference circle
+    var trace_unitcircle = [
+      {
+        r: ones.concat(ones[0]),
+        theta: theta.concat(theta[0]),
+        type: 'scatterpolar',
+        mode: 'lines',
+        showlegend: false,
+        line: {color: '#333333', shape: 'spline'},
+      }
+    ];
+
+    traces = trace_unitcircle.concat(traces)
+
+    var layout = $.extend({}, POLAR_LAYOUT);
+    layout['polar']['angularaxis']['dtick'] = 360. / parseInt($('#spkNum').val());
+
+  } else if (plot_type == 'line') {
+
+    // Apply options to each trace
+    for (var t=0; t < traces.length; t++) {
+      var tr = traces[t];
+
+      tr['x'] = theta.slice();
+      tr['y'] = tr['def'];
+
+      // Line options
+      tr['type'] = 'scatter';
+      tr['showlegend'] = true;
+    }
+
+    var layout = $.extend({}, LINE_LAYOUT);
+    // layout['xaxis']['dtick'] = 360. / parseInt($('#spkNum').val());
+
   }
 
-  // Add a gray reference circle
-  var trace_unitcircle = [
-    {
-      r: ones.concat(ones[0]),
-      theta: theta.concat(theta[0]),
-      type: 'scatterpolar',
-      mode: 'lines',
-      showlegend: false,
-      line: {color: '#333333', shape: 'spline'},
-    }
-  ];
-
-  var layout = $.extend({}, POLAR_LAYOUT);
-  layout['polar']['angularaxis']['dtick'] = 360. / parseInt($('#spkNum').val());
-
   var plot_canvas = document.getElementById('deform-plot');
-  Plotly.newPlot(plot_canvas, trace_unitcircle.concat(trace_select), layout, {
+  Plotly.newPlot(plot_canvas, traces, layout, {
     responsive: true,
     modeBarButtonsToRemove: ['sendDataToCloud', 'lasso2d', 'select2d'],
     displaylogo: false
