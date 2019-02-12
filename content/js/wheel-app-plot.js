@@ -84,10 +84,19 @@ function array_shift(x, n) {
 
 function array_range(start, stop, stride) {
   var x = [];
-  for (i=start; i < stop; i+=stride) {
+  for (var i=start; i < stop; i+=stride) {
     x.push(i);
   }
   return x;
+}
+
+function remap_theta(theta) {
+  var y = theta.slice();
+  for (var i=0; i < theta.length; i++) {
+    if (theta[i] >= Math.PI) {
+      y[i] = theta[i] - 2*Math.PI;
+    }
+  }
 }
 
 function plot_tensions(plot_type, tension_diff) {
@@ -209,6 +218,7 @@ function plot_tensions(plot_type, tension_diff) {
 
 function plot_deformation_polar(plot_type) {
 
+  var spk_num = parseInt($('#spkNum').val())
   var rim_radius = calc_result['wheel']['rim']['radius'];
 
   var theta = array_mult_scalar(calc_result['deformation']['theta'].slice(), 180./Math.PI);
@@ -217,24 +227,29 @@ function plot_deformation_polar(plot_type) {
   var def_lat = array_mult_scalar(calc_result['deformation']['def_lat'].slice(), 1000.);
   var def_tor = array_mult_scalar(calc_result['deformation']['def_tor'].slice(), 1000.*rim_radius);
 
+  array_shift(theta, theta.length/2)
+  array_shift(def_rad, def_rad.length/2)
+  array_shift(def_lat, def_lat.length/2)
+  array_shift(def_tor, def_tor.length/2)
+
   var traces_deform = {
     'Radial': {
       name: 'Radial',
       def: def_rad,
       def_max: Math.max.apply(null, def_rad.map(Math.abs)),
-      line: {color: '#1f77b4', shape: 'spline'},
+      line: {color: '#1f77b4', shape: 'linear'},
     },
     'Lateral': {
       name: 'Lateral',
       def: def_lat,
       def_max: Math.max.apply(null, def_lat.map(Math.abs)),
-      line: {color: '#ff7f0e', shape: 'spline'},
+      line: {color: '#ff7f0e', shape: 'linear'},
     },
     'Twist': {
       name: 'Twist (R*phi)',
       def: def_tor,
       def_max: Math.max.apply(null, def_tor.map(Math.abs)),
-      line: {color: '#2ca02c', shape: 'spline'},
+      line: {color: '#2ca02c', shape: 'linear'},
     }
   };
 
@@ -295,7 +310,7 @@ function plot_deformation_polar(plot_type) {
     for (var t=0; t < traces.length; t++) {
       var tr = traces[t];
 
-      tr['x'] = theta.slice();
+      tr['x'] = remap_theta(theta);
       tr['y'] = tr['def'];
 
       // Line options
