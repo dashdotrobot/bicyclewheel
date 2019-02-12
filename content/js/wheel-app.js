@@ -652,9 +652,9 @@ $(function() {
   // Tension plot options
   $("#tension-plot-type :input").change(function() {
     if ($('#tension-plot-type').find(':checked').parent().text().trim().toLowerCase() == 'column') {
-      $('#tension-diff-container').collapse('show')
+      $('#tension-diff').removeClass('d-none')
     } else {
-      $('#tension-diff-container').collapse('hide')
+      $('#tension-diff').addClass('d-none')
     }
     update_plots();
   });
