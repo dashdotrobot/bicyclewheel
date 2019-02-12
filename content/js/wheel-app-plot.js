@@ -57,8 +57,8 @@ var LINE_LAYOUT = {
     tickmode: 'linear',
     tick0: -180,
     dtick: 30,
-    range: [-180, 180]
-    // showticklabels: false,
+    range: [-180, 180],
+    showticklabels: false,
   },
   yaxis: {title: 'Deformation [mm]'},
 }
