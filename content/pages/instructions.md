@@ -5,7 +5,7 @@ Show_in_menu: true
 
 ## How to use the Bicycle Wheel App
 
-The Bicycle Wheel App is a tool for designing and simulating a virtual bicycle wheel. Calculate stiffness, mass, rotating inertia, and see how spoke tensions change when the wheel is subjected to forces.
+The Bicycle Wheel App is a tool for designing and simulating a virtual bicycle wheel. Calculate stiffness, mass, and rotating inertia, and see how spoke tensions change when you apply forces to the wheel or adjust spoke nipples.
 
 ### Coordinate system
 
@@ -69,19 +69,31 @@ Add your on forces manually by clicking on the plus sign at the bottom of the fo
 
 For the purposes of adding forces and calculating deformation, the hub acts as a rigid reference point. Whatever forces are applied to the rim, the solver will automatically constrain the hub using whatever combination of forces and torques are necessary to keep the wheel in [mechanical equilibrium](https://en.wikipedia.org/wiki/Mechanical_equilibrium). You cannot directly apply forces to the hub. This means, for example, that to simulate a drive torque, you must apply a positive tangential force at 0 degrees equal to the torque divided by the rim radius.
 
-> Note: To apply a braking force with a _disc brake_, apply a single, negative tangential force at 0 degrees (the ground). The torque from the disc will automatically be applied to the hub. To apply a braking force with a _rim brake_, apply a negative tangential force at 0 degrees, and an equal but positive tangential force at 180 degrees (the brake pads).
+> Note: To apply a braking force with a _disc brake_, apply a single, negative tangential force at 0 degrees (the ground). The torque from the disc will automatically be applied to the hub. To apply a braking force with a _rim brake_, apply a negative tangential force at 0 degrees, and an equal but positive tangential force at 180 degrees (the brake pads). Both of these scenarios are included as force presets
+
+### Adjusting spokes
+
+You can also use the app to see what happens when you tighten or loosen spokes. Specify spoke adjustments in the bottom table on the Forces tab. To add an adjustment, click or tap the plus sign and then tap the "Spoke Number" and "Number of turns" fields to edit. Spoke numbers run from 1 (bottom-most spoke) up to the specified number of spokes, increasing counter-clockwise. The "Number of turns" is converted to a change in unstressed spoke length using a thread pitch of 56 TPI (thread-per-inch). A positive number indicates an adjustment that tightens the spoke.
 
 ### Interpreting results
 
 #### Tensions plot
 
-The tensions shows the spoke tensions in the deformed wheel in kgf units. Tensions less than zero cannot be shown. The initial tensions in the undeformed wheel are shown as blue and orange circles. If you accidentally rotate or zoom the plot by clicking on or touching it, double-tap on the plot to return.
+The spoke tensions can be viewed as a __Polar__ plot or a __Column__ plot. Spoke tensions are given in kgf (kilogram-force) units. Tensions less than zero cannot be shown on the polar plot. The initial tensions in the undeformed wheel are shown as blue and orange circles. In the column plot, you can view either the __Absolute__ tension, or the __Difference__ in tension between the stressed and unstressed wheel. Negative values in the Difference plot indicate a _loss_ of tension. The bottom-most spoke is plotted in the middle of the column plot.
+
+> The solver does not properly account for the loss of stiffness that occurs when a spoke completely loses tension. If the solution contains any negative tensions, the app will raise a warning.
+
+> Hover your mouse over (or tap) any datapoint to see its value
 
 #### Deformation plot
 
-The deformation plot shows the distortion of the rim in each direction. Click on or touch the Radial, Lateral and Twist toggle buttons to add or remove traces from the plot. Radial deformation refers to distortion of the rim in its own plane. Lateral deformation refers to movement of the rim out of its plane. Twist refers to rotation of the rim cross-section, relative to its initial position. Since twist has units of angle (radians), twist is plotted as `radius*twist` so that it has the same units as radial and lateral deformation.
+The deformation plot shows the distortion of the rim in each direction. Click or tap the Radial, Lateral and Twist toggle buttons to add or remove traces from the plot. Radial deformation refers to distortion of the rim in its own plane. Lateral deformation refers to movement of the rim out of its plane. Twist refers to rotation of the rim cross-section, relative to its initial position. Since twist has units of angle (radians), twist is plotted as `radius*twist` so that it has the same units as radial and lateral deformation.
 
-The deformation is plotted as deviations from a unit circle. The deformations are scaled so that the largest displacement is equal to the scale factor. For lateral deformation, positive deviation means movement towards the non-drive side of the wheel. For twist deformation, positive deviation means rotation of the cross-section _in the same sense_ as a positive lateral deviation (think of the rim cross-section as a pendulum rotating about the hub: as the pendulum swings to the one side, the bob also rotates in the same direction).
+In the __Polar__ plot, the deformation is plotted as deviations from a unit circle. The deformations are scaled so that the largest displacement is equal to the scale factor. For lateral deformation, positive deviation means movement towards the non-drive side of the wheel. For twist deformation, positive deviation means rotation of the cross-section _in the same sense_ as a positive lateral deviation (think of the rim cross-section as a pendulum rotating about the hub: as the pendulum swings to the one side, the bob also rotates in the same direction).
+
+In the __Line__ plot, the deformation is plotted in units of millimeters. The x-axis corresponds to length along the rim, as if the rim had been cut at the top and unrolled into a straight line. Use the line plot if you need to read quantitative results.
+
+> If you accidentally rotate or zoom any plot by clicking on or touching it, double-tap on the plot to return to the default view.
 
 #### Summary results
 
@@ -91,7 +103,7 @@ __Mass__: Mass of the rim and spokes ONLY (the hub, spoke nipples, tire, tube, e
 
 __Eff. rotating mass__: Since the wheel rotates as well as translates, it requires more energy to accelerate, per gram, than the frame or rider. The effective rotating mass is the equivalent mass which would require the same amount of energy to bring to the same velocity as the rotating wheel. This is the mass that you "feel" when accelerating the bike.
 
-> The effective rotating mass cannot theoretically exceed twice, and cannot be less than 1.333 times, the mass of the wheel.
+> The effective rotating mass cannot theoretically exceed 2x the mass of the wheel, and cannot be less than 1.333x the mass of the wheel.
 
 __Radial stiffness__: The radial force, applied at 0 degrees, which would produce a unit displacement in the radial direction.
 
@@ -113,7 +125,7 @@ __Lateral/Radial force to buckle spokes__: The maximum force that can be applied
 
 The full modeling assumptions and derivations underlying the app are described in detail in my Ph.D. thesis: [_Reinventing the Wheel: Stress Analysis, Stability, and Optimization of the Bicycle Wheel_](#references). The app uses the Mode Matrix Model described in Section 2.4.1 of the thesis.
 
-The mechanical properties and deformations are calculated using my [Bike Wheel API](https://github.com/dashdotrobot/bike-wheel-api). The API accepts options in JSON format and returns a JSON object with the results. The API is running at `bike-wheel-api.herokuapp.com`. The server accepts POST requests at `bike-wheel-api.herokuapp.com/calculate`. The API is built on [Python/Flask](http://flask.pocoo.org/). The Bike Wheel API is just a wrapper for my Python library, [bike-wheel-calc](https://github.com/dashdotrobot/bike-wheel-calc).
+The mechanical properties and deformations are calculated using my [Bike Wheel API](https://github.com/dashdotrobot/bike-wheel-api). The API accepts options in JSON format and returns a JSON object with the results. The API is built in Python and runs on Amazon AWS Lambda. The Bike Wheel API is just a wrapper for my Python library, [bike-wheel-calc](https://github.com/dashdotrobot/bike-wheel-calc).
 
 ## Got feedback? Found a bug?
 
