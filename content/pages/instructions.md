@@ -103,7 +103,7 @@ __Mass__: Mass of the rim and spokes ONLY (the hub, spoke nipples, tire, tube, e
 
 __Eff. rotating mass__: Since the wheel rotates as well as translates, it requires more energy to accelerate, per gram, than the frame or rider. The effective rotating mass is the equivalent mass which would require the same amount of energy to bring to the same velocity as the rotating wheel. This is the mass that you "feel" when accelerating the bike.
 
-> The effective rotating mass cannot theoretically exceed twice, and cannot be less than 1.333 times, the mass of the wheel.
+> The effective rotating mass cannot theoretically exceed 2x the mass of the wheel, and cannot be less than 1.333x the mass of the wheel.
 
 __Radial stiffness__: The radial force, applied at 0 degrees, which would produce a unit displacement in the radial direction.
 
@@ -125,7 +125,7 @@ __Lateral/Radial force to buckle spokes__: The maximum force that can be applied
 
 The full modeling assumptions and derivations underlying the app are described in detail in my Ph.D. thesis: [_Reinventing the Wheel: Stress Analysis, Stability, and Optimization of the Bicycle Wheel_](#references). The app uses the Mode Matrix Model described in Section 2.4.1 of the thesis.
 
-The mechanical properties and deformations are calculated using my [Bike Wheel API](https://github.com/dashdotrobot/bike-wheel-api). The API accepts options in JSON format and returns a JSON object with the results. The API is running at `bike-wheel-api.herokuapp.com`. The server accepts POST requests at `bike-wheel-api.herokuapp.com/calculate`. The API is built on [Python/Flask](http://flask.pocoo.org/). The Bike Wheel API is just a wrapper for my Python library, [bike-wheel-calc](https://github.com/dashdotrobot/bike-wheel-calc).
+The mechanical properties and deformations are calculated using my [Bike Wheel API](https://github.com/dashdotrobot/bike-wheel-api). The API accepts options in JSON format and returns a JSON object with the results. The API is built in Python and runs on Amazon AWS Lambda. The Bike Wheel API is just a wrapper for my Python library, [bike-wheel-calc](https://github.com/dashdotrobot/bike-wheel-calc).
 
 ## Got feedback? Found a bug?
 
