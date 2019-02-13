@@ -5,7 +5,7 @@ Show_in_menu: true
 
 ## How to use the Bicycle Wheel App
 
-The Bicycle Wheel App is a tool for designing and simulating a virtual bicycle wheel. Calculate stiffness, mass, rotating inertia, and see how spoke tensions change when the wheel is subjected to forces.
+The Bicycle Wheel App is a tool for designing and simulating a virtual bicycle wheel. Calculate stiffness, mass, and rotating inertia, and see how spoke tensions change when you apply forces to the wheel or adjust spoke nipples.
 
 ### Coordinate system
 
@@ -69,7 +69,11 @@ Add your on forces manually by clicking on the plus sign at the bottom of the fo
 
 For the purposes of adding forces and calculating deformation, the hub acts as a rigid reference point. Whatever forces are applied to the rim, the solver will automatically constrain the hub using whatever combination of forces and torques are necessary to keep the wheel in [mechanical equilibrium](https://en.wikipedia.org/wiki/Mechanical_equilibrium). You cannot directly apply forces to the hub. This means, for example, that to simulate a drive torque, you must apply a positive tangential force at 0 degrees equal to the torque divided by the rim radius.
 
-> Note: To apply a braking force with a _disc brake_, apply a single, negative tangential force at 0 degrees (the ground). The torque from the disc will automatically be applied to the hub. To apply a braking force with a _rim brake_, apply a negative tangential force at 0 degrees, and an equal but positive tangential force at 180 degrees (the brake pads).
+> Note: To apply a braking force with a _disc brake_, apply a single, negative tangential force at 0 degrees (the ground). The torque from the disc will automatically be applied to the hub. To apply a braking force with a _rim brake_, apply a negative tangential force at 0 degrees, and an equal but positive tangential force at 180 degrees (the brake pads). Both of these scenarios are included as force presets
+
+### Adjusting spokes
+
+You can also use the app to see what happens when you tighten or loosen spokes. Specify spoke adjustments in the bottom table on the Forces tab. To add an adjustment, click or tap the plus sign and then tap the "Spoke Number" and "Number of turns" fields to edit. Spoke numbers run from 1 (bottom-most spoke) up to the specified number of spokes, increasing counter-clockwise. The "Number of turns" is converted to a change in unstressed spoke length using a thread pitch of 56 TPI (thread-per-inch). A positive number indicates an adjustment that tightens the spoke.
 
 ### Interpreting results
 
