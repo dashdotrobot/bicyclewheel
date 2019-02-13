@@ -79,13 +79,21 @@ You can also use the app to see what happens when you tighten or loosen spokes. 
 
 #### Tensions plot
 
-The tensions shows the spoke tensions in the deformed wheel in kgf units. Tensions less than zero cannot be shown. The initial tensions in the undeformed wheel are shown as blue and orange circles. If you accidentally rotate or zoom the plot by clicking on or touching it, double-tap on the plot to return.
+The spoke tensions can be viewed as a __Polar__ plot or a __Column__ plot. Spoke tensions are given in kgf (kilogram-force) units. Tensions less than zero cannot be shown on the polar plot. The initial tensions in the undeformed wheel are shown as blue and orange circles. In the column plot, you can view either the __Absolute__ tension, or the __Difference__ in tension between the stressed and unstressed wheel. Negative values in the Difference plot indicate a _loss_ of tension. The bottom-most spoke is plotted in the middle of the column plot.
+
+> The solver does not properly account for the loss of stiffness that occurs when a spoke completely loses tension. If the solution contains any negative tensions, the app will raise a warning.
+
+> Hover your mouse over (or tap) any datapoint to see its value
 
 #### Deformation plot
 
-The deformation plot shows the distortion of the rim in each direction. Click on or touch the Radial, Lateral and Twist toggle buttons to add or remove traces from the plot. Radial deformation refers to distortion of the rim in its own plane. Lateral deformation refers to movement of the rim out of its plane. Twist refers to rotation of the rim cross-section, relative to its initial position. Since twist has units of angle (radians), twist is plotted as `radius*twist` so that it has the same units as radial and lateral deformation.
+The deformation plot shows the distortion of the rim in each direction. Click or tap the Radial, Lateral and Twist toggle buttons to add or remove traces from the plot. Radial deformation refers to distortion of the rim in its own plane. Lateral deformation refers to movement of the rim out of its plane. Twist refers to rotation of the rim cross-section, relative to its initial position. Since twist has units of angle (radians), twist is plotted as `radius*twist` so that it has the same units as radial and lateral deformation.
 
-The deformation is plotted as deviations from a unit circle. The deformations are scaled so that the largest displacement is equal to the scale factor. For lateral deformation, positive deviation means movement towards the non-drive side of the wheel. For twist deformation, positive deviation means rotation of the cross-section _in the same sense_ as a positive lateral deviation (think of the rim cross-section as a pendulum rotating about the hub: as the pendulum swings to the one side, the bob also rotates in the same direction).
+In the __Polar__ plot, the deformation is plotted as deviations from a unit circle. The deformations are scaled so that the largest displacement is equal to the scale factor. For lateral deformation, positive deviation means movement towards the non-drive side of the wheel. For twist deformation, positive deviation means rotation of the cross-section _in the same sense_ as a positive lateral deviation (think of the rim cross-section as a pendulum rotating about the hub: as the pendulum swings to the one side, the bob also rotates in the same direction).
+
+In the __Line__ plot, the deformation is plotted in units of millimeters. The x-axis corresponds to length along the rim, as if the rim had been cut at the top and unrolled into a straight line. Use the line plot if you need to read quantitative results.
+
+> If you accidentally rotate or zoom any plot by clicking on or touching it, double-tap on the plot to return to the default view.
 
 #### Summary results
 
