@@ -51,7 +51,19 @@ Searles and his audience pondered the similarities between the bicycle wheel and
 
 ### Stresses in the Ferris Wheel
 
-...
+Unlike in the bicycle wheel, the forces on the Ferris Wheel are distributed around its circumference, as Mr. Gifford noted above. The rim acts like to connected arches: the weight of the cars is channeled downwards through the compressive force in the rim, becoming larger and larger until we reach the bottom.
+
+<div class="row">
+  <div class="col-md-2"></div>
+  <div class="col-md-8">
+    <img alt="Ferris Wheel force diagram" class="img-fluid" src="{filename}/images/ferris-wheel-day/basic-force-diagram.png"/>
+    <div class="figure-caption">Forces in the Ferris Wheel.</div>
+  </div>
+  <div class="col-md-2"></div>
+</div>
+
+
+
 <div class="row">
   <div class="col-md-2"></div>
   <div class="col-md-8">
