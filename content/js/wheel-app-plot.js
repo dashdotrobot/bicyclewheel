@@ -122,11 +122,6 @@ function plot_tensions(plot_type, tension_diff) {
   array_shift(tension_0, spk_num/2)
   array_shift(tension_d, spk_num/2)
 
-  // Check if any spoke tensions are negative
-  if (tension.some(function(e) {return e < 0})) {
-    display_error('Warning', 'At least one spoke has negative tension. Tension and deformation results may not be accurate.');
-  }
-
   // Separate traces for left and right spokes
   nds_ind = (spk_num/2) % 2
   var theta_nds = theta.filter(function(e, i) {return i%2 === nds_ind});

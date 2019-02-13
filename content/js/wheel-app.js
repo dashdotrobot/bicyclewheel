@@ -362,6 +362,11 @@ function update_results() {
         display_error('Warning', 'Average tension is close to or greater than maximum tension. Results may be innacurate.');
       }
 
+      // Check if any spoke tensions are negative
+      if (calc_result['tension']['tension'].some(function(e) {return e < 0})) {
+        display_error('Warning', 'At least one spoke has negative tension. Tension and deformation results may not be accurate.');
+      }
+
       if (!calc_result['tension']['success']) {
         display_error('Error calculating tensions', calc_result['tension']['error']);
       }
