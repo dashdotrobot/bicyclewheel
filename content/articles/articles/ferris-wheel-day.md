@@ -37,4 +37,15 @@ The similarity between the Chicago Wheel and its young ancestor, the tensioned-s
 
 > Julian Hawthorne (son of Nathaniel Hawthorne)
 
-Prior to 1869, bicycle wheels were constructed in the same fashion (and often by the same craftsmen) as carriage wheels: a heavy, wooden rim was supported by stout wooden spokes, which carried the weight of the vehicle through compression.
+Prior to 1869, bicycle wheels were constructed in the same fashion (and often by the same craftsmen) as carriage wheels: a heavy, wooden rim was supported by stout wooden spokes which carried the weight of the vehicle through compression. The carriage wheel was heavy and prone to failure. Its diameter was severely limited by the tendency of the spokes to buckle under compression.
+
+The tension-spoked wheel was nothing short of revolutionary: instead of carrying compression, the spokes were given an initial tension in order to prevent them from going slack under the weight of the bike and rider. Eliminating the risk of buckling allowed the use of slender metal wire in place of the thick wooden spokes, permitting larger and lighter wheels. Practically every bicycle wheel ridden today uses this design.
+
+Searles and his audience pondered the similarities between the bicycle wheel and the Ferris Wheel:
+
+> _Mr. N. P. Bowler_: "I would like to know if there is anything about the construction of that wheel that would be injurious or detrimental, supposing it should be put upon the ground... Is the construction anything like our bicycles?"
+
+> _The Chair_: "...there is nothing in the design of the wheel to prevent it from rolling on the ground..."
+
+> _Mr. Gifford_: "Begging your pardon, I cannot agree with Mr. Porter in regard to that wheel rolling on the ground as in case of a bicycle wheel. [The Ferris Wheel] is supported in its circumference at thirty-six points. If you rest it on the ground you must rest it at one point... it would 'squash out' to use a common phrase, and the rods would break and the ring would flatten out."
+
