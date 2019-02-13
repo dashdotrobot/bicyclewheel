@@ -49,3 +49,15 @@ Searles and his audience pondered the similarities between the bicycle wheel and
 
 > _Mr. Gifford_: "Begging your pardon, I cannot agree with Mr. Porter in regard to that wheel rolling on the ground as in case of a bicycle wheel. [The Ferris Wheel] is supported in its circumference at thirty-six points. If you rest it on the ground you must rest it at one point... it would 'squash out' to use a common phrase, and the rods would break and the ring would flatten out."
 
+### Stresses in the Ferris Wheel
+
+...
+<div class="row">
+  <div class="col-md-2"></div>
+  <div class="col-md-8">
+    <img alt="Stresses in the Ferris Wheel" class="img-fluid" src="{filename}/images/ferris-wheel-day/stresses.png"/>
+    <div class="figure-caption">Truss analysis of the Ferris Wheel</div>
+  </div>
+  <div class="col-md-2"></div>
+</div>
+...
