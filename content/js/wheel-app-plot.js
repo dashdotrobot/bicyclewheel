@@ -225,7 +225,7 @@ function plot_tensions(plot_type, tension_diff) {
   });
 }
 
-function plot_deformation_polar(plot_type) {
+function plot_deformation(plot_type) {
 
   var spk_num = parseInt($('#spkNum').val())
   var rim_radius = calc_result['wheel']['rim']['radius'];

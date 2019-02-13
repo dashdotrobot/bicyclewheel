@@ -393,7 +393,7 @@ function update_plots() {
   // Deformation plots
   var deform_plot_type = $('#deform-plot-type').find(':checked').parent().text().trim().toLowerCase()
 
-  plot_deformation_polar(deform_plot_type);
+  plot_deformation(deform_plot_type);
 }
 
 function show_summary() {
