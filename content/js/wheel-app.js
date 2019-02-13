@@ -357,25 +357,30 @@ function update_results() {
       calc_result = result;
       console.log(calc_result);
 
-      // Check if tension exceeds buckling tension
-      if (calc_average_tension(calc_result['wheel']) >= 0.95*calc_result['buckling_tension']['buckling_tension']) {
-        display_error('Warning', 'Average tension is close to or greater than maximum tension. Results may be innacurate.');
-      }
-
-      // Check if any spoke tensions are negative
-      if (calc_result['tension']['tension'].some(function(e) {return e < 0})) {
-        display_error('Warning', 'At least one spoke has negative tension. Tension and deformation results may not be accurate.');
-      }
-
       if (!calc_result['tension']['success']) {
         display_error('Error calculating tensions', calc_result['tension']['error']);
       }
       
       if (!calc_result['deformation']['success']) {
-        display_error('Error calculating tensions', calc_result['deformation']['error']);
+        display_error('Error calculating deformation', calc_result['deformation']['error']);
       }
 
-      update_plots();
+      if (calc_result['deformation']['success'] && calc_result['deformation']['success']) {
+
+        // Check if tension exceeds buckling tension
+        if (calc_average_tension(calc_result['wheel']) >= 0.95*calc_result['buckling_tension']['buckling_tension']) {
+          display_error('Warning', 'Average tension is close to or greater than maximum tension. Results may be innacurate.');
+        }
+
+        // Check if any spoke tensions are negative
+        if (calc_result['tension']['tension'].some(function(e) {return e < 0})) {
+          display_error('Warning', 'At least one spoke has negative tension. Tension and deformation results may not be accurate.');
+        }
+
+        update_plots();
+
+      }
+
       show_summary();
       reset_calc_button();
     },
