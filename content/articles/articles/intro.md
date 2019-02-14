@@ -1,6 +1,7 @@
 Title: Introducing the Bicycle Wheel Simulator
 Date: 17 Dec 2018
 Slug: intro-to-app
+Featured: example_tensions.png
 Summary: Example calculations using the Bicycle Wheel Simulator
 
 The [tensioned wire wheel](http://en.wikipedia.org/wiki/Wire_wheels) is one of the most elegant, successful, and enduring technologies of the 19th century. Although materials and manufacturing methods have continually improved, the basic design of the bicycle wheel has not changed fundamentally in the last century: a central hub is connected to a hoop-shaped outer rim by a set of tensioned spokes, which are threaded into adjustable spoke nipples set into the inside of the rim. The bicycle wheel is a type of [tensegrity](http://en.wikipedia.org/wiki/Tensegrity) structure: it combines elements which only carry tension (spokes) with elements which predominately carry compression (rim). When the weight of the rider is applied to the hub (through the ball bearings) the load is transmitted to the rim (and ultimately the road) primarily due to the shortening of the spokes directly underneath the hub.

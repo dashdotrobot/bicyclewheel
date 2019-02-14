@@ -1,6 +1,7 @@
 Title: What's the deal with butted spokes?
 Date: 3 Jan 2019
 Slug: butted-spokes
+Featured: spoke_types_small.png
 Summary: Butted spokes are touted for their durability and weight savings. How do they work, and are they worth the extra cost?
 
 We ask a lot of our spokes: they support our weight, keep our rims round, and sometimes hold baseball cards or other useful things. They don't ask for much in return other than a good, sturdy rim to keep them from losing tension and the occasional adjustment if your wheel gets damaged. Choosing the right spokes for your wheel will ensure many happy years of riding. When it comes to spokes, there are far fewer choices to make than for your rim. Arguably the most important decision you will make is whether to use butted spokes or straight-gauge spokes.
