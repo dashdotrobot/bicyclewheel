@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 AUTHOR = u'Matthew Ford'
 SITENAME = u'bicyclewheel.info'
-SITEURL = ''
+SITEURL = 'bicyclewheel.info'
 
 PATH = 'content'
 OUTPUT_PATH = 'docs/'
@@ -14,6 +14,8 @@ TIMEZONE = 'America/Chicago'
 DEFAULT_LANG = u'English'
 
 THEME = "simple"
+
+OPEN_GRAPH_IMAGE = 'images/bicyclewheelinfo_screenshot.png'
 
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = None
@@ -36,7 +38,7 @@ SOCIAL = (('You can add links in your config file', '#'),
 DEFAULT_PAGINATION = False
 
 # Uncomment following line if you want document-relative URLs when developing
-RELATIVE_URLS = True
+# RELATIVE_URLS = True
 
 PLUGIN_PATHS = ['../../pelican-plugins']
 PLUGINS = ['pelican_javascript', 'render_math']
