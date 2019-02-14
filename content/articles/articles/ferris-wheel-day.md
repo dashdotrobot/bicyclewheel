@@ -28,7 +28,7 @@ From the beginning, the engineering community was awed by the wheel. Speaking be
 
 > &mdash; _W. H. Searles, Member, Civil Engineer's Club of Cleveland_
 
-He went on to give a series of staggering sums: the rim measured 250 feet in diameter; the full weight of the wheel including passengers reached almost 3 million pounds; the spindle alone, the largest forging in the world up to that time, weighted 93 tons. Furthermore, the entire project was supervised by Ferris himself, only 12 years out of school, and the chief engineer, W. F. Gronau, only 5 years out of school.
+He went on to give a series of staggering sums: the rim measured 250 feet in diameter; the full weight of the wheel including passengers reached almost 3 million pounds; the spindle alone, the largest forging in the world up to that time, weighed 93 tons. Furthermore, the entire project was supervised by Ferris himself, only 12 years out of school, and the chief engineer, W. F. Gronau, only 5 years out of school.
 
 ## The Year of the Wheel
 
