@@ -51,7 +51,7 @@ Searles and his audience pondered the similarities between the bicycle wheel and
 
 ### Stresses in the Ferris Wheel
 
-Unlike in the bicycle wheel, the forces on the Ferris Wheel are distributed around its circumference, as Mr. Gifford noted above. The rim acts like to connected arches: the weight of the cars is channeled downwards through the compressive force in the rim, becoming larger and larger until we reach the bottom.
+Unlike in the bicycle wheel, the forces on the Ferris Wheel are distributed around its circumference, as Mr. Gifford noted above. The rim acts like two connected arches: the weight of the cars is channeled downwards through the compressive force in the rim, becoming larger and larger until we reach the bottom.
 
 <div class="row">
   <div class="col-md-2"></div>
@@ -62,14 +62,17 @@ Unlike in the bicycle wheel, the forces on the Ferris Wheel are distributed arou
   <div class="col-md-2"></div>
 </div>
 
-
+A solution for the stresses in the Ferris Wheel was first given by J. W. Schaub in 1893, and reprinted in The Theory and Practice of Modern Framed Structures by Johnson, Bryan, and Turneaure (1895). A very elegant solution can be found using the [Method of Sections](https://en.wikibooks.org/wiki/Statics/Method_of_Sections).
 
 <div class="row">
   <div class="col-md-2"></div>
   <div class="col-md-8">
-    <img alt="Stresses in the Ferris Wheel" class="img-fluid" src="{filename}/images/ferris-wheel-day/stresses.png"/>
+    <img alt="Stresses in the Ferris Wheel" class="img-fluid" src="{filename}/images/ferris-wheel-day/strain-diagram.png"/>
     <div class="figure-caption">Truss analysis of the Ferris Wheel</div>
   </div>
   <div class="col-md-2"></div>
 </div>
-...
+
+If the weight of the truss is neglected compared with the weight of the cars, the tension in the spokes varies from zero (at the very top) to $4W$, where $W$ is the weight of a single car. Interestingly, the stresses in the spokes do not depend on the diameter of the rim or the number of cars. In order to prevent the spokes from going slack, a tension of $2W$ must be added to each spoke during construction. Ferris and his engineers accomplished this by installing turnbuckles on each spoke and adjusting them manually.
+
+The rim is under compression everywhere. A good approximation, provided there are a sufficient number of spokes, gives the compression in the rim at the top as $NW/2\pi$, where $N$ is the number of spokes, and the compression in the rim at the bottom as $3NW/2\pi$. Unlike the spokes, the rim feels the full weight of the structure at the bottom, and must be designed against buckling.
