@@ -1,4 +1,4 @@
-Title: Celebrate National Ferris Wheel Day
+Title: Celebrating National Ferris Wheel Day
 Date: 14 Feb 2019
 Slug: national-ferris-wheel-day
 Summary: It's overshadowed by Valentine's Day, but National Ferris Wheel day is a chance the celebrate our love for the enduring pleasure and intricate mechanics of large wheels.
