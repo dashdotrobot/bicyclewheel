@@ -1,6 +1,6 @@
 Title: Celebrate National Ferris Wheel Day
 Date: 14 Feb 2019
-Slug: ferris-wheel-day
+Slug: national-ferris-wheel-day
 Summary: It's overshadowed by Valentine's Day, but National Ferris Wheel day is a chance the celebrate our love for the enduring pleasure and intricate mechanics of large wheels.
 
 Today, most Americans will be [thinking of their loved ones while they frantically try to book dinner reservations](https://www.chicagotribune.com/business/ct-valentines-day-history-business-20170214-story.html). In our mad-cap black-friday-esque dashes to the novelty chocolate and [bizarre couple's gifts aisle](https://www.amazon.com/His-and-Her-Tongue-Scrapers/dp/B004IG4FJE), many of us will miss an equally-important and no-less contrived holiday: __National Ferris Wheel Day__.
@@ -29,7 +29,7 @@ From the beginning, the engineering community was awed by the wheel. Speaking be
 
 He went on to give a series of staggering sums: the rim measured 250 feet in diameter; the full weight of the wheel including passengers reached almost 3 million pounds; the shaft alone, the largest forging in the world up to that time, weighted 93 tons. Furthermore, the entire project was supervised by Ferris himself, only 12 years out of school, and the chief engineer, W. F. Gronau, only 5 years out of school.
 
-### The Bicycle Wheel
+## The Year of the Wheel
 
 The similarity between the Chicago Wheel and its young ancestor, the tensioned-spoked bicycle wheel, was not lost on fair attendees:
 
@@ -49,7 +49,7 @@ Searles and his audience pondered the similarities between the bicycle wheel and
 
 > _Mr. Gifford_: "Begging your pardon, I cannot agree with Mr. Porter in regard to that wheel rolling on the ground as in case of a bicycle wheel. [The Ferris Wheel] is supported in its circumference at thirty-six points. If you rest it on the ground you must rest it at one point... it would 'squash out' to use a common phrase, and the rods would break and the ring would flatten out."
 
-### Stresses in the Ferris Wheel
+## Stresses in wheels
 
 Unlike in the bicycle wheel, the forces on the Ferris Wheel are distributed around its circumference, as Mr. Gifford noted above. The rim acts like two connected arches: the weight of the cars is channeled downwards through the compressive force in the rim, becoming larger and larger until we reach the bottom.
 
@@ -67,8 +67,8 @@ A solution for the stresses in the Ferris Wheel was first given by J. W. Schaub 
 <div class="row">
   <div class="col-md-2"></div>
   <div class="col-md-8">
-    <img alt="Stresses in the Ferris Wheel" class="img-fluid" src="{filename}/images/ferris-wheel-day/strain-diagram.png"/>
-    <div class="figure-caption">Truss analysis of the Ferris Wheel</div>
+    <img alt="Stresses in the Ferris Wheel" class="img-fluid" src="{filename}/images/ferris-wheel-day/old-papers.png"/>
+    <div class="figure-caption">Truss analysis of the Ferris Wheel (left). Stress diagram for the Ferris Wheel (middle). A segment of a bicycle rim, with bending moments and spoke tension (right).</div>
   </div>
   <div class="col-md-2"></div>
 </div>
@@ -76,3 +76,44 @@ A solution for the stresses in the Ferris Wheel was first given by J. W. Schaub 
 If the weight of the truss is neglected compared with the weight of the cars, the tension in the spokes varies from zero (at the very top) to $4W$, where $W$ is the weight of a single car. Interestingly, the stresses in the spokes do not depend on the diameter of the rim or the number of cars. In order to prevent the spokes from going slack, a tension of $2W$ must be added to each spoke during construction. Ferris and his engineers accomplished this by installing turnbuckles on each spoke and adjusting them manually.
 
 The rim is under compression everywhere. A good approximation, provided there are a sufficient number of spokes, gives the compression in the rim at the top as $NW/2\pi$, where $N$ is the number of spokes, and the compression in the rim at the bottom as $3NW/2\pi$. Unlike the spokes, the rim feels the full weight of the structure at the bottom, and must be designed against buckling.
+
+The stresses in the Ferris Wheel are independent of the stiffness of the spokes and rim, so long as the individual components don't fail. This makes the design rather straightforward: once you have selected the number of design of the cars, the spokes and rim can be designed using simple formulas. In the bicycle wheel, on the other hand, the stresses in the spokes depend on the number and stiffness of the spokes, the diameter of the wheel, and the stiffness of the rim. The stresses can't be determined from statics alone.
+
+The first quantitative analysis of the bicycle wheel under load was given by Bernard Smith in 1901, 8 years after the Fair and 32 years after the introduction of the tension-spoked bicycle wheel. He derived an approximate solution for the deformation of the rim and the stresses in the spokes by assuming that the number of spokes was large enough to be considered infinite: imagine "smearing out" the discrete spokes into a continuous disc of spokes.
+
+He found mathematically what was already known qualitatively at the time, which is that the weight of the hub is supported by the _loss_ of tension in just a few spokes directly underneath the hub. The spokes above the hub, although still under tension, don't change in tension by more than a few percent of the applied load, leading Jobst Brandt and others to say that the hub "stands on the spokes" below it.
+
+Since the load is supported by only a few spokes, the bottom-most spokes ends up carrying about half the total applied load (contrast with the Ferris Wheel, where the bottom spoke carries only 10% of the total weight, for a 36-spoke wheel). Adding more spokes decreases the load borne by any one spoke, but the effect is non-linear: twice the spokes does not equal half the load.
+
+In order to carry you and your bike safely, the bottom-most spoke must not lose tension completely. Therefore, the spokes must be given an initial tension _at least_ equal to half the load on the wheel. In practice, spokes on modern wheels are usually tensioned to about 100 kgf, more than enough, generally, to support large loads from potholes or side forces. The rim must in turn bear a compressive force equal to $NT/2\pi$, where $T$ is the initial tension in each spoke. Most of the time, our bicycle wheels take on this huge responsibility without complaint.
+
+## Giant bicycle wheels
+
+Modern Ferris wheels (more generally "Observation Wheels") tend to look more like bicycle wheels, with continuous, thickened rims, and a web of slender cables for spokes. The original Ferris Wheel depended on diagonal braces to brace the truss against the notorious Chicago gales. The hub of the Chicago Wheel was relatively wide (45.5 ft) compared with its diameter (250 ft), an aspect ratio of 18%. These modern wheels are noticeably more slender (though I was unable to find measurements of the hub widths). Under these conditions, the spokes must be designed with enough pretension so that they don't go slack when supporting wind loads.
+
+<div class="row">
+  <div class="col-md-4 mt-auto">
+    <img alt="London Eye" class="img-fluid" src="{filename}/images/ferris-wheel-day/London-Eye.jpg"/>
+    <div class="figure-caption">London Eye (394 ft diameter)</div>
+  </div>
+  <div class="col-md-4 mt-auto">
+    <img alt="Signapore Flyer" class="img-fluid" src="{filename}/images/ferris-wheel-day/Singapore-Flyer.jpg"/>
+    <div class="figure-caption">Signapore Flyer (492 ft diameter)</div>
+  </div>
+  <div class="col-md-4 mt-auto">
+    <img alt="Las Vegas High Roller" class="img-fluid" src="{filename}/images/ferris-wheel-day/High-Roller.jpg"/>
+    <div class="figure-caption">Las Vegas High Roller (520 ft diameter)</div>
+  </div>
+</div>
+
+At larger diameters and spoke tensions, buckling of the rim becomes a concern. A bicycle wheel can "taco" under excessive tension, and large observations wheels are no different. A careful optimization routine was carried out for each to determine the necessary tension to support the rim without going slack, then the rim stiffness needed to prevent buckling, then optimizing the rim for weight and iterating the entire process again.
+
+If you're lucky enough to live near a Ferris wheel, take a friend or lover on a leisurely spin, and enjoy Valentine's Day at the pace it was meant to be enjoyed.
+
+> You loved ferris wheels more than roller coasters because life shouldn’t be lived at full speed, but in anticipation and appreciation.
+
+> &mdash; Amy Harmon
+
+## References
+
+
