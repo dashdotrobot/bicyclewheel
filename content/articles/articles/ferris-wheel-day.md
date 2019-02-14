@@ -8,7 +8,7 @@ Today, most Americans will be [thinking of their loved ones while they frantical
 <img alt="George Ferris - Google Doodle" class="img-fluid" src="{filename}/images/ferris-wheel-day/google-doodle.png">
 <div class="figure-caption">Google honors George Washington Gale Ferris with a <a href="https://www.google.com/doodles/valentines-day-and-george-ferris-154th-birthday" target="_blank">doodle in 2013</a>.</div>
 
-Named for its inventor, [George Washington Gale Ferris](https://en.wikipedia.org/wiki/George_Washington_Gale_Ferris_Jr.), the [Ferris Wheel](https://en.wikipedia.org/wiki/Ferris_Wheel) was the centerpiece of the Chicago Columbian World Exposition. The "Chicago Wheel" was conceived as America's answer to the Eiffel Tower, which was considered the premier engineering marvel of the day (though almost universally panned as an aesthetic contribution to the Parisian skyline). Although the wheel was a financial success for the fair, Ferris himself was ruined by ensuing legal disputes regarding payment and ticket revenue. An engineering prodigy--he was only 34 when the wheel was built--Ferris died only three years after the fair from typhoid.
+Named for its inventor, [George Washington Gale Ferris](https://en.wikipedia.org/wiki/George_Washington_Gale_Ferris_Jr.), the [Ferris Wheel](https://en.wikipedia.org/wiki/Ferris_Wheel) was the centerpiece of the Chicago Columbian World Exposition. The "Chicago Wheel" was conceived as America's answer to the Eiffel Tower, which was considered the premier engineering marvel of the day (though widely panned as an aesthetic contribution to the Parisian skyline). Although the wheel was a financial success for the fair, Ferris himself was ruined by ensuing legal disputes regarding payment and ticket revenue. An engineering prodigy&mdash;he was only 34 when the wheel was built&mdash;Ferris died only three years after the fair from typhoid.
 
 <div class="row">
   <div class="col-md-2"></div>
@@ -25,17 +25,17 @@ From the beginning, the engineering community was awed by the wheel. Speaking be
 
 > "But it is not to the esthetic qualities of the wheel that I would call your attention particularly at this time. We are more concerned in the design of this structure as a work of engineering, and in the method of its erection. No complete description has been given to the public by the designers. On the contrary, when applied to, they have politely declined to furnish very much information."
 
-> _W. H. Searles, Member, Civil Engineer's Club of Cleveland_
+> &mdash; _W. H. Searles, Member, Civil Engineer's Club of Cleveland_
 
-He went on to give a series of staggering sums: the rim measured 250 feet in diameter; the full weight of the wheel including passengers reached almost 3 million pounds; the shaft alone, the largest forging in the world up to that time, weighted 93 tons. Furthermore, the entire project was supervised by Ferris himself, only 12 years out of school, and the chief engineer, W. F. Gronau, only 5 years out of school.
+He went on to give a series of staggering sums: the rim measured 250 feet in diameter; the full weight of the wheel including passengers reached almost 3 million pounds; the spindle alone, the largest forging in the world up to that time, weighted 93 tons. Furthermore, the entire project was supervised by Ferris himself, only 12 years out of school, and the chief engineer, W. F. Gronau, only 5 years out of school.
 
 ## The Year of the Wheel
 
-The similarity between the Chicago Wheel and its young ancestor, the tensioned-spoked bicycle wheel, was not lost on fair attendees:
+The similarity between the Chicago Wheel and its ancestor, the tensioned-spoked bicycle wheel, was not lost on fair attendees:
 
-> "The spokes look like cobwebs; they are after the fashion of those on the newest make of bicycles"
+> "The spokes look like cobwebs; they are after the fashion of those on the newest make of bicycles."
 
-> Julian Hawthorne (son of Nathaniel Hawthorne)
+> &mdash; Julian Hawthorne (son of Nathaniel Hawthorne)
 
 Prior to 1869, bicycle wheels were constructed in the same fashion (and often by the same craftsmen) as carriage wheels: a heavy, wooden rim was supported by stout wooden spokes which carried the weight of the vehicle through compression. The carriage wheel was heavy and prone to failure. Its diameter was severely limited by the tendency of the spokes to buckle under compression.
 
@@ -75,17 +75,19 @@ A solution for the stresses in the Ferris Wheel was first given by J. W. Schaub 
 
 If the weight of the truss is neglected compared with the weight of the cars, the tension in the spokes varies from zero (at the very top) to $4W$, where $W$ is the weight of a single car. Interestingly, the stresses in the spokes do not depend on the diameter of the rim or the number of cars. In order to prevent the spokes from going slack, a tension of $2W$ must be added to each spoke during construction. Ferris and his engineers accomplished this by installing turnbuckles on each spoke and adjusting them manually.
 
-The rim is under compression everywhere. A good approximation, provided there are a sufficient number of spokes, gives the compression in the rim at the top as $NW/2\pi$, where $N$ is the number of spokes, and the compression in the rim at the bottom as $3NW/2\pi$. Unlike the spokes, the rim feels the full weight of the structure at the bottom, and must be designed against buckling.
+The rim is under compression everywhere. A good approximation, provided there are a sufficient number of spokes, gives the compression in the rim at the top as $NW/2\pi$, where $N$ is the number of spokes, and the compression in the rim at the bottom as $3NW/2\pi$. Unlike the spokes, the rim feels the full weight of all the cars at the bottom, and must be designed against buckling.
 
-The stresses in the Ferris Wheel are independent of the stiffness of the spokes and rim, so long as the individual components don't fail. This makes the design rather straightforward: once you have selected the number of design of the cars, the spokes and rim can be designed using simple formulas. In the bicycle wheel, on the other hand, the stresses in the spokes depend on the number and stiffness of the spokes, the diameter of the wheel, and the stiffness of the rim. The stresses can't be determined from statics alone.
+The stresses in the Ferris Wheel are independent of the stiffness of the spokes and rim, so long as the individual components don't fail. This makes the design rather straightforward: once you have selected the number and capacity of the cars, the spokes and rim can be designed using simple formulas. In the bicycle wheel, on the other hand, the stresses in the spokes depend on the number and stiffness of the spokes, the diameter of the wheel, and the stiffness of the rim. The stresses can't be determined from statics alone.
 
-The first quantitative analysis of the bicycle wheel under load was given by Bernard Smith in 1901, 8 years after the Fair and 32 years after the introduction of the tension-spoked bicycle wheel. He derived an approximate solution for the deformation of the rim and the stresses in the spokes by assuming that the number of spokes was large enough to be considered infinite: imagine "smearing out" the discrete spokes into a continuous disc of spokes.
+The first quantitative analysis of the bicycle wheel under load was given by Bernard Smith in 1901, 8 years after the fair and 32 years after the introduction of the tension-spoked bicycle wheel. He derived an approximate solution for the deformation of the rim and the stresses in the spokes by assuming that the number of spokes was large enough to be considered infinite: imagine "smearing out" the discrete spokes into a continuous disc of spokes.
 
 He found mathematically what was already known qualitatively at the time, which is that the weight of the hub is supported by the _loss_ of tension in just a few spokes directly underneath the hub. The spokes above the hub, although still under tension, don't change in tension by more than a few percent of the applied load, leading Jobst Brandt and others to say that the hub "stands on the spokes" below it.
 
 Since the load is supported by only a few spokes, the bottom-most spokes ends up carrying about half the total applied load (contrast with the Ferris Wheel, where the bottom spoke carries only 10% of the total weight, for a 36-spoke wheel). Adding more spokes decreases the load borne by any one spoke, but the effect is non-linear: twice the spokes does not equal half the load.
 
-In order to carry you and your bike safely, the bottom-most spoke must not lose tension completely. Therefore, the spokes must be given an initial tension _at least_ equal to half the load on the wheel. In practice, spokes on modern wheels are usually tensioned to about 100 kgf, more than enough, generally, to support large loads from potholes or side forces. The rim must in turn bear a compressive force equal to $NT/2\pi$, where $T$ is the initial tension in each spoke. Most of the time, our bicycle wheels take on this huge responsibility without complaint.
+In order to carry you and your bike safely, the bottom-most spoke must not lose tension completely. Therefore, the spokes must be given an initial tension _at least_ equal to half the load on the wheel. In practice, spokes on modern wheels are usually tensioned to about 100 kgf, more than enough, generally, to support large loads from potholes or side forces. The rim must in turn bear a compressive force equal to $NT/2\pi$, where $T$ is the initial tension in each spoke. Most of the time, our bicycle wheels take on this huge responsibility without complaint, though not always, as seen below:
+
+<img alt="buckled bicycle wheel" class="img-fluid" src="{filename}/images/ferris-wheel-day/buckled-wheel.jpg"/>
 
 ## Giant bicycle wheels
 
@@ -114,6 +116,30 @@ If you're lucky enough to live near a Ferris wheel, take a friend or lover on a 
 
 > &mdash; Amy Harmon
 
+#### To learn more about the mechanics of bicycle wheels:
+
+Peruse this website, or read my [Ph.D. thesis](https://github.com/dashdotrobot/phd-thesis/releases/download/v1.0/Ford_BicycleWheelThesis_v1.0.pdf).
+
 ## References
 
+[Ferris Wheel](https://en.wikipedia.org/wiki/Ferris_Wheel), Wikipedia.
 
+[London Eye](https://en.wikipedia.org/wiki/London_Eye), Wikipedia.
+
+[Singapore Flyer](https://en.wikipedia.org/wiki/Singapore_Flyer), Wikipedia.
+
+[High Roller (Ferris wheel)](https://en.wikipedia.org/wiki/High_Roller_(Ferris_wheel)), Wikipedia.
+
+David Lazarus, [Column: Valentine's Day, so lucrative for businesses, has a naughty history](https://www.chicagotribune.com/business/ct-valentines-day-history-business-20170214-story.html), Chicago Tribune, February 14th, 2017.
+
+[George Washington Gale Ferris](https://en.wikipedia.org/wiki/George_Washington_Gale_Ferris_Jr.), the [Ferris Wheel](https://en.wikipedia.org/wiki/Ferris_Wheel), Wikipedia.
+
+Johnson, Bryan, and Turneaure, [The Theory and Practice of Modern Framed Structures](https://babel.hathitrust.org/cgi/pt?id=njp.32101049950320;view=1up;seq=90;size=150), London (1895).
+
+W.H. Searles, The Ferris Wheel, _Journal of the Association of Engineering Societies_
+
+Discussion: Stresses in the Ferris Wheel, _Engineering News and American Railway Journal_, 31, 349–350 (1894)
+
+B.A. Smith, The Bicycle Wheel. _Report of the Meeting of the Australasian Association for the Advancement of Science_, 8:197–203, (1901).
+
+Jobst Brandt, The Bicycle Wheel (1993).
