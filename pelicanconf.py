@@ -7,7 +7,7 @@ SITENAME = u'bicyclewheel.info'
 SITEURL = 'bicyclewheel.info'
 
 PATH = 'content'
-OUTPUT_PATH = 'docs/'
+OUTPUT_PATH = 'output/'
 
 TIMEZONE = 'America/Chicago'
 
