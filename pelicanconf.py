@@ -4,18 +4,27 @@ from __future__ import unicode_literals
 
 AUTHOR = u'Matthew Ford'
 SITENAME = u'bicyclewheel.info'
-SITEURL = 'bicyclewheel.info'
+SITEURL = 'http://bicyclewheel.info'
 
 PATH = 'content'
 OUTPUT_PATH = 'output/'
 
 TIMEZONE = 'America/Chicago'
-
 DEFAULT_LANG = u'English'
 
-THEME = "simple"
+THEME = 'simple'
 
 OPEN_GRAPH_IMAGE = 'images/bicyclewheelinfo_screenshot.png'
+
+# Page and article URLs
+ARTICLE_URL = 'articles/{slug}/'
+ARTICLE_SAVE_AS = 'articles/{slug}/index.html'
+
+PAGE_URL = '{slug}/'
+PAGE_SAVE_AS = '{slug}/index.html'
+
+CATEGORY_URL = '{slug}/'
+CATEGORY_SAVE_AS = '{slug}/index.html'
 
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = None
@@ -27,9 +36,6 @@ AUTHOR_FEED_RSS = None
 # Nav menu items
 # MENUITEMS = [('The App', '/app.html')]
 MENUITEMS = []
-
-# Blogroll
-LINKS = None
 
 # Social widget
 SOCIAL = (('You can add links in your config file', '#'),
