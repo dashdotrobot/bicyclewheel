@@ -89,8 +89,12 @@
         {% endfor %}
       </ul>
 
-      <ul class="navbar-nav navbar-text ml-auto">
-        <li class="nav-item"><a href="https://github.com/dashdotrobot/bicyclewheel" target="_blank"><h4><i class="fab fa-github-square"></i></h4></a></li>
+      <ul class="navbar-nav ml-auto">
+        {% if SOCIAL_NAV %}
+          {% for s_name, s_link, s_icon in SOCIAL_NAV %}
+        <li class="nav-item mx-1"><a class="nav-link" href="{{ s_link }}" target="_blank"><i class="{{ s_icon }} icon"></i> {{ s_name }}</a></li>
+          {% endfor %}
+        {% endif %}
       </ul>
 
     </div>

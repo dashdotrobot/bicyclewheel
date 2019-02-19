@@ -16,6 +16,8 @@ THEME = 'simple'
 
 OPEN_GRAPH_IMAGE = 'images/bicyclewheelinfo_screenshot.png'
 
+SOCIAL_NAV = (('', 'https://github.com/dashdotrobot', 'fab fa-github-square'),)
+
 # Page and article URLs
 ARTICLE_URL = 'articles/{slug}/'
 ARTICLE_SAVE_AS = 'articles/{slug}/index.html'

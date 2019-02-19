@@ -129,7 +129,7 @@ The mechanical properties and deformations are calculated using my [Bike Wheel A
 
 ## Got feedback? Found a bug?
 
-This app is __VERY__ much a work in progress. The code for the app and website is available on [GitHub](https://github.com/dashdotrobot/bicyclewheel). If you find bugs or want to suggest features, log an issue or contact me at `mford <at> u.northwestern.edu`.
+This app is __VERY__ much a work in progress. The code for the app and website is available on [GitHub](https://github.com/bicyclewheel/bicyclewheel.github.io). If you find bugs or want to suggest features, log an issue or contact me at `mford <at> u.northwestern.edu`.
 
 ## References
 
