@@ -22,6 +22,11 @@ By following a simple algorithm of "find the worst spot and adjust it next," mos
 
 The Wheel App can show you what happens when you adjust spokes. After you've designed your wheel, click on the __Forces__ tab, delete everything in the forces table, and add spoke adjustments in the adjustments table below. Spoke number 1 is the bottom-most spoke in the polar plot, or the center spoke in the column plot.
 
+<div class="row">
+  <div class="col-sm-6"><img class="img-fluid" alt="Spoke tension change" src=""/></div>
+  <div class="col-sm-6"><img class="img-fluid" alt="Rim deformation" src="" /></div>
+</div>
+
 ### What happens when you adjust a spoke?
 
 The spoke is held in the rim by the spoke nipple, which is threaded onto the end of the spoke. When you tighten a spoke, you are really moving the nipple towards the hub, pulling the rim along with it.
@@ -34,13 +39,19 @@ Two things happen to the spoke when you adjust the nipple: __(1)__ the __unstres
 
 $$\Delta T = K_s(\delta - u \sin{\alpha} - v \cos{\alpha})$$
 
-$\delta = 0.454 N$ is the change in unstressed length in millimeters, where $N$ is the number of turns of the nipple (for a standard 56 thread-per-inch spoke thread), $u$ and $v$ are the __lateral displacement__ and __radial displacement__ of the spoke nipple, respectively, and $\alpha$ is the lateral bracing angle of the spoke which depends on the hub width.
+$\delta = 0.454 N$ is the change in unstressed length in millimeters, where $N$ is the number of turns of the nipple (for a standard 56 thread-per-inch spoke thread), $u$ and $v$ are the __lateral displacement__ and __radial displacement__ of the spoke nipple, respectively, and $\alpha$ is the lateral bracing angle of the spoke which depends on the hub width. $K_s$ is the stiffness of the spoke (higher for larger and shorter spokes).
 
-What does this equation tell us? Shortening the unstressed length tightens the spoke (the $\delta$ term), but the deformation of the rim loosens the spoke. The change in tension would be greater in a wheel with a stiff rim than in a wheel with a flexible rim. Even though $v$ is generally much smaller than $u$, the radial displacement has a larger effect on the tension because $\alpha$ is usually rather small (and therefore $\cos{\alpha} > \sin{\alpha})$.
+What does this equation tell us? Shortening the unstressed length tightens the spoke (the $\delta$ term), but the rim moves towards the spoke you adjusted, which loosens the spoke. The change in tension would be greater in a wheel with a stiff rim than in a wheel with a flexible rim. Even though the inward _radial_ displacement $v$ is generally much smaller than the lateral displacement $u$, the radial displacement has a larger effect on the tension because $\alpha$ is usually rather small (and therefore $\cos{\alpha} > \sin{\alpha})$.
+
+To summarize:
+
+* When you turn a spoke nipple in the _tightening_ direction, the spoke gets shorter and tighter.
+* The stiffer the spoke, the greater the change in spoke tension.
+* The stiffer the rim, the lesser the change in spoke tension.
 
 ### What happens to the rim?
 
-
+When you tighten a single spoke, the rim deforms in the same way as if you had applied a concentrated force in the direction of the spoke (inwards and slightly to one side).
 
 ### What happens to the other spokes?
 
