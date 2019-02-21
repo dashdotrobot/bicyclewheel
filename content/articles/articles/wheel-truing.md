@@ -22,10 +22,7 @@ By following a simple algorithm of "find the worst spot and adjust it next," mos
 
 The Wheel App can show you what happens when you adjust spokes. After you've designed your wheel, click on the __Forces__ tab, delete everything in the forces table, and add spoke adjustments in the adjustments table below. Spoke number 1 is the bottom-most spoke in the polar plot, or the center spoke in the column plot.
 
-<div class="row">
-  <div class="col-sm-6"><img class="img-fluid" alt="Spoke tension change" src=""/></div>
-  <div class="col-sm-6"><img class="img-fluid" alt="Rim deformation" src="" /></div>
-</div>
+<img class="img-fluid" alt="Screenshot of the app showing results for tightening a single spoke." src="{filename}/images/wheel-truing/wheel-truing-screenshot.png" />
 
 ### What happens when you adjust a spoke?
 
