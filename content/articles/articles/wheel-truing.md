@@ -23,6 +23,7 @@ By following a simple algorithm of "find the worst spot and adjust it next," mos
 The Wheel App can show you what happens when you adjust spokes. After you've designed your wheel, click on the __Forces__ tab, delete everything in the forces table, and add spoke adjustments in the adjustments table below. Spoke number 1 is the bottom-most spoke in the polar plot, or the center spoke in the column plot.
 
 <img class="img-fluid" alt="Screenshot of the app showing results for tightening a single spoke." src="{filename}/images/wheel-truing/wheel-truing-screenshot.png" />
+<div class="figure-caption">Screenshot of the app showing results for tightening a single spoke.</div>
 
 ### What happens when you adjust a spoke?
 
@@ -46,10 +47,24 @@ To summarize:
 * The stiffer the spoke, the greater the change in spoke tension.
 * The stiffer the rim, the lesser the change in spoke tension.
 
-### What happens to the rim?
+#### What happens to the rim?
 
-When you tighten a single spoke, the rim deforms in the same way as if you had applied a concentrated force in the direction of the spoke (inwards and slightly to one side).
+When you tighten a single spoke, the rim deforms in the same way as if you had applied a concentrated force in the direction of the spoke: inwards and slightly towards that spoke's hub flange. The adjustment creates a lateral "wave" and a radial "bump" near the spoke.
 
-### What happens to the other spokes?
+<img class="img-fluid" alt="Rim deformation" src="{filename}/images/wheel-truing/deformation-single-spoke.png" />
+<div class="figure-caption">Rim deformation due to tightening a single spoke.</div>
 
+The radial bump is confined to a very small area, perhaps only 1-3 spokes wide. The lateral wave, on the other hand, extends over a wide arc, on the order of 8-12 spokes on a 36-spoke wheel. The stiffer the rim, the wider the arc. Even further away from the main wave, the bends in the opposite direction as the tightened spoke, like a lopsided spinning potato chip.
 
+If the spokes are "crossed," the adjustment also causes the rim to rotate in the direction of the tightened spoke. Tightening a pulling spoke rotates the rim clockwise when viewed from the drive side.
+
+#### What happens to the other spokes?
+
+Only the two spokes directly adjacent to the adjusted spoke feel the effect of the radial bump. These spokes get shorter and therefore lose tension.
+
+Further away from the bump, the lateral wave causes the spokes on the same as the wave to loosen and the spokes on the opposite side of the wave to loosen.
+
+The rotation of the rim causes other pulling spokes to loosen and pushing spokes to tighten, which in turn pulls the rim inwards and outwards, creating a small rippling effect around the rim.
+
+<img class="img-fluid" alt="Change in tension" src="{filename}/images/wheel-truing/tension-components.png" />
+<div class="figure-caption">Change in spoke tensions due to different effects. Units in kilogram-force.</div>
