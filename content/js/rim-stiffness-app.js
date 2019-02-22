@@ -1,71 +1,119 @@
-const recordAudio = () =>
-  new Promise(async resolve => {
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    const mediaRecorder = new MediaRecorder(stream);
-    const audioChunks = [];
 
-    mediaRecorder.addEventListener("dataavailable", event => {
-      audioChunks.push(event.data);
-    });
+navigator.getUserMedia = (navigator.getUserMedia ||
+                          navigator.webkitGetUserMedia ||
+                          navigator.mozGetUserMedia ||
+                          navigator.msGetUserMedia);
 
-    const start = () => mediaRecorder.start();
+// set up forked web audio context, for multiple browsers
+// window. is needed otherwise Safari explodes
 
-    const stop = () =>
-      new Promise(resolve => {
-        mediaRecorder.addEventListener("stop", () => {
-          const audioBlob = new Blob(audioChunks);
-          const audioUrl = URL.createObjectURL(audioBlob);
-          const audio = new Audio(audioUrl);
-          const play = () => audio.play();
-          resolve({ audioBlob, audioUrl, play });
-        });
+var audioCtx;
+var analyser;
 
-        mediaRecorder.stop();
-      });
+var bufferLength;
 
-    resolve({ start, stop });
-  });
+var totalArray;
+var dataArray;
+var nAvgs = 0.;
 
-const sleep = time => new Promise(resolve => setTimeout(resolve, time));
+var drawVisual;
 
-// const recordStrike = async () => {
-async function recordStrike(button, dest) {
+function startRecording(button) {
 
-  // Button stuff
-  console.log('start recording')
-  button.disabled = true;
+  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-  const recorder = await recordAudio();
-  recorder.start();
-  await sleep(3000);
-  radSample = await recorder.stop();
+  analyser = audioCtx.createAnalyser();
+  analyser.fftSize = 32768;
+  analyser.minDecibels = -90;
+  analyser.maxDecibels = -10;
+  analyser.smoothingTimeConstant = 0.85;
 
-  // Button stuff
-  console.log('stop recording')
-  button.disabled = false;
+  bufferLength = analyser.frequencyBinCount;
+
+  totalArray = new Float32Array(bufferLength);
+  dataArray = new Float32Array(bufferLength);
+
+  if (navigator.getUserMedia) {
+     console.log('getUserMedia supported.');
+     navigator.getUserMedia (
+        // constraints - only audio needed for this app
+        {
+           audio: true
+        },
+
+        // Success callback
+        function(stream) {
+           source = audioCtx.createMediaStreamSource(stream);
+           source.connect(analyser);
+           visualize();
+        },
+
+        // Error callback
+        function(err) {
+           console.log('The following gUM error occured: ' + err);
+        }
+     );
+  } else {
+     console.log('getUserMedia not supported on your browser!');
+  }
 }
 
-async function playStrike(button, src) {
+function stopRecording(button) {
 
-  console.log('start playback');
-  button.disabled = true;
+  window.cancelAnimationFrame(drawVisual);
 
-  src.play();
-  await sleep(3000);
+  console.log(dataArray);
+  console.log(nAvgs);
+  console.log(totalArray);
 
-  console.log('stop playback');
-  button.disabled = false;
+  for (var i = 0; i < bufferLength; i++) {
+    totalArray[i] = totalArray[i] / nAvgs;
+  }
 
+  console.log(totalArray);
+
+  nAvgs = 0;
+
+  var plot_canvas = document.getElementById('plotCanvas');
+
+  var trace = {
+    y: dataArray.slice(1, 1000)
+  };
+
+  Plotly.newPlot(plot_canvas, [trace]);
+  
 }
 
-var radSample;
-var latSample;
+
+function visualize() {
+  console.log('started');
+
+  // Initialize totalArray
+  analyser.getFloatFrequencyData(totalArray);
+
+  function draw() {
+
+    console.log(nAvgs);
+
+    drawVisual = requestAnimationFrame(draw);
+
+    analyser.getFloatFrequencyData(dataArray);
+
+    for (var i = 0; i < bufferLength; i++) {
+      totalArray[i] = totalArray[i] + dataArray[i];
+    }
+    nAvgs += 1;
+  }
+
+  draw();
+
+}
 
 $(function() {
   console.log('JQuery enabled');
 
-  $('#recordRadial').click(function() {recordStrike(this, radSample);});
+  $('#start').click(function() {startRecording(this);});
 
-  $('#playRadial').click(function() {playStrike(this, radSample);});
+  $('#stop').click(function() {stopRecording(this);});
 
 })
