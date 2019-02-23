@@ -1,4 +1,12 @@
 
+function arrayRange(start, stop, stride) {
+  var x = [];
+  for (var i=start; i < stop; i+=stride) {
+    x.push(i);
+  }
+  return x;
+}
+
 navigator.getUserMedia = (navigator.getUserMedia ||
                           navigator.webkitGetUserMedia ||
                           navigator.mozGetUserMedia ||
@@ -13,25 +21,28 @@ var analyser;
 var bufferLength;
 
 var totalArray;
-var dataArray;
+var fftArray;
 var nAvgs = 0.;
+var fftSize = 32768; // 2^15
 
 var drawVisual;
 
-function startRecording(button) {
+
+
+
+function startRecording() {
 
   audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
   analyser = audioCtx.createAnalyser();
-  analyser.fftSize = 32768;
+  analyser.fftSize = fftSize;
   analyser.minDecibels = -90;
   analyser.maxDecibels = -10;
-  analyser.smoothingTimeConstant = 0.85;
+  analyser.smoothingTimeConstant = 0.5;
 
   bufferLength = analyser.frequencyBinCount;
 
-  totalArray = new Float32Array(bufferLength);
-  dataArray = new Float32Array(bufferLength);
+  fftArray = new Float32Array(bufferLength);
 
   if (navigator.getUserMedia) {
      console.log('getUserMedia supported.');
@@ -45,7 +56,7 @@ function startRecording(button) {
         function(stream) {
            source = audioCtx.createMediaStreamSource(stream);
            source.connect(analyser);
-           visualize();
+           // visualize();
         },
 
         // Error callback
@@ -58,62 +69,59 @@ function startRecording(button) {
   }
 }
 
-function stopRecording(button) {
+function stopRecording() {
 
-  window.cancelAnimationFrame(drawVisual);
+  audioCtx.close().then(function() {
 
-  console.log(dataArray);
-  console.log(nAvgs);
-  console.log(totalArray);
+    analyser.getFloatFrequencyData(fftArray);
 
-  for (var i = 0; i < bufferLength; i++) {
-    totalArray[i] = totalArray[i] / nAvgs;
-  }
+    freq = arrayRange(0, 44100./2., 44100./fftSize);
 
-  console.log(totalArray);
+    var plot_canvas = document.getElementById('plotCanvas');
 
-  nAvgs = 0;
+    var trace = {
+      x: freq.slice(1, 1000),
+      y: fftArray.slice(1, 1000)
+    };
 
-  var plot_canvas = document.getElementById('plotCanvas');
+    Plotly.newPlot(plot_canvas, [trace]);
 
-  var trace = {
-    y: dataArray.slice(1, 1000)
-  };
-
-  Plotly.newPlot(plot_canvas, [trace]);
+  });
   
 }
 
 
-function visualize() {
-  console.log('started');
+// function visualize() {
+//   console.log('started');
 
-  // Initialize totalArray
-  analyser.getFloatFrequencyData(totalArray);
+//   // Initialize totalArray
+//   analyser.getFloatFrequencyData(totalArray);
 
-  function draw() {
+//   function draw() {
 
-    console.log(nAvgs);
+//     drawVisual = requestAnimationFrame(draw);
 
-    drawVisual = requestAnimationFrame(draw);
+//     analyser.getFloatFrequencyData(dataArray);
 
-    analyser.getFloatFrequencyData(dataArray);
+//     for (var i = 0; i < bufferLength; i++) {
+//       totalArray[i] = totalArray[i] + dataArray[i];
+//     }
+//     nAvgs += 1.;
+//   }
 
-    for (var i = 0; i < bufferLength; i++) {
-      totalArray[i] = totalArray[i] + dataArray[i];
-    }
-    nAvgs += 1;
-  }
+//   draw();
 
-  draw();
-
-}
+// }
 
 $(function() {
   console.log('JQuery enabled');
 
-  $('#start').click(function() {startRecording(this);});
+  $('#start').click(function() {
+    startRecording();
+  });
 
-  $('#stop').click(function() {stopRecording(this);});
+  $('#stop').click(function() {
+    stopRecording();
+  });
 
 })
