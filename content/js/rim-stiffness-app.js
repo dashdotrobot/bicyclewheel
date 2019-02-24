@@ -1,6 +1,6 @@
 
-function arrayRange(arr, step) {
-  arr[0] = 0;
+function arrayRange(arr, start, step) {
+  arr[0] = start;
   for (var i=1; i < arr.length; i+=1) {
     arr[i] = arr[i-1] + step;
   }
@@ -22,12 +22,12 @@ var fftSize = 32768; // 2^15
 analyser.fftSize = fftSize;
 analyser.minDecibels = -90;
 analyser.maxDecibels = -10;
-analyser.smoothingTimeConstant = 0.1;
+analyser.smoothingTimeConstant = 0.25;
 
 var bufferLength = analyser.frequencyBinCount;
 var fftArray = new Float32Array(bufferLength);
 var freq = new Float32Array(bufferLength);
-arrayRange(freq, 44100./fftSize);
+arrayRange(freq, 0, 44100./fftSize);
 
 // Plot stuff
 var drawVisual;
