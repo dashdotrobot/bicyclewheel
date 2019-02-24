@@ -25,30 +25,27 @@ analyser.maxDecibels = -10;
 analyser.smoothingTimeConstant = 0.25;
 
 var bufferLength = analyser.frequencyBinCount;
+var truncLength = Math.round(bufferLength * 2*2000./44100.);
 var fftArray = new Float32Array(bufferLength);
 var freq = new Float32Array(bufferLength);
 arrayRange(freq, 0, 44100./fftSize);
 
 // Plot stuff
 var drawVisual;
-var plot_canvas = document.getElementById('plotCanvas');
-var trace = [{
-  x: freq,
-  y: fftArray
-}];
-var layout = {
-  xaxis: {
-    range: [0., 1000.]
-  },
-  yaxis: {
-    range: [-150, -10]
-  }
-}
 
-Plotly.newPlot(plot_canvas, trace, layout);
+var canvasRad = document.getElementById('canvasRad')
+var ctxRad = canvasRad.getContext('2d');
 
+var canvasLat = document.getElementById('canvasLat');
+var ctxLat = canvasLat.getContext('2d');
 
-function startRecording() {
+var WIDTH = canvasRad.width;
+var HEIGHT = canvasRad.height;
+
+ctxRad.fillStyle = 'rgb(255, 255, 255)';
+ctxRad.fillRect(0, 0, WIDTH, HEIGHT);
+
+function startRecording(ctx, linecolor) {
 
   if (navigator.getUserMedia) {
      console.log('getUserMedia supported.');
@@ -65,7 +62,7 @@ function startRecording() {
             source = audioCtx.createMediaStreamSource(stream);
             source.connect(analyser);
 
-            visualize();
+            visualize(ctx, linecolor);
 
           });
 
@@ -83,12 +80,14 @@ function startRecording() {
 
 function stopRecording() {
 
+  console.log('stopped');
+
   window.cancelAnimationFrame(drawVisual);
 
 }
 
+function visualize(ctx, linecolor) {
 
-function visualize() {
   console.log('started');
 
   function draw() {
@@ -96,7 +95,30 @@ function visualize() {
     drawVisual = requestAnimationFrame(draw);
     analyser.getFloatFrequencyData(fftArray);
 
-    Plotly.restyle(plot_canvas, {y: fftArray});
+    // Draw
+    ctx.clearRect(0, 0, WIDTH, HEIGHT);
+
+    // 
+    // 
+
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = linecolor;
+
+    ctx.beginPath();
+
+    var x = 0;
+    var y = HEIGHT * (1.0 - (fftArray[0] + 150.)/140.);
+    var dx = WIDTH * 1.0 / truncLength;
+
+    ctx.moveTo(x, y);
+
+    for(var i=1; i < truncLength; i++) {
+      x += dx;
+      y = HEIGHT * (1.0 - (fftArray[i] + 150.)/140.);
+      ctx.lineTo(x, y);
+    }
+
+    ctx.stroke();
 
   }
 
@@ -107,11 +129,15 @@ function visualize() {
 $(function() {
   console.log('JQuery enabled');
 
-  $('#start').click(function() {
-    startRecording();
+  $('#startRad').click(function() {
+    startRecording(ctxRad, 'rgb(213, 39, 40)');
   });
 
-  $('#stop').click(function() {
+  $('#startLat').click(function() {
+    startRecording(ctxLat, 'rgb(31, 119, 180)');
+  });
+
+  $('.stop-record').click(function() {
     stopRecording();
   });
 
