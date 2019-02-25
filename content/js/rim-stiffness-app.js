@@ -26,7 +26,8 @@ analyser.smoothingTimeConstant = 0.25;
 
 var bufferLength = analyser.frequencyBinCount;
 var truncLength = Math.round(bufferLength * 2*2000./44100.);
-var fftArray = new Float32Array(bufferLength);
+var fftRad = new Float32Array(bufferLength);
+var fftLat = new Float32Array(bufferLength);
 var freq = new Float32Array(bufferLength);
 arrayRange(freq, 0, 44100./fftSize);
 
@@ -47,7 +48,7 @@ var ctxRad = canvasRad.getContext('2d');
 var canvasLat = document.getElementById('canvasLat');
 var ctxLat = canvasLat.getContext('2d');
 
-function startRecording(canvas, ctx, linecolor) {
+function startRecording(canvas, ctx, linecolor, fft) {
 
   if (navigator.getUserMedia) {
      console.log('getUserMedia supported.');
@@ -62,7 +63,7 @@ function startRecording(canvas, ctx, linecolor) {
             source = audioCtx.createMediaStreamSource(stream);
             source.connect(analyser);
 
-            visualize(canvas, ctx, linecolor);
+            animateFFT(canvas, ctx, linecolor, fft);
           });
         },
 
@@ -84,47 +85,49 @@ function stopRecording() {
 
 }
 
-function visualize(canvas, ctx, linecolor) {
+function drawFFT(ctx, width, height, linecolor, fft) {
+
+  ctx.clearRect(0, 0, width, height);
+
+  ctx.lineWidth = 2;
+  ctx.strokeStyle = linecolor;
+
+  var x = 0;
+  var y = height * (1.0 - (fft[0] + 150.)/140.);
+  var dx = width * 1.0 / truncLength;
+
+  ctx.beginPath();
+  ctx.moveTo(x, y);
+
+  for(var i=1; i < truncLength; i++) {
+    x += dx;
+    y = height * (1.0 - (fft[i] + 150.)/140.);
+    ctx.lineTo(x, y);
+  }
+
+  ctx.stroke();
+
+}
+
+function animateFFT(canvas, ctx, linecolor, fft) {
 
   console.log('started');
   recording = true;
 
   // Set canvas width and height
-  var WIDTH = canvasDiv.clientWidth;
-  var HEIGHT = canvasDiv.clientHeight;
+  var width = canvasDiv.clientWidth;
+  var height = canvasDiv.clientHeight;
 
-  console.log(WIDTH);
-  console.log(HEIGHT);
+  console.log(width);
+  console.log(height);
 
-  canvas.setAttribute('width', WIDTH);
-  canvas.setAttribute('height', HEIGHT);
+  canvas.setAttribute('width', width);
+  canvas.setAttribute('height', height);
 
   function draw() {
-
     drawVisual = requestAnimationFrame(draw);
-    analyser.getFloatFrequencyData(fftArray);
-
-    // Draw
-    ctx.clearRect(0, 0, WIDTH, HEIGHT);
-
-    ctx.lineWidth = 2;
-    ctx.strokeStyle = linecolor;
-
-    var x = 0;
-    var y = HEIGHT * (1.0 - (fftArray[0] + 150.)/140.);
-    var dx = WIDTH * 1.0 / truncLength;
-
-    ctx.beginPath();
-    ctx.moveTo(x, y);
-
-    for(var i=1; i < truncLength; i++) {
-      x += dx;
-      y = HEIGHT * (1.0 - (fftArray[i] + 150.)/140.);
-      ctx.lineTo(x, y);
-    }
-
-    ctx.stroke();
-
+    analyser.getFloatFrequencyData(fft);
+    drawFFT(ctx, width, height, linecolor, fft)
   }
 
   draw();
@@ -142,7 +145,7 @@ $(function() {
       latButton.disabled = false;
     } else {
       // Start recording
-      startRecording(canvasRad, ctxRad, 'rgb(213, 39, 40)');  
+      startRecording(canvasRad, ctxRad, 'rgb(213, 39, 40)', fftRad);  
       radButton.innerText = 'Stop radial';
       latButton.disabled = true;
     }
@@ -156,7 +159,7 @@ $(function() {
       radButton.disabled = false;
     } else {
       // Start recording
-      startRecording(canvasLat, ctxLat, 'rgb(31, 119, 180)');
+      startRecording(canvasLat, ctxLat, 'rgb(31, 119, 180)', fftLat);
       latButton.innerText = 'Stop lateral';
       radButton.disabled = true;
     }
