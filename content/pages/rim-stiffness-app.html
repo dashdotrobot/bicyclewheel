@@ -11,15 +11,19 @@
 <h2>Rim Stiffness App</h2>
 
 <div class="row my-1">
-  <button type="button" id="startRad" class="btn mx-1 btn-sm btn-danger">Record radial</button>
-  <button type="button" id="startLat" class="btn mx-1 btn-sm btn-primary">Record lateral</button>
+  <div class="col-6">
+    <button type="button" id="startRad" class="btn btn-block btn-sm btn-danger">Record radial</button>
+  </div>
+  <div class="col-6">
+    <button type="button" id="startLat" class="btn btn-block btn-sm btn-primary">Record lateral</button>
+  </div>
   <!-- <button type="button" class="btn mx-1 btn-sm btn-success stop-record">Stop</button> -->
 </div>
 
 <div id="canvasDiv" class="spectrogram">
- <canvas id="canvasRad" height="1" width="1"
+  <canvas id="canvasRad" height="1" width="1"
    style="position: absolute; left: 0; top: 0; z-index: 0;"></canvas>
- <canvas id="canvasLat" height="1" width="1"
+  <canvas id="canvasLat" height="1" width="1"
    style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
 </div>
 
