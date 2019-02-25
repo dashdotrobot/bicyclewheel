@@ -3,6 +3,7 @@
 <head>
   <title>Rim Stiffness App</title>
   <meta name="javascripts" content="rim-stiffness-app.js" />
+  <meta name="stylesheets" content="rim-app.css" />
   <meta name="show_in_menu" content="True" />
 </head>
 <body>
@@ -11,14 +12,14 @@
 
 <div class="row my-1">
   <button type="button" id="startRad" class="btn mx-1 btn-sm btn-danger">Record radial</button>
-  <button type="button" id="startLat" class="btn mx-1 btn-sm btn-danger">Record lateral</button>
-  <button type="button" class="btn mx-1 btn-sm btn-success stop-record">Stop</button>
+  <button type="button" id="startLat" class="btn mx-1 btn-sm btn-primary">Record lateral</button>
+  <!-- <button type="button" class="btn mx-1 btn-sm btn-success stop-record">Stop</button> -->
 </div>
 
-<div style="position: relative; min-height: 200px">
- <canvas id="canvasRad" width="600" height="200" 
+<div id="canvasDiv" class="spectrogram">
+ <canvas id="canvasRad" height="1" width="1"
    style="position: absolute; left: 0; top: 0; z-index: 0;"></canvas>
- <canvas id="canvasLat" width="600" height="200" 
+ <canvas id="canvasLat" height="1" width="1"
    style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
 </div>
 

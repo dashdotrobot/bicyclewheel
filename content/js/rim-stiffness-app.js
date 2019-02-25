@@ -30,30 +30,30 @@ var fftArray = new Float32Array(bufferLength);
 var freq = new Float32Array(bufferLength);
 arrayRange(freq, 0, 44100./fftSize);
 
+var recording = false;
+
+// Button stuff
+var radButton = document.getElementById('startRad');
+var latButton = document.getElementById('startLat');
+
 // Plot stuff
 var drawVisual;
 
-var canvasRad = document.getElementById('canvasRad')
+var canvasDiv = document.getElementById('canvasDiv');
+
+var canvasRad = document.getElementById('canvasRad');
 var ctxRad = canvasRad.getContext('2d');
 
 var canvasLat = document.getElementById('canvasLat');
 var ctxLat = canvasLat.getContext('2d');
 
-var WIDTH = canvasRad.width;
-var HEIGHT = canvasRad.height;
-
-ctxRad.fillStyle = 'rgb(255, 255, 255)';
-ctxRad.fillRect(0, 0, WIDTH, HEIGHT);
-
-function startRecording(ctx, linecolor) {
+function startRecording(canvas, ctx, linecolor) {
 
   if (navigator.getUserMedia) {
      console.log('getUserMedia supported.');
      navigator.getUserMedia (
         // constraints - only audio needed for this app
-        {
-           audio: true
-        },
+        {audio: true},
 
         // Success callback
         function(stream) {
@@ -62,10 +62,8 @@ function startRecording(ctx, linecolor) {
             source = audioCtx.createMediaStreamSource(stream);
             source.connect(analyser);
 
-            visualize(ctx, linecolor);
-
+            visualize(canvas, ctx, linecolor);
           });
-
         },
 
         // Error callback
@@ -81,14 +79,25 @@ function startRecording(ctx, linecolor) {
 function stopRecording() {
 
   console.log('stopped');
-
+  recording = false;
   window.cancelAnimationFrame(drawVisual);
 
 }
 
-function visualize(ctx, linecolor) {
+function visualize(canvas, ctx, linecolor) {
 
   console.log('started');
+  recording = true;
+
+  // Set canvas width and height
+  var WIDTH = canvasDiv.clientWidth;
+  var HEIGHT = canvasDiv.clientHeight;
+
+  console.log(WIDTH);
+  console.log(HEIGHT);
+
+  canvas.setAttribute('width', WIDTH);
+  canvas.setAttribute('height', HEIGHT);
 
   function draw() {
 
@@ -98,18 +107,14 @@ function visualize(ctx, linecolor) {
     // Draw
     ctx.clearRect(0, 0, WIDTH, HEIGHT);
 
-    // 
-    // 
-
     ctx.lineWidth = 2;
     ctx.strokeStyle = linecolor;
-
-    ctx.beginPath();
 
     var x = 0;
     var y = HEIGHT * (1.0 - (fftArray[0] + 150.)/140.);
     var dx = WIDTH * 1.0 / truncLength;
 
+    ctx.beginPath();
     ctx.moveTo(x, y);
 
     for(var i=1; i < truncLength; i++) {
@@ -130,15 +135,31 @@ $(function() {
   console.log('JQuery enabled');
 
   $('#startRad').click(function() {
-    startRecording(ctxRad, 'rgb(213, 39, 40)');
+    if (recording) {
+      // Stop recording
+      stopRecording();
+      radButton.innerText = 'Record radial';
+      latButton.disabled = false;
+    } else {
+      // Start recording
+      startRecording(canvasRad, ctxRad, 'rgb(213, 39, 40)');  
+      radButton.innerText = 'Stop radial';
+      latButton.disabled = true;
+    }
   });
 
   $('#startLat').click(function() {
-    startRecording(ctxLat, 'rgb(31, 119, 180)');
-  });
-
-  $('.stop-record').click(function() {
-    stopRecording();
+    if (recording) {
+      // Stop recording
+      stopRecording();
+      latButton.innerText = 'Record lateral';
+      radButton.disabled = false;
+    } else {
+      // Start recording
+      startRecording(canvasLat, ctxLat, 'rgb(31, 119, 180)');
+      latButton.innerText = 'Stop lateral';
+      radButton.disabled = true;
+    }
   });
 
 })
