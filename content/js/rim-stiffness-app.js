@@ -1,10 +1,90 @@
 
+// Utility functions
 function arrayRange(arr, start, step) {
+  // Populate the given array arr with linearly-spaced values
   arr[0] = start;
   for (var i=1; i < arr.length; i+=1) {
     arr[i] = arr[i-1] + step;
   }
 }
+
+// Classes for draggable frequency bars
+
+// FreqBar: Draggable reference bar to select a frequency
+function FreqBar(f, y_flag, color) {
+  this.f = f || 0;
+  this.y_flag = y_flag || 50;
+  this.color = color || '#000000';
+
+  this.FLAG_WIDTH = 30;
+  this.FLAG_HEIGHT = 10;
+}
+
+FreqBar.prototype.draw = function(ctx) {
+  // Draw the frequency bar and selector flag on ctx
+
+  // Draw the line
+  // ...
+
+  // Draw the selector flag
+  // ...
+}
+
+FreqBar.prototype.isClicked = function(x, y) {
+  // Determine of the coordinates x,y are located on the selector flag
+  return (this.f <= x) && (this.f + this.FLAG_WIDTH >= x) &&
+         (this.y_flag - this.FLAG_HEIGHT <= y) && (this.y_flag + this.FLAG_HEIGHT >= y);
+}
+
+// CanvasObj: 
+// Borrowed heavily from Simon Sarris - www.simonsarris.com
+function CanvasObj(canvas) {
+  this.canvas = canvas;
+  this.height = canvas.height;
+  this.width = canvas.width;
+  this.ctx = canvas.getContext('2d');
+
+  // Get proper mouse coordinate when canvas has padding or border
+  var stylePaddingLeft, stylePaddingTop, styleBorderLeft, styleBorderTop;
+  if (document.defaultView && document.defaultView.getComputedStyle) {
+    this.stylePaddingLeft = parseInt(document.defaultView.getComputedStyle(canvas, null)['paddingLeft'], 10)      || 0;
+    this.stylePaddingTop  = parseInt(document.defaultView.getComputedStyle(canvas, null)['paddingTop'], 10)       || 0;
+    this.styleBorderLeft  = parseInt(document.defaultView.getComputedStyle(canvas, null)['borderLeftWidth'], 10)  || 0;
+    this.styleBorderTop   = parseInt(document.defaultView.getComputedStyle(canvas, null)['borderTopWidth'], 10)   || 0;
+  }
+
+  // Some pages have fixed-position bars (like the stumbleupon bar) at the top or left of the page
+  // They will mess up mouse coordinates and this fixes that
+  var html = document.body.parentNode;
+  this.htmlTop = html.offsetTop;
+  this.htmlLeft = html.offsetLeft;
+
+  // Store "this" in a named variable
+  var me = this;
+
+  // State variables
+  me.dragging = false;
+
+  canvas.addEventListener('mousedown', function(e) {
+    // To Do
+    console.log('mouse down');
+    me.dragging = true;
+  }, true);
+
+  canvas.addEventListener('mousemove', function(e) {
+    // To Do
+    if (me.dragging) {
+      console.log('--mouse move');
+    }
+  }, true);
+
+  canvas.addEventListener('mouseup', function(e) {
+    // To Do
+    console.log('mouse up');
+    me.dragging = false;
+  }, true);
+}
+
 
 // set up forked web audio context, for multiple browsers
 // window. is needed otherwise Safari explodes
@@ -12,7 +92,6 @@ navigator.getUserMedia = (navigator.getUserMedia ||
                           navigator.webkitGetUserMedia ||
                           navigator.mozGetUserMedia ||
                           navigator.msGetUserMedia);
-
 
 var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 var analyser = audioCtx.createAnalyser();
@@ -26,6 +105,7 @@ analyser.smoothingTimeConstant = 0.25;
 
 var bufferLength = analyser.frequencyBinCount;
 var truncLength = Math.round(bufferLength * 2*2000./44100.);
+
 var fftRad = new Float32Array(bufferLength);
 var fftLat = new Float32Array(bufferLength);
 var freq = new Float32Array(bufferLength);
@@ -47,6 +127,12 @@ var ctxRad = canvasRad.getContext('2d');
 
 var canvasLat = document.getElementById('canvasLat');
 var ctxLat = canvasLat.getContext('2d');
+
+var canvasRadObj;
+var canvasLatObj;
+
+// Frequency selector stuff
+var dragging = false;
 
 function startRecording(canvas, ctx, linecolor, fft) {
 
@@ -82,7 +168,6 @@ function stopRecording() {
   console.log('stopped');
   recording = false;
   window.cancelAnimationFrame(drawVisual);
-
 }
 
 function drawFFT(ctx, width, height, linecolor, fft) {
@@ -106,7 +191,6 @@ function drawFFT(ctx, width, height, linecolor, fft) {
   }
 
   ctx.stroke();
-
 }
 
 function animateFFT(canvas, ctx, linecolor, fft) {
@@ -118,12 +202,10 @@ function animateFFT(canvas, ctx, linecolor, fft) {
   var width = canvasDiv.clientWidth;
   var height = canvasDiv.clientHeight;
 
-  console.log(width);
-  console.log(height);
-
   canvas.setAttribute('width', width);
   canvas.setAttribute('height', height);
 
+  // Inner function for the refresh loop
   function draw() {
     drawVisual = requestAnimationFrame(draw);
     analyser.getFloatFrequencyData(fft);
@@ -134,6 +216,7 @@ function animateFFT(canvas, ctx, linecolor, fft) {
 
 }
 
+// Setup button callbacks when ready
 $(function() {
   console.log('JQuery enabled');
 
@@ -164,5 +247,25 @@ $(function() {
       radButton.disabled = true;
     }
   });
+
+  canvasRadObj = CanvasObj(canvasRad);
+
+  // canvasRad.addEventListener('mousedown', function(e) {
+  //   console.log('mouse pressed');
+  //   dragging = true;
+  // })
+
+  // canvasRad.addEventListener('mousemove', function(e) {
+  //   if (dragging) {
+  //     console.log('--mouse moved');
+  //   }
+  // })
+
+  // canvasRad.addEventListener('mouseup', function(e) {
+  //   console.log('mouse released');
+  //   dragging = false;
+  // })
+
+
 
 })
