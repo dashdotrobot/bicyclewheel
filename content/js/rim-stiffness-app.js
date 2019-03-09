@@ -122,11 +122,11 @@ var drawVisual;
 
 var canvasDiv = document.getElementById('canvasDiv');
 
-var canvasRad = document.getElementById('canvasRad');
-var ctxRad = canvasRad.getContext('2d');
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
 
-var canvasLat = document.getElementById('canvasLat');
-var ctxLat = canvasLat.getContext('2d');
+// var canvasLat = document.getElementById('canvasLat');
+// var ctxLat = canvasLat.getContext('2d');
 
 var canvasRadObj;
 var canvasLatObj;
@@ -134,7 +134,7 @@ var canvasLatObj;
 // Frequency selector stuff
 var dragging = false;
 
-function startRecording(canvas, ctx, linecolor, fft) {
+function startRecording(fft) {
 
   if (navigator.getUserMedia) {
      console.log('getUserMedia supported.');
@@ -149,7 +149,7 @@ function startRecording(canvas, ctx, linecolor, fft) {
             source = audioCtx.createMediaStreamSource(stream);
             source.connect(analyser);
 
-            animateFFT(canvas, ctx, linecolor, fft);
+            animateFFT(fft);
           });
         },
 
@@ -170,9 +170,7 @@ function stopRecording() {
   window.cancelAnimationFrame(drawVisual);
 }
 
-function drawFFT(ctx, width, height, linecolor, fft) {
-
-  ctx.clearRect(0, 0, width, height);
+function drawFFT(width, height, linecolor, fft) {
 
   ctx.lineWidth = 2;
   ctx.strokeStyle = linecolor;
@@ -193,7 +191,7 @@ function drawFFT(ctx, width, height, linecolor, fft) {
   ctx.stroke();
 }
 
-function animateFFT(canvas, ctx, linecolor, fft) {
+function animateFFT(fft) {
 
   console.log('started');
   recording = true;
@@ -209,7 +207,10 @@ function animateFFT(canvas, ctx, linecolor, fft) {
   function draw() {
     drawVisual = requestAnimationFrame(draw);
     analyser.getFloatFrequencyData(fft);
-    drawFFT(ctx, width, height, linecolor, fft)
+
+    ctx.clearRect(0, 0, width, height);
+    drawFFT(width, height, 'rgb(213, 39, 40)', fftRad);
+    drawFFT(width, height, 'rgb(31, 119, 180)', fftLat);
   }
 
   draw();
@@ -228,7 +229,7 @@ $(function() {
       latButton.disabled = false;
     } else {
       // Start recording
-      startRecording(canvasRad, ctxRad, 'rgb(213, 39, 40)', fftRad);  
+      startRecording(fftRad);
       radButton.innerText = 'Stop radial';
       latButton.disabled = true;
     }
@@ -242,13 +243,13 @@ $(function() {
       radButton.disabled = false;
     } else {
       // Start recording
-      startRecording(canvasLat, ctxLat, 'rgb(31, 119, 180)', fftLat);
+      startRecording(fftLat);
       latButton.innerText = 'Stop lateral';
       radButton.disabled = true;
     }
   });
 
-  canvasRadObj = CanvasObj(canvasRad);
+  // canvasRadObj = CanvasObj(canvasRad);
 
   // canvasRad.addEventListener('mousedown', function(e) {
   //   console.log('mouse pressed');
