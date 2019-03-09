@@ -18,6 +18,8 @@ function FreqBar(f, y_flag, color) {
 
   this.FLAG_WIDTH = 30;
   this.FLAG_HEIGHT = 10;
+
+  this.visible = true;
 }
 
 FreqBar.prototype.draw = function(ctx) {
@@ -40,8 +42,14 @@ FreqBar.prototype.isClicked = function(x, y) {
 // Borrowed heavily from Simon Sarris - www.simonsarris.com
 function CanvasObj(canvas) {
   this.canvas = canvas;
-  this.height = canvas.height;
-  this.width = canvas.width;
+
+  // Set canvas width and height
+  this.width = canvasDiv.clientWidth;
+  this.height = canvasDiv.clientHeight;
+
+  this.canvas.setAttribute('width', this.width);
+  this.canvas.setAttribute('height', this.height);
+
   this.ctx = canvas.getContext('2d');
 
   // Get proper mouse coordinate when canvas has padding or border
@@ -75,6 +83,7 @@ function CanvasObj(canvas) {
     // To Do
     if (me.dragging) {
       console.log('--mouse move');
+      me.draw();
     }
   }, true);
 
@@ -83,6 +92,39 @@ function CanvasObj(canvas) {
     console.log('mouse up');
     me.dragging = false;
   }, true);
+}
+
+CanvasObj.prototype.drawFFT = function(linecolor, fft) {
+  var ctx = this.ctx;
+
+  ctx.lineWidth = 2;
+  ctx.strokeStyle = linecolor;
+
+  var x = 0;
+  var y = this.height * (1.0 - (fft[0] + 150.)/140.);
+  var dx = this.width * 1.0 / truncLength;
+
+  ctx.beginPath();
+  ctx.moveTo(x, y);
+
+  for(var i=1; i < truncLength; i++) {
+    x += dx;
+    y = this.height * (1.0 - (fft[i] + 150.)/140.);
+    ctx.lineTo(x, y);
+  }
+
+  ctx.stroke();
+}
+
+CanvasObj.prototype.draw = function() {
+  var ctx = this.ctx;
+
+  // Clear canvas
+  ctx.clearRect(0, 0, this.width, this.height)
+
+  // Draw FFTs
+  this.drawFFT('rgb(213, 39, 40)', fftRad);
+  this.drawFFT('rgb(31, 119, 180)', fftLat);
 }
 
 
@@ -121,15 +163,7 @@ var latButton = document.getElementById('startLat');
 var drawVisual;
 
 var canvasDiv = document.getElementById('canvasDiv');
-
-var canvas = document.getElementById('canvas');
-var ctx = canvas.getContext('2d');
-
-// var canvasLat = document.getElementById('canvasLat');
-// var ctxLat = canvasLat.getContext('2d');
-
-var canvasRadObj;
-var canvasLatObj;
+var canvas;
 
 // Frequency selector stuff
 var dragging = false;
@@ -170,47 +204,17 @@ function stopRecording() {
   window.cancelAnimationFrame(drawVisual);
 }
 
-function drawFFT(width, height, linecolor, fft) {
-
-  ctx.lineWidth = 2;
-  ctx.strokeStyle = linecolor;
-
-  var x = 0;
-  var y = height * (1.0 - (fft[0] + 150.)/140.);
-  var dx = width * 1.0 / truncLength;
-
-  ctx.beginPath();
-  ctx.moveTo(x, y);
-
-  for(var i=1; i < truncLength; i++) {
-    x += dx;
-    y = height * (1.0 - (fft[i] + 150.)/140.);
-    ctx.lineTo(x, y);
-  }
-
-  ctx.stroke();
-}
-
 function animateFFT(fft) {
 
   console.log('started');
   recording = true;
-
-  // Set canvas width and height
-  var width = canvasDiv.clientWidth;
-  var height = canvasDiv.clientHeight;
-
-  canvas.setAttribute('width', width);
-  canvas.setAttribute('height', height);
 
   // Inner function for the refresh loop
   function draw() {
     drawVisual = requestAnimationFrame(draw);
     analyser.getFloatFrequencyData(fft);
 
-    ctx.clearRect(0, 0, width, height);
-    drawFFT(width, height, 'rgb(213, 39, 40)', fftRad);
-    drawFFT(width, height, 'rgb(31, 119, 180)', fftLat);
+    canvas.draw();
   }
 
   draw();
@@ -249,24 +253,6 @@ $(function() {
     }
   });
 
-  // canvasRadObj = CanvasObj(canvasRad);
-
-  // canvasRad.addEventListener('mousedown', function(e) {
-  //   console.log('mouse pressed');
-  //   dragging = true;
-  // })
-
-  // canvasRad.addEventListener('mousemove', function(e) {
-  //   if (dragging) {
-  //     console.log('--mouse moved');
-  //   }
-  // })
-
-  // canvasRad.addEventListener('mouseup', function(e) {
-  //   console.log('mouse released');
-  //   dragging = false;
-  // })
-
-
+  canvas = new CanvasObj(document.getElementById('canvas'))
 
 })
