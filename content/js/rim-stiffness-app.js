@@ -25,11 +25,13 @@ function FreqFlag(dof, n, x, y, color) {
   this.visible = true;
 }
 
+FreqFlag.prototype.calcF = function() {
+  return this.x / this.canvas.width * 44100 * truncLength/bufferLength;
+}
+
 FreqFlag.prototype.calcF2 = function() {
   // For radial only: calculate f_2 based on current position (x)
-  var f = this.x / this.canvas.width * 44100 * truncLength/bufferLength;
-
-  return f * 6/Math.sqrt(5) * Math.sqrt(this.n**2 + 1)/(this.n*(this.n**2 - 1));
+  return this.calcF() * 6/Math.sqrt(5) * Math.sqrt(this.n**2 + 1)/(this.n*(this.n**2 - 1));
 }
 
 FreqFlag.prototype.moveToF = function(f) {
@@ -38,25 +40,27 @@ FreqFlag.prototype.moveToF = function(f) {
 }
 
 FreqFlag.prototype.draw = function() {
+  if (this.visible) {
+    ctx = this.canvas.ctx;
 
-  ctx = this.canvas.ctx;
+    // Draw frequency bar
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = this.color;
+    ctx.beginPath();
+    ctx.moveTo(this.x, 0);
+    ctx.lineTo(this.x, this.canvas.height);
+    ctx.stroke();
 
-  // Draw frequency bar
-  ctx.lineWidth = 2;
-  ctx.strokeStyle = this.color;
-  ctx.beginPath();
-  ctx.moveTo(this.x, 0);
-  ctx.lineTo(this.x, this.canvas.height);
-  ctx.stroke();
-
-  // Draw the selector flag
-  ctx.fillStyle = this.color;
-  ctx.fillRect(this.x, this.y, this.FLAG_WIDTH, this.FLAG_HEIGHT);
+    // Draw the selector flag
+    ctx.fillStyle = this.color;
+    ctx.fillRect(this.x, this.y, this.FLAG_WIDTH, this.FLAG_HEIGHT);
+  }
 }
 
 FreqFlag.prototype.isClicked = function(x, y) {
   // Determine of the coordinates x,y are located on the selector flag
-  return (this.x <= x) && (this.x + this.FLAG_WIDTH >= x) &&
+  return this.visible &&
+         (this.x <= x) && (this.x + this.FLAG_WIDTH >= x) &&
          (this.y - this.FLAG_HEIGHT <= y) && (this.y + this.FLAG_HEIGHT >= y);
 }
 
@@ -123,20 +127,31 @@ function CanvasObj(canvas) {
       me.selection.y = m.y - me.dragOffY;
 
       // If dragging a radial bar, update the others
-      var f_2 = me.selection.calcF2();
-      console.log(f_2);
+      if (me.selection.dof == 'radial') {
+        var f_2 = me.selection.calcF2();
 
-      for (var i=0; i < b_rad.length; i++) {
-        var n = b_rad[i].n;
-        b_rad[i].moveToF(f_2 * Math.sqrt(5)/6 * n*(n**2 - 1)/Math.sqrt(n**2 + 1));
+        for (var i=0; i < b_rad.length; i++) {
+          var n = b_rad[i].n;
+          b_rad[i].moveToF(f_2 * Math.sqrt(5)/6 * n*(n**2 - 1)/Math.sqrt(n**2 + 1));
+        }
       }
+
+      // if dragging f2_lat, update f3_lat based on mu
+      if (me.selection == b_lat_2) {
+        console.log('dragging f2_lat');
+        f2_lat = b_lat_2.calcF();
+        f3_lat = f2_lat * 24./6.*Math.sqrt(mu*4 + 1)/Math.sqrt(mu*9 + 1)
+
+        b_lat_3.moveToF(f3_lat);
+      }
+
+      updateStiffness();
 
       me.draw();
     }
   }, true);
 
   canvas.addEventListener('mouseup', function(e) {
-    console.log('mouse up');
     me.selection = null;
     me.dragging = false;
   }, true);
@@ -244,9 +259,14 @@ var recording = false;
 var drawVisual;
 var canvas;
 
+var mu = 0.3;
+
 var b_rad = [new FreqFlag('radial', 2, 50, 30, '#d52728'),
              new FreqFlag('radial', 3, 100, 40, '#d52728'),
              new FreqFlag('radial', 4, 150, 50, '#d52728')];
+
+var b_lat_2 = new FreqFlag('lateral', 2, 55, 35, '#1f77b4');
+var b_lat_3 = new FreqFlag('lateral', 3, 105, 45, '#1f77b4');
 
 // var b_rad_2 = new FreqFlag(100, 50, '#d52728');
 // var b_rad_2 = new FreqFlag(100, 50, '#d52728');
@@ -306,6 +326,18 @@ function animateFFT(fft) {
   draw();
 }
 
+function updateStiffness() {
+  var f2_rad = b_rad[0].calcF2();
+  var f2_lat = b_lat_2.calcF();
+  var f3_lat = b_lat_3.calcF();
+  var radius = parseFloat($('#diameter').val())/2000.;  // [meters]
+  var mass = parseFloat($('#mass').val())/1000.;      // [kg]
+
+  EI_rad = f2_rad**2 * 5./36. * 2*Math.PI*radius**3*mass;
+
+  $('#radStiff').val(Math.round(EI_rad).toString());
+}
+
 // Setup button callbacks when ready
 $(function() {
   console.log('JQuery enabled');
@@ -342,5 +374,7 @@ $(function() {
   canvas.addFreqFlag(b_rad[0]);
   canvas.addFreqFlag(b_rad[1]);
   canvas.addFreqFlag(b_rad[2]);
+  canvas.addFreqFlag(b_lat_2);
+  canvas.addFreqFlag(b_lat_3);
 
 })

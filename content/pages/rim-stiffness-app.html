@@ -17,17 +17,55 @@
   <div class="col-6">
     <button type="button" id="startLat" class="btn btn-block btn-sm btn-primary">Record lateral</button>
   </div>
-  <!-- <button type="button" class="btn mx-1 btn-sm btn-success stop-record">Stop</button> -->
 </div>
 
 <div id="canvasDiv" class="spectrogram">
   <canvas id="canvas" height="1" width="1"
    style="position: absolute; left: 0; top: 0; z-index: 0;"></canvas>
-  <!-- <canvas id="canvasLat" height="1" width="1" -->
-   <!-- style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas> -->
-  <!-- <canvas id="canvasBars" height="1" width="1" -->
-   <!-- style="position: absolute; left: 0; top: 0; z-index: 2;"></canvas> -->
 </div>
+
+<form>
+<div class="form-group form-row my-0">
+  <label for="mass" class="col-5 col-form-label">Diameter</label>
+  <div class="col-4">
+    <input type="text" class="form-control-plaintext" id="diameter" value="605">
+  </div>
+  <div class="col-3 col-form-label"> mm</div>
+</div>
+
+<div class="form-group form-row my-0">
+  <label for="mass" class="col-5 col-form-label">Mass</label>
+  <div class="col-4">
+    <input type="text" class="form-control-plaintext" id="mass" value="500">
+  </div>
+  <div class="col-3 col-form-label"> grams</div>
+</div>
+
+<div class="form-group form-row my-0">
+  <label for="radStiff" class="col-5 col-form-label">Radial stiffness</label>
+  <div class="col-4">
+    <input type="text" readonly class="form-control-plaintext" id="radStiff" value="100">
+  </div>
+  <div class="col-3 col-form-label"> [N-m^2]</div>
+</div>
+
+<div class="form-group form-row my-0">
+  <label for="latStiff" class="col-5 col-form-label">Lateral stiffness</label>
+  <div class="col-4">
+    <input type="text" readonly class="form-control-plaintext" id="latStiff" value="100">
+  </div>
+  <div class="col-3 col-form-label"> N-m^2</div>
+</div>
+
+<div class="form-group form-row my-0">
+  <label for="torStiff" class="col-5 col-form-label">Torsional stiffness</label>
+  <div class="col-4">
+    <input type="text" readonly class="form-control-plaintext" id="torStiff" value="25">
+  </div>
+  <div class="col-3 col-form-label"> N-m^2</div>
+</div>
+</form>
+
 
 </body>
 </html>
