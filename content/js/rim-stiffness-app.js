@@ -11,7 +11,9 @@ function arrayRange(arr, start, step) {
 // Classes for draggable frequency bars
 
 // FreqFlag: Draggable reference bar to select a frequency
-function FreqFlag(x, y, color) {
+function FreqFlag(dof, n, x, y, color) {
+  this.dof = dof || 'radial';  // 'radial' or 'lateral'
+  this.n = n || 2;             // integer mode number
 
   this.x = x || 0;
   this.y = y || 50;
@@ -23,8 +25,19 @@ function FreqFlag(x, y, color) {
   this.visible = true;
 }
 
+FreqFlag.prototype.calcF2 = function() {
+  // For radial only: calculate f_2 based on current position (x)
+  var f = this.x / this.canvas.width * 44100 * truncLength/bufferLength;
+
+  return f * 6/Math.sqrt(5) * Math.sqrt(this.n**2 + 1)/(this.n*(this.n**2 - 1));
+}
+
+FreqFlag.prototype.moveToF = function(f) {
+  var x = f/44100 * this.canvas.width * bufferLength/truncLength;
+  this.x = x;
+}
+
 FreqFlag.prototype.draw = function() {
-  // Draw the frequency bar and selector flag on ctx
 
   ctx = this.canvas.ctx;
 
@@ -53,8 +66,8 @@ function CanvasObj(canvas) {
   this.canvas = canvas;
 
   // Set canvas width and height
-  this.width = canvasDiv.clientWidth;
-  this.height = canvasDiv.clientHeight;
+  this.width = document.getElementById('canvasDiv').clientWidth;
+  this.height = document.getElementById('canvasDiv').clientHeight;
 
   this.canvas.setAttribute('width', this.width);
   this.canvas.setAttribute('height', this.height);
@@ -88,8 +101,6 @@ function CanvasObj(canvas) {
   var me = this;
 
   canvas.addEventListener('mousedown', function(e) {
-    // To Do
-
     var m = me.getMouse(e);
 
     for (var i=0; i < me.shapes.length; i++) {
@@ -110,6 +121,16 @@ function CanvasObj(canvas) {
       var m = me.getMouse(e);
       me.selection.x = m.x - me.dragOffX;
       me.selection.y = m.y - me.dragOffY;
+
+      // If dragging a radial bar, update the others
+      var f_2 = me.selection.calcF2();
+      console.log(f_2);
+
+      for (var i=0; i < b_rad.length; i++) {
+        var n = b_rad[i].n;
+        b_rad[i].moveToF(f_2 * Math.sqrt(5)/6 * n*(n**2 - 1)/Math.sqrt(n**2 + 1));
+      }
+
       me.draw();
     }
   }, true);
@@ -214,17 +235,21 @@ var fftLat = new Float32Array(bufferLength);
 var freq = new Float32Array(bufferLength);
 arrayRange(freq, 0, 44100./fftSize);
 
-var recording = false;
-
 // Button stuff
 var radButton = document.getElementById('startRad');
 var latButton = document.getElementById('startLat');
 
-// Plot stuff
+// State stuff
+var recording = false;
 var drawVisual;
-
-var canvasDiv = document.getElementById('canvasDiv');
 var canvas;
+
+var b_rad = [new FreqFlag('radial', 2, 50, 30, '#d52728'),
+             new FreqFlag('radial', 3, 100, 40, '#d52728'),
+             new FreqFlag('radial', 4, 150, 50, '#d52728')];
+
+// var b_rad_2 = new FreqFlag(100, 50, '#d52728');
+// var b_rad_2 = new FreqFlag(100, 50, '#d52728');
 
 // Frequency selector stuff
 var dragging = false;
@@ -314,9 +339,8 @@ $(function() {
   });
 
   canvas = new CanvasObj(document.getElementById('canvas'))
-
-  b_rad_2 = new FreqFlag(100, 50, '#d52728');
-
-  canvas.addFreqFlag(b_rad_2);
+  canvas.addFreqFlag(b_rad[0]);
+  canvas.addFreqFlag(b_rad[1]);
+  canvas.addFreqFlag(b_rad[2]);
 
 })
