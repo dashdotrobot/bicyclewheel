@@ -10,10 +10,11 @@ function arrayRange(arr, start, step) {
 
 // Classes for draggable frequency bars
 
-// FreqBar: Draggable reference bar to select a frequency
-function FreqBar(f, y_flag, color) {
-  this.f = f || 0;
-  this.y_flag = y_flag || 50;
+// FreqFlag: Draggable reference bar to select a frequency
+function FreqFlag(x, y, color) {
+
+  this.x = x || 0;
+  this.y = y || 50;
   this.color = color || '#000000';
 
   this.FLAG_WIDTH = 30;
@@ -22,27 +23,28 @@ function FreqBar(f, y_flag, color) {
   this.visible = true;
 }
 
-FreqBar.prototype.draw = function() {
+FreqFlag.prototype.draw = function() {
   // Draw the frequency bar and selector flag on ctx
 
   ctx = this.canvas.ctx;
 
   // Draw frequency bar
-  ctx.lineWidth = 3;
-  ctx.strokeStyle = 'rgb(0, 0, 0)';
+  ctx.lineWidth = 2;
+  ctx.strokeStyle = this.color;
   ctx.beginPath();
-  ctx.moveTo(this.f, 0);
-  ctx.lineTo(this.f, this.canvas.height);
+  ctx.moveTo(this.x, 0);
+  ctx.lineTo(this.x, this.canvas.height);
   ctx.stroke();
 
   // Draw the selector flag
-  // ...
+  ctx.fillStyle = this.color;
+  ctx.fillRect(this.x, this.y, this.FLAG_WIDTH, this.FLAG_HEIGHT);
 }
 
-FreqBar.prototype.isClicked = function(x, y) {
+FreqFlag.prototype.isClicked = function(x, y) {
   // Determine of the coordinates x,y are located on the selector flag
-  return (this.f <= x) && (this.f + this.FLAG_WIDTH >= x) &&
-         (this.y_flag - this.FLAG_HEIGHT <= y) && (this.y_flag + this.FLAG_HEIGHT >= y);
+  return (this.x <= x) && (this.x + this.FLAG_WIDTH >= x) &&
+         (this.y - this.FLAG_HEIGHT <= y) && (this.y + this.FLAG_HEIGHT >= y);
 }
 
 // CanvasObj: 
@@ -76,29 +78,45 @@ function CanvasObj(canvas) {
 
   this.shapes = [];
 
+  // State variables
+  this.dragging = false;
+  this.selection = null;
+  this.dragOffX = 0;
+  this.dragOffY = 0;
+
   // Store "this" in a named variable
   var me = this;
 
-  // State variables
-  me.dragging = false;
-
   canvas.addEventListener('mousedown', function(e) {
     // To Do
-    console.log('mouse down');
-    me.dragging = true;
+
+    var m = me.getMouse(e);
+
+    for (var i=0; i < me.shapes.length; i++) {
+      if (me.shapes[i].isClicked(m.x, m.y)) {
+        me.selection = me.shapes[i];
+        me.dragOffX = m.x - me.selection.x;
+        me.dragOffY = m.y - me.selection.y;
+        me.dragging = true;
+        return;
+      }
+    }
+    me.selection = null;
+
   }, true);
 
   canvas.addEventListener('mousemove', function(e) {
-    // To Do
     if (me.dragging) {
-      console.log('--mouse move');
+      var m = me.getMouse(e);
+      me.selection.x = m.x - me.dragOffX;
+      me.selection.y = m.y - me.dragOffY;
       me.draw();
     }
   }, true);
 
   canvas.addEventListener('mouseup', function(e) {
-    // To Do
     console.log('mouse up');
+    me.selection = null;
     me.dragging = false;
   }, true);
 }
@@ -134,9 +152,37 @@ CanvasObj.prototype.draw = function() {
   // Draw FFTs
   this.drawFFT('rgb(213, 39, 40)', fftRad);
   this.drawFFT('rgb(31, 119, 180)', fftLat);
+
+  // Draw frequency bars
+  for (var i=0; i < this.shapes.length; i++) {
+    this.shapes[i].draw();
+  }
 }
 
-CanvasObj.prototype.addFreqBar = function(bar) {
+CanvasObj.prototype.getMouse = function(e) {
+  var element = this.canvas, offsetX = 0, offsetY = 0, mx, my;
+
+  // Compute the total offset
+  if (element.offsetParent !== undefined) {
+    do {
+      offsetX += element.offsetLeft;
+      offsetY += element.offsetTop;
+    } while ((element = element.offsetParent));
+  }
+
+  // Add padding and border style widths to offset
+  // Also add the <html> offsets in case there's a position:fixed bar
+  offsetX += this.stylePaddingLeft + this.styleBorderLeft + this.htmlLeft;
+  offsetY += this.stylePaddingTop + this.styleBorderTop + this.htmlTop;
+
+  mx = e.pageX - offsetX;
+  my = e.pageY - offsetY;
+
+  // We return a simple javascript object (a hash) with x and y defined
+  return {x: mx, y: my};
+}
+
+CanvasObj.prototype.addFreqFlag = function(bar) {
   bar.canvas = this;
   this.shapes.push(bar);
   this.draw();
@@ -233,7 +279,6 @@ function animateFFT(fft) {
   }
 
   draw();
-
 }
 
 // Setup button callbacks when ready
@@ -269,5 +314,9 @@ $(function() {
   });
 
   canvas = new CanvasObj(document.getElementById('canvas'))
+
+  b_rad_2 = new FreqFlag(100, 50, '#d52728');
+
+  canvas.addFreqFlag(b_rad_2);
 
 })
