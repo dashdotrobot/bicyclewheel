@@ -22,11 +22,18 @@ function FreqBar(f, y_flag, color) {
   this.visible = true;
 }
 
-FreqBar.prototype.draw = function(ctx) {
+FreqBar.prototype.draw = function() {
   // Draw the frequency bar and selector flag on ctx
 
-  // Draw the line
-  // ...
+  ctx = this.canvas.ctx;
+
+  // Draw frequency bar
+  ctx.lineWidth = 3;
+  ctx.strokeStyle = 'rgb(0, 0, 0)';
+  ctx.beginPath();
+  ctx.moveTo(this.f, 0);
+  ctx.lineTo(this.f, this.canvas.height);
+  ctx.stroke();
 
   // Draw the selector flag
   // ...
@@ -66,6 +73,8 @@ function CanvasObj(canvas) {
   var html = document.body.parentNode;
   this.htmlTop = html.offsetTop;
   this.htmlLeft = html.offsetLeft;
+
+  this.shapes = [];
 
   // Store "this" in a named variable
   var me = this;
@@ -125,6 +134,12 @@ CanvasObj.prototype.draw = function() {
   // Draw FFTs
   this.drawFFT('rgb(213, 39, 40)', fftRad);
   this.drawFFT('rgb(31, 119, 180)', fftLat);
+}
+
+CanvasObj.prototype.addFreqBar = function(bar) {
+  bar.canvas = this;
+  this.shapes.push(bar);
+  this.draw();
 }
 
 
