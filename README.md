@@ -18,6 +18,8 @@ pelican content
 To publish to the web, use ghp-import to push the contents of the `/output` directory to the `pub` remote.
 
 ```
+conda activate pelican
+pelican -s publishconf.py
 conda activate ghp-import
 ghp-import -m "Publish" -b gh-pages output
 git push -f pub gh-pages:master
