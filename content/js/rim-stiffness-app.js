@@ -11,7 +11,7 @@ function arrayRange(arr, start, step) {
 // Classes for draggable frequency bars
 
 // FreqFlag: Draggable reference bar to select a frequency
-function FreqFlag(dof, n, x, y, color) {
+function FreqFlag(dof, n, x, y, color, update_fxn, valid_fxn) {
   this.dof = dof || 'radial';  // 'radial' or 'lateral'
   this.n = n || 2;             // integer mode number
 
@@ -23,6 +23,9 @@ function FreqFlag(dof, n, x, y, color) {
   this.FLAG_HEIGHT = 10;
 
   this.visible = true;
+
+  this.update = update_fxn || function () {};
+  this.valid = valid_fxn || function() {return true;};
 }
 
 FreqFlag.prototype.calcF = function() {
@@ -123,26 +126,13 @@ function CanvasObj(canvas) {
   canvas.addEventListener('mousemove', function(e) {
     if (me.dragging) {
       var m = me.getMouse(e);
-      me.selection.x = m.x - me.dragOffX;
-      me.selection.y = m.y - me.dragOffY;
+      x_new = m.x - me.dragOffX;
+      y_new = m.y - me.dragOffY;
 
-      // If dragging a radial bar, update the others
-      if (me.selection.dof == 'radial') {
-        var f_2 = me.selection.calcF2();
-
-        for (var i=0; i < b_rad.length; i++) {
-          var n = b_rad[i].n;
-          b_rad[i].moveToF(f_2 * Math.sqrt(5)/6 * n*(n**2 - 1)/Math.sqrt(n**2 + 1));
-        }
-      }
-
-      // if dragging f2_lat, update f3_lat based on mu
-      if (me.selection == b_lat_2) {
-        console.log('dragging f2_lat');
-        f2_lat = b_lat_2.calcF();
-        f3_lat = f2_lat * 24./6.*Math.sqrt(mu*4 + 1)/Math.sqrt(mu*9 + 1)
-
-        b_lat_3.moveToF(f3_lat);
+      if (me.selection.valid(x_new, y_new)) {
+        me.selection.x = m.x - me.dragOffX;
+        me.selection.y = m.y - me.dragOffY;
+        me.selection.update();
       }
 
       updateStiffness();
@@ -160,7 +150,7 @@ function CanvasObj(canvas) {
 CanvasObj.prototype.drawFFT = function(linecolor, fft) {
   var ctx = this.ctx;
 
-  ctx.lineWidth = 2;
+  ctx.lineWidth = 1;
   ctx.strokeStyle = linecolor;
 
   var x = 0;
@@ -261,15 +251,28 @@ var canvas;
 
 var mu = 0.3;
 
-var b_rad = [new FreqFlag('radial', 2, 50, 30, '#d52728'),
-             new FreqFlag('radial', 3, 100, 40, '#d52728'),
-             new FreqFlag('radial', 4, 150, 50, '#d52728')];
+var rad_update_fxn = function() {
+  f2 = this.calcF2();
 
-var b_lat_2 = new FreqFlag('lateral', 2, 55, 35, '#1f77b4');
+  // Update the other radial flags
+  for (var i=0; i < b_rad.length; i++) {
+    if (b_rad[i] != this) {
+      var n = b_rad[i].n;
+      b_rad[i].moveToF(f2 * Math.sqrt(5)/6 * n*(n**2 - 1)/Math.sqrt(n**2 + 1));
+    }
+  }
+}
+
+var b_rad = [new FreqFlag('radial', 2, 50, 30, '#d52728', rad_update_fxn),
+             new FreqFlag('radial', 3, 100, 40, '#d52728', rad_update_fxn),
+             new FreqFlag('radial', 4, 150, 50, '#d52728', rad_update_fxn)];
+
 var b_lat_3 = new FreqFlag('lateral', 3, 105, 45, '#1f77b4');
-
-// var b_rad_2 = new FreqFlag(100, 50, '#d52728');
-// var b_rad_2 = new FreqFlag(100, 50, '#d52728');
+var b_lat_2 = new FreqFlag('lateral', 2, 55, 35, '#1f77b4', function() {
+  f2_lat = this.calcF();
+  f3_lat = f2_lat * 24./6.*Math.sqrt(mu*4 + 1)/Math.sqrt(mu*9 + 1)
+  b_lat_3.moveToF(f3_lat);
+});
 
 // Frequency selector stuff
 var dragging = false;
@@ -327,15 +330,22 @@ function animateFFT(fft) {
 }
 
 function updateStiffness() {
-  var f2_rad = b_rad[0].calcF2();
-  var f2_lat = b_lat_2.calcF();
-  var f3_lat = b_lat_3.calcF();
   var radius = parseFloat($('#diameter').val())/2000.;  // [meters]
   var mass = parseFloat($('#mass').val())/1000.;      // [kg]
 
+  var f2_rad = b_rad[0].calcF2();
+  var f2_lat = b_lat_2.calcF();
+  var f3_lat = b_lat_3.calcF();
+
   EI_rad = f2_rad**2 * 5./36. * 2*Math.PI*radius**3*mass;
 
+  mu = (16. - (f3_lat/f2_lat)**2)/(9.*(f3_lat/f2_lat)**2 - 64.);
+  GJ = f2_lat**2 * (4.*mu + 1.)/18. * Math.PI*radius**3*mass;
+  EI_lat = GJ / mu;
+
   $('#radStiff').val(Math.round(EI_rad).toString());
+  $('#latStiff').val(Math.round(EI_lat).toString());
+  $('#torStiff').val(Math.round(GJ).toString());
 }
 
 // Setup button callbacks when ready
