@@ -29,7 +29,7 @@ function FreqFlag(dof, n, x, y, color, update_fxn, valid_fxn) {
 }
 
 FreqFlag.prototype.calcF = function() {
-  return this.x / this.canvas.width * 44100 * truncLength/bufferLength;
+  return this.x / this.canvas.width * 44100./2. * truncLength/bufferLength;
 }
 
 FreqFlag.prototype.calcF2 = function() {
@@ -38,7 +38,7 @@ FreqFlag.prototype.calcF2 = function() {
 }
 
 FreqFlag.prototype.moveToF = function(f) {
-  var x = f/44100 * this.canvas.width * bufferLength/truncLength;
+  var x = f/(44100./2.) * this.canvas.width * bufferLength/truncLength;
   this.x = x;
 }
 
@@ -144,6 +144,9 @@ function CanvasObj(canvas) {
   canvas.addEventListener('mouseup', function(e) {
     me.selection = null;
     me.dragging = false;
+
+    console.log('f2 radial : ' + Math.round(b_rad[0].calcF()).toString());
+    console.log('f2 lateral: ' + Math.round(b_lat_2.calcF()).toString());
   }, true);
 }
 
@@ -233,7 +236,7 @@ analyser.maxDecibels = -10;
 analyser.smoothingTimeConstant = 0.25;
 
 var bufferLength = analyser.frequencyBinCount;
-var truncLength = Math.round(bufferLength * 2*2000./44100.);
+var truncLength = Math.round(bufferLength * 2*1000./44100.);
 
 var fftRad = new Float32Array(bufferLength);
 var fftLat = new Float32Array(bufferLength);
@@ -263,16 +266,20 @@ var rad_update_fxn = function() {
   }
 }
 
-var b_rad = [new FreqFlag('radial', 2, 50, 30, '#d52728', rad_update_fxn),
-             new FreqFlag('radial', 3, 100, 40, '#d52728', rad_update_fxn),
-             new FreqFlag('radial', 4, 150, 50, '#d52728', rad_update_fxn)];
+var b_rad = [new FreqFlag('radial', 2, 100, 30, '#d52728', rad_update_fxn),
+             new FreqFlag('radial', 3, 283, 40, '#d52728', rad_update_fxn),
+             new FreqFlag('radial', 4, 542, 50, '#d52728', rad_update_fxn)];
 
-var b_lat_3 = new FreqFlag('lateral', 3, 105, 45, '#1f77b4');
-var b_lat_2 = new FreqFlag('lateral', 2, 55, 35, '#1f77b4', function() {
+var b_lat_3 = new FreqFlag('lateral', 3, 247, 90, '#1f77b4');
+var b_lat_2 = new FreqFlag('lateral', 2, 80, 80, '#1f77b4', function() {
   f2_lat = this.calcF();
   f3_lat = f2_lat * 24./6.*Math.sqrt(mu*4 + 1)/Math.sqrt(mu*9 + 1)
+  console.log('Moving f3: ' + f3_lat.toString());
   b_lat_3.moveToF(f3_lat);
 });
+
+// b_lat_2.visible = false;
+// b_lat_3.visible = false;
 
 // Frequency selector stuff
 var dragging = false;
