@@ -28,8 +28,9 @@ function FreqFlag(dof, n, x, y, color, update_fxn, valid_fxn) {
   this.valid = valid_fxn || function() {return true;};
 }
 
-FreqFlag.prototype.calcF = function() {
-  return this.x / this.canvas.width * 44100./2. * truncLength/bufferLength;
+FreqFlag.prototype.calcF = function(trial_x) {
+  var x = trial_x || this.x;
+  return x / this.canvas.width * 44100./2. * truncLength/bufferLength;
 }
 
 FreqFlag.prototype.calcF2 = function() {
@@ -270,16 +271,18 @@ var b_rad = [new FreqFlag('radial', 2, 100, 30, '#d52728', rad_update_fxn),
              new FreqFlag('radial', 3, 283, 40, '#d52728', rad_update_fxn),
              new FreqFlag('radial', 4, 542, 50, '#d52728', rad_update_fxn)];
 
-var b_lat_3 = new FreqFlag('lateral', 3, 247, 90, '#1f77b4');
+var b_lat_3 = new FreqFlag('lateral', 3, 247, 90, '#1f77b4', function() {}, function(x, y) {
+  f_ratio = this.calcF(x) / b_lat_2.calcF();
+
+  return (f_ratio <= 3.99) &&
+         (f_ratio >= 2.67);
+});
 var b_lat_2 = new FreqFlag('lateral', 2, 80, 80, '#1f77b4', function() {
   f2_lat = this.calcF();
   f3_lat = f2_lat * 24./6.*Math.sqrt(mu*4 + 1)/Math.sqrt(mu*9 + 1)
   console.log('Moving f3: ' + f3_lat.toString());
   b_lat_3.moveToF(f3_lat);
 });
-
-// b_lat_2.visible = false;
-// b_lat_3.visible = false;
 
 // Frequency selector stuff
 var dragging = false;
