@@ -290,11 +290,19 @@ function startRecording(fft) {
      console.log('getUserMedia supported.');
      navigator.getUserMedia (
         // constraints - only audio needed for this app
-        {audio: true},
+        {
+          audio: {
+            autoGainControl: false,
+            noiseSuppression: false,
+            echoCancellation: false
+          }
+        },
 
         // Success callback
         function(stream) {
           audioCtx.resume().then(function() {
+
+            console.log(stream.getAudioTracks()[0].getSettings());
 
             source = audioCtx.createMediaStreamSource(stream);
             source.connect(analyser);
@@ -358,6 +366,8 @@ function updateStiffness() {
 // Setup button callbacks when ready
 $(function() {
   console.log('JQuery enabled');
+
+  console.log(navigator.mediaDevices.getSupportedConstraints());
 
   $('#startRad').click(function() {
     if (recording) {
