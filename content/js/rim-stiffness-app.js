@@ -280,7 +280,6 @@ var b_lat_3 = new FreqFlag('lateral', 3, 247, 90, '#1f77b4', function() {}, func
 var b_lat_2 = new FreqFlag('lateral', 2, 80, 80, '#1f77b4', function() {
   f2_lat = this.calcF();
   f3_lat = f2_lat * 24./6.*Math.sqrt(mu*4 + 1)/Math.sqrt(mu*9 + 1)
-  console.log('Moving f3: ' + f3_lat.toString());
   b_lat_3.moveToF(f3_lat);
 });
 
@@ -295,8 +294,8 @@ function startRecording(fft) {
         // constraints - only audio needed for this app
         {
           audio: {
-            autoGainControl: false,
-            noiseSuppression: false,
+            autoGainControl: true,
+            noiseSuppression: true,
             echoCancellation: false
           }
         },
