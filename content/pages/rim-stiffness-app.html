@@ -25,28 +25,54 @@
    style="position: absolute; left: 0; top: 0; z-index: 0;"></canvas>
 </div>
 
+<div class="my-1"></div>
+
 <div class="row">
   <div class="col-sm-2"></div>
   <div class="col-sm-8">
 
 <form>
-<table class="table table-sm text-nowrap table-hover">
-  <tr><td><label for="mass" class="col-5 col-form-label">Diameter</label></td>
-      <td><input type="text" class="form-control-plaintext" id="diameter" value="605"></td>
-      <td>mm</td></tr>
-  <tr><td><label for="mass" class="col-5 col-form-label">Mass</label></td>
-      <td><input type="text" class="form-control-plaintext" id="mass" value="500"></td>
-      <td>grams</td></tr>
-  <tr><td><label for="radStiff" class="col-5 col-form-label">Radial stiffness</label></td>
-      <td><input type="text" readonly class="form-control-plaintext" id="radStiff" value="100"></td>
-      <td>N-m^2</td></tr>
-  <tr><td><label for="latStiff" class="col-5 col-form-label">Lateral stiffness</label></td>
-      <td><input type="text" readonly class="form-control-plaintext" id="latStiff" value="100"></td>
-      <td>N-m^2</td></tr>
-  <tr><td><label for="torStiff" class="col-5 col-form-label">Torsional stiffness</label></td>
-      <td><input type="text" readonly class="form-control-plaintext" id="torStiff" value="25"></td>
-      <td>N-m^2</td></tr>
-</table>
+
+<div class="form-row">
+  <label for="mass" class="col-6 col-form-label">Diameter</label>
+  <div class="col-4">
+    <input type="number" class="form-control-sm col" id="diameter" value="605">
+  </div>
+  <div class="col-2">mm</div>
+</div>
+
+<div class="form-row">
+  <label for="mass" class="col-6 col-form-label">Mass</label>
+  <div class="col-4">
+    <input type="number" class="form-control-sm col" id="mass" value="500">
+  </div>
+  <div class="col-2">grams</div>
+</div>
+
+<div class="form-row">
+  <label for="radStiff" class="col-6 col-form-label">Radial stiffness</label>
+  <div class="col-4">
+    <input type="number" class="form-control-sm col" id="radStiff" value="" readonly>
+  </div>
+  <div class="col-2">N-m^2</div>
+</div>
+
+<div class="form-row">
+  <label for="latStiff" class="col-6 col-form-label">Lateral stiffness</label>
+  <div class="col-4">
+    <input type="number" class="form-control-sm col" id="latStiff" value="" readonly>
+  </div>
+  <div class="col-2">N-m^2</div>
+</div>
+
+<div class="form-row">
+  <label for="torStiff" class="col-6 col-form-label">Torsional stiffness</label>
+  <div class="col-4">
+    <input type="number" class="form-control-sm col" id="torStiff" value="" readonly>
+  </div>
+  <div class="col-2">N-m^2</div>
+</div>
+
 </form>
 
   </div>

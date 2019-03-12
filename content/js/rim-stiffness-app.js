@@ -72,15 +72,11 @@ FreqFlag.prototype.isClicked = function(x, y) {
 // Borrowed heavily from Simon Sarris - www.simonsarris.com
 function CanvasObj(canvas) {
   this.canvas = canvas;
-
-  // Set canvas width and height
-  this.width = document.getElementById('canvasDiv').clientWidth;
-  this.height = document.getElementById('canvasDiv').clientHeight;
-
-  this.canvas.setAttribute('width', this.width);
-  this.canvas.setAttribute('height', this.height);
-
   this.ctx = canvas.getContext('2d');
+  this.canvasDiv = document.getElementById('canvasDiv');
+
+  // Fit canvas to container div
+  this.resize();
 
   // Get proper mouse coordinate when canvas has padding or border
   var stylePaddingLeft, stylePaddingTop, styleBorderLeft, styleBorderTop;
@@ -151,6 +147,15 @@ function CanvasObj(canvas) {
   }, true);
 }
 
+CanvasObj.prototype.resize = function() {
+  // Set canvas width and height
+  this.width = this.canvasDiv.clientWidth;
+  this.height = this.canvasDiv.clientHeight;
+
+  this.canvas.setAttribute('width', this.width);
+  this.canvas.setAttribute('height', this.height);
+}
+
 CanvasObj.prototype.drawFFT = function(linecolor, fft) {
   var ctx = this.ctx;
 
@@ -215,7 +220,7 @@ CanvasObj.prototype.getMouse = function(e) {
 CanvasObj.prototype.addFreqFlag = function(bar) {
   bar.canvas = this;
   this.shapes.push(bar);
-  this.draw();
+  bar.canvas.draw();
 }
 
 
@@ -405,5 +410,7 @@ $(function() {
   canvas.addFreqFlag(b_rad[2]);
   canvas.addFreqFlag(b_lat_2);
   canvas.addFreqFlag(b_lat_3);
+
+  $(window).resize(function() {canvas.resize(); canvas.draw()});
 
 })
