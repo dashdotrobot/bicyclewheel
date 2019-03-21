@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 AUTHOR = u'Matthew Ford'
 SITENAME = u'bicyclewheel.info'
-SITEURL = 'http://bicyclewheel.info'
+SITEURL = 'http://localhost:8000'
 
 PATH = 'content'
 OUTPUT_PATH = 'output/'
@@ -46,7 +46,7 @@ SOCIAL = (('You can add links in your config file', '#'),
 DEFAULT_PAGINATION = False
 
 # Uncomment following line if you want document-relative URLs when developing
-RELATIVE_URLS = True
+RELATIVE_URLS = False
 
 PLUGIN_PATHS = ['../../pelican-plugins']
 PLUGINS = ['pelican_javascript', 'render_math']

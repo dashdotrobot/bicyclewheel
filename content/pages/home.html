@@ -7,12 +7,12 @@
 </head>
 <body>
 
-<div class="jumbotron jumbotron-fluid">
+<div class="jumbotron jumbotron-fluid py-3">
   <div class="container-fluid">
     <h1>Bicycle wheel simulator</h1>
-    <p class="lead">An interactive app for designing and testing virtual bicycle wheels. Choose your hub dimensions, rim, and spoke number and type. Add forces like rider wight, pedaling torque, or lateral loads. Plot deformation and spoke tensions, and calculate properties like mass, stiffness, and strength.</p>
+    <p class="lead">An interactive app for designing and testing virtual bicycle wheels. Choose your wheel parameters, add forces like rider wight and pedaling torque, and plot deformation and spoke tensions.</p>
 
-    <button class="btn btn-primary">Try it out!</button>
+    <a class="btn btn-primary" href="/wheel-simulator/">Try it out!</a>
     
     <div class="row my-3">
       <div class="col-sm-4">
@@ -30,9 +30,15 @@
 </div>
 
 <div class="container">
-  <h2>About this website</h2>
 
-  <p><strong>bicyclewheel.info</strong> is a free resource for designing and understanding bicycle wheels. It is a side-project by Dr. Matt Ford, author of <a href="https://github.com/dashdotrobot/phd-thesis/releases/download/v1.0/Ford_BicycleWheelThesis_v1.0.pdf" targot="_blank">Reinventing the Wheel: Stress Analysis, Stablity, and Optimization of the Bicycle Wheel</a>.</p>
+  <h3>Sophisticated stress analysis</h3>
+  <p>Results are based on a mathematical model of the wheel that takes into account the effects of spoke tension and rim compression. The model properly predicts the "softening" effect of excessive spoke tension: the lateral stiffness of the wheel is reduced due to the compression in the rim.</p>
+
+  <h3>Library of rim properties</h3>
+  <p>The stiffness properties of several rims have been measured using the <a href="https://rdcu.be/GPFI" target="_blank">acoustic method</a> developed by Dr. Matt Ford and Patrick Peng.</p>
+
+  <h3>About the author</h3>
+  <p><strong>bicyclewheel.info</strong> is a side-project by Dr. Matt Ford, author of <a href="https://github.com/dashdotrobot/phd-thesis/releases/download/v1.0/Ford_BicycleWheelThesis_v1.0.pdf" targot="_blank">Reinventing the Wheel: Stress Analysis, Stablity, and Optimization of the Bicycle Wheel</a>.</p>
 
 </div>
 
