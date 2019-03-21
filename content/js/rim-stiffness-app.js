@@ -11,16 +11,16 @@ function arrayRange(arr, start, step) {
 // Classes for draggable frequency bars
 
 // FreqFlag: Draggable reference bar to select a frequency
-function FreqFlag(dof, n, x, y, color, update_fxn, valid_fxn) {
+function FreqFlag(dof, n, x, flag_position, color, update_fxn, valid_fxn) {
   this.dof = dof || 'radial';  // 'radial' or 'lateral'
   this.n = n || 2;             // integer mode number
 
   this.x = x || 0;
-  this.y = y || 50;
   this.color = color || '#000000';
 
-  this.FLAG_WIDTH = 30;
+  this.FLAG_WIDTH = 20;
   this.FLAG_HEIGHT = 10;
+  this.FLAG_POSITION = flag_position || 'top';
 
   this.visible = true;
 
@@ -57,15 +57,25 @@ FreqFlag.prototype.draw = function() {
 
     // Draw the selector flag
     ctx.fillStyle = this.color;
-    ctx.fillRect(this.x, this.y, this.FLAG_WIDTH, this.FLAG_HEIGHT);
+    if (this.FLAG_POSITION == 'top') {
+      ctx.fillRect(this.x - this.FLAG_WIDTH/2, 0, this.FLAG_WIDTH, this.FLAG_HEIGHT);
+    } else {
+      ctx.fillRect(this.x - this.FLAG_WIDTH/2, this.canvas.height - this.FLAG_HEIGHT, this.FLAG_WIDTH, this.FLAG_HEIGHT);
+    }
   }
 }
 
 FreqFlag.prototype.isClicked = function(x, y) {
   // Determine of the coordinates x,y are located on the selector flag
+  var y_flag_pos;
+  if (this.FLAG_POSITION == 'top') {
+    y_flag_pos = this.FLAG_HEIGHT/2;
+  } else {
+    y_flag_pos = this.canvas.height - this.FLAG_HEIGHT/2;
+  }
   return this.visible &&
-         (this.x <= x) && (this.x + this.FLAG_WIDTH >= x) &&
-         (this.y - this.FLAG_HEIGHT <= y) && (this.y + this.FLAG_HEIGHT >= y);
+         (x >= this.x - this.FLAG_WIDTH/2) && (x <= this.x + this.FLAG_WIDTH/2) &&
+         (y >= y_flag_pos - this.FLAG_HEIGHT/2) && (y <= y_flag_pos + this.FLAG_HEIGHT/2);
 }
 
 // CanvasObj: 
@@ -124,11 +134,9 @@ function CanvasObj(canvas) {
     if (me.dragging) {
       var m = me.getMouse(e);
       x_new = m.x - me.dragOffX;
-      y_new = m.y - me.dragOffY;
 
-      if (me.selection.valid(x_new, y_new)) {
+      if (me.selection.valid(x_new)) {
         me.selection.x = m.x - me.dragOffX;
-        me.selection.y = m.y - me.dragOffY;
         me.selection.update();
       }
 
@@ -272,17 +280,17 @@ var rad_update_fxn = function() {
   }
 }
 
-var b_rad = [new FreqFlag('radial', 2, 100, 30, '#d52728', rad_update_fxn),
-             new FreqFlag('radial', 3, 283, 40, '#d52728', rad_update_fxn),
-             new FreqFlag('radial', 4, 542, 50, '#d52728', rad_update_fxn)];
+var b_rad = [new FreqFlag('radial', 2, 100, 'top', '#d52728', rad_update_fxn),
+             new FreqFlag('radial', 3, 283, 'top', '#d52728', rad_update_fxn),
+             new FreqFlag('radial', 4, 542, 'top', '#d52728', rad_update_fxn)];
 
-var b_lat_3 = new FreqFlag('lateral', 3, 247, 90, '#1f77b4', function() {}, function(x, y) {
+var b_lat_3 = new FreqFlag('lateral', 3, 247, 'bottom', '#1f77b4', function() {}, function(x) {
   f_ratio = this.calcF(x) / b_lat_2.calcF();
 
   return (f_ratio <= 3.99) &&
          (f_ratio >= 2.67);
 });
-var b_lat_2 = new FreqFlag('lateral', 2, 80, 80, '#1f77b4', function() {
+var b_lat_2 = new FreqFlag('lateral', 2, 80, 'bottom', '#1f77b4', function() {
   f2_lat = this.calcF();
   f3_lat = f2_lat * 24./6.*Math.sqrt(mu*4 + 1)/Math.sqrt(mu*9 + 1)
   b_lat_3.moveToF(f3_lat);
