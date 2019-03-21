@@ -640,13 +640,9 @@ $(function() {
 
   /* ---------------------------- RESULT PANEL ---------------------------- */
 
-  // Try to resize plots when changing result panels
-  // $('.result-navs').click(function() {
-  //   window.setTimeout(function() {
-  //     Plotly.Plots.resize(document.getElementById('deform-plot'));
-  //     Plotly.Plots.resize(document.getElementById('tension-plot'));
-  //   }, 0);
-  // });
+  $('#plotTabs a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+    update_plot();
+  })
 
   // Show scale factor as a percent
   $('#scaleFactor').on('change input', function() {

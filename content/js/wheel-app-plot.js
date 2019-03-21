@@ -231,7 +231,7 @@ function plot_tensions(plot_type, tension_diff) {
   }
 
   Plotly.newPlot(plot_canvas, traces, layout, {
-    responsive: false,
+    responsive: true,
     modeBarButtonsToRemove: ['sendDataToCloud', 'lasso2d', 'select2d'],
     displayModeBar: false,
     displaylogo: false
@@ -350,7 +350,7 @@ function plot_deformation(plot_type) {
   }
 
   Plotly.newPlot(plot_canvas, traces, layout, {
-    responsive: false,
+    responsive: true,
     modeBarButtonsToRemove: ['sendDataToCloud', 'lasso2d', 'select2d'],
     displayModeBar: false,
     displaylogo: false
