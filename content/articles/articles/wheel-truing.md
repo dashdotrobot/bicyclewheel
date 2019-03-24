@@ -66,8 +66,7 @@ Further away from the bump, the lateral wave causes the spokes on the same as th
 
 The rotation of the rim causes other pulling spokes to loosen and pushing spokes to tighten, which in turn pulls the rim inwards and outwards, creating a small rippling effect around the rim.
 
-<!-- <img class="img-fluid" alt="Change in tension" src="{filename}/images/wheel-truing/tension-components.png" /> -->
-<!-- <div class="figure-caption">Change in spoke tensions due to different effects. Units in kilogram-force.</div> -->
+All of these effects (including the shortening of the adjusted spoke) add up to the picture below. Keep this principle in mind whenever you are building or truing a wheel: generally speaking, tightening a spoke loosens the first and second-nearest spokes, generally tightens the third-nearest, and the effect decays beyond that distance. The exact influence of course depends on the number of spokes, the rim stiffness, and the hub geometry, but this general rule is applicable to a wide range of rims.
 
 <div class="row">
   <div class="col-sm-4 text-center">
@@ -90,6 +89,8 @@ The rotation of the rim causes other pulling spokes to loosen and pushing spokes
   <h5>Total effect on spoke tensions</h5>
   <img class="img-fluid" alt="Total effect on spoke tension" src="{filename}/images/wheel-truing/tension-components-total.png">
 </div>
+
+<div class="figure-caption">The vertical scale in the first three images is the same, although the "zero" line is shifted in the radial plot.</div>
 
 
 ## Making independent corrections
