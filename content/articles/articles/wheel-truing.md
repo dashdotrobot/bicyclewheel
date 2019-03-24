@@ -49,14 +49,14 @@ To summarize:
 
 #### What happens to the rim?
 
-When you tighten a single spoke, the rim deforms in the same way as if you had applied a concentrated force in the direction of the spoke: inwards and slightly towards that spoke's hub flange. The adjustment creates a lateral "wave" and a radial "bump" near the spoke.
+When you tighten a single spoke, the rim deforms in the same way as if you had applied a force in the direction of the spoke: inwards and slightly towards that spoke's hub flange. The rim is pulled inwards, and towards the side of the spoke you tightened. This creates a lateral "wave" and a radial "bump" near the spoke.
 
 <img class="img-fluid" alt="Rim deformation" src="{filename}/images/wheel-truing/deformation-single-spoke.png" />
 <div class="figure-caption">Rim deformation due to tightening a single spoke.</div>
 
-The radial bump is confined to a very small area, perhaps only 1-3 spokes wide. The lateral wave, on the other hand, extends over a wide arc, on the order of 8-12 spokes on a 36-spoke wheel. The stiffer the rim, the wider the arc. Even further away from the main wave, the bends in the opposite direction as the tightened spoke, like a lopsided spinning potato chip.
+The radial bump is confined to a very small area, perhaps only 1-3 spokes wide. The lateral wave, on the other hand, extends over a wide arc, on the order of 8-12 spokes on a 36-spoke wheel. The stiffer the rim, the wider the arc. Even further away from the main wave, the rim bends in the opposite direction as the tightened spoke, like a lopsided spinning potato chip.
 
-If the spokes are "crossed," the adjustment also causes the rim to rotate in the direction of the tightened spoke. Tightening a pulling spoke rotates the rim clockwise when viewed from the drive side.
+If the spokes are "crossed," (they are crossed in almost all wheels) the adjustment also causes the rim to rotate in the direction of the tightened spoke. Tightening a pulling spoke rotates the rim clockwise when viewed from the drive side. These ripples are too small to measure or worry about in the rim, but they do have an effect on the spoke tensions.
 
 #### What happens to the other spokes?
 
@@ -66,5 +66,31 @@ Further away from the bump, the lateral wave causes the spokes on the same as th
 
 The rotation of the rim causes other pulling spokes to loosen and pushing spokes to tighten, which in turn pulls the rim inwards and outwards, creating a small rippling effect around the rim.
 
-<img class="img-fluid" alt="Change in tension" src="{filename}/images/wheel-truing/tension-components.png" />
-<div class="figure-caption">Change in spoke tensions due to different effects. Units in kilogram-force.</div>
+<!-- <img class="img-fluid" alt="Change in tension" src="{filename}/images/wheel-truing/tension-components.png" /> -->
+<!-- <div class="figure-caption">Change in spoke tensions due to different effects. Units in kilogram-force.</div> -->
+
+<div class="row">
+  <div class="col-sm-4 text-center">
+    <h6>Radial effect</h6>
+    <img class="img-fluid" alt="Radial effect on tension" src="{filename}/images/wheel-truing/tension-components-v.png">
+  </div>
+
+  <div class="col-sm-4 text-center">
+    <h6>Lateral effect</h6>
+    <img class="img-fluid" alt="Lateral effect on tension" src="{filename}/images/wheel-truing/tension-components-u.png">
+  </div>
+
+  <div class="col-sm-4 text-center">
+    <h6>Rotation effect</h6>
+    <img class="img-fluid" alt="Rotation effect on tension" src="{filename}/images/wheel-truing/tension-components-w.png">
+  </div>
+</div>
+
+<div class="text-center">
+  <h5>Total effect on spoke tensions</h5>
+  <img class="img-fluid" alt="Total effect on spoke tension" src="{filename}/images/wheel-truing/tension-components-total.png">
+</div>
+
+
+## Making independent corrections
+
