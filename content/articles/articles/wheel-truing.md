@@ -18,14 +18,14 @@ Despite the mystique, plenty of riders learn to true their own wheels by followi
 
 By following a simple algorithm of "find the worst spot and adjust it next," most errors can be corrected. How does the process work, and what can mechanics tell us about how wheels respond to adjustment?
 
-##### Using the Wheel App to simulate wheel truing
+#### Using the Wheel App to simulate wheel truing
 
 The Wheel App can show you what happens when you adjust spokes. After you've designed your wheel, click on the __Forces__ tab, delete everything in the forces table, and add spoke adjustments in the adjustments table below. Spoke number 1 is the bottom-most spoke in the polar plot, or the center spoke in the column plot.
 
 <img class="img-fluid" alt="Screenshot of the app showing results for tightening a single spoke." src="{filename}/images/wheel-truing/wheel-truing-screenshot.png" />
-<div class="figure-caption">Screenshot of the app showing results for tightening a single spoke.</div>
+<div class="figure-caption text-center"><strong>Screenshot of the app showing results for tightening a single spoke.</strong></div>
 
-### What happens when you adjust a spoke?
+## What happens when you adjust a spoke?
 
 The spoke is held in the rim by the spoke nipple, which is threaded onto the end of the spoke. When you tighten a spoke, you are really moving the nipple towards the hub, pulling the rim along with it.
 
@@ -47,18 +47,18 @@ To summarize:
 * The stiffer the spoke, the greater the change in spoke tension.
 * The stiffer the rim, the lesser the change in spoke tension.
 
-#### What happens to the rim?
+### What happens to the rim?
 
 When you tighten a single spoke, the rim deforms in the same way as if you had applied a force in the direction of the spoke: inwards and slightly towards that spoke's hub flange. The rim is pulled inwards, and towards the side of the spoke you tightened. This creates a lateral "wave" and a radial "bump" near the spoke.
 
 <img class="img-fluid" alt="Rim deformation" src="{filename}/images/wheel-truing/deformation-single-spoke.png" />
-<div class="figure-caption">Rim deformation due to tightening a single spoke.</div>
+<div class="figure-caption text-center"><strong>Rim deformation due to tightening a single spoke.</strong></div>
 
 The radial bump is confined to a very small area, perhaps only 1-3 spokes wide. The lateral wave, on the other hand, extends over a wide arc, on the order of 8-12 spokes on a 36-spoke wheel. The stiffer the rim, the wider the arc. Even further away from the main wave, the rim bends in the opposite direction as the tightened spoke, like a lopsided spinning potato chip.
 
 If the spokes are "crossed," (they are crossed in almost all wheels) the adjustment also causes the rim to rotate in the direction of the tightened spoke. Tightening a pulling spoke rotates the rim clockwise when viewed from the drive side. These ripples are too small to measure or worry about in the rim, but they do have an effect on the spoke tensions.
 
-#### What happens to the other spokes?
+### What happens to the other spokes?
 
 Only the two spokes directly adjacent to the adjusted spoke feel the effect of the radial bump. These spokes get shorter and therefore lose tension.
 
@@ -90,8 +90,60 @@ All of these effects (including the shortening of the adjusted spoke) add up to 
   <img class="img-fluid" alt="Total effect on spoke tension" src="{filename}/images/wheel-truing/tension-components-total.png">
 </div>
 
-<div class="figure-caption">The vertical scale in the first three images is the same, although the "zero" line is shifted in the radial plot.</div>
+<div class="figure-caption text-center ">The vertical scale in the first three images is the same, although the "zero" line is shifted in the radial plot.</div>
 
 
 ## Making independent corrections
 
+One of the difficulties in truing a wheel is that every correction seems to create a new problem. Many a beginner has spent an hour trying to straighten a wheel only to find it in worse shape than when they started. To avoid headaches, mechanics follow a simple guideline: _adjust spokes in groups such that only the desired degree of freedom (radial or lateral) is affected_. For example, if you wish to pull the rim laterally to the right, but don't want to mess up the radial direction, one might tighten a right spoke by 1/2 a turn, and loosen the two adjacent (left) spokes each a 1/4 turn. In the lateral direction, tightening spokes on one side and loosening spokes on the other has an additive effect. But in the radial direction, these corrections roughly cancel each other out (1/2 - 1/4 - 1/4 = 0).
+
+### Independent radial adjustment
+
+Radial truing is more difficult, and less-often necessary, than lateral truing. However, if you need to correct a radial error, you should generally work with a group of two or three spokes, depending on exactly where the error is.
+
+__If the bump occurs between two spokes__, tighten the two spokes immediately adjacent the error by the same amount. This will pull the rim inwards. It will also create a small lateral wave to either side of the adjusted spokes, but this error is smaller than the radial change and can usually be corrected in subsequent lateral truing.
+
+<div class="row">
+  <div class="col-sm-6">
+    <img class="img-fluid" alt="Total effect on spoke tension" src="{filename}/images/wheel-truing/rad_2_def.png">
+  </div>
+  <div class="col-sm-6">
+    <img class="img-fluid" alt="Total effect on spoke tension" src="{filename}/images/wheel-truing/rad_2_tens.png">
+  </div>
+</div>
+<div class="figure-caption text-center mb-3">
+<strong>Rim deformation and tension change for a radial adjustment between spokes.</strong> The two spokes near the center of the figure have each been tightened by 1/2 a turn.
+</div>
+
+<div class="my-1"></div>
+__If the bump occurs at a single spoke__, tighten that spoke, and tighten the two spokes immediately adjacent by the same amount. This will pull the rim inwards symmetrically. The tightening on the left and right sides will roughly cancel out.
+
+<div class="row">
+  <div class="col-sm-6">
+    <img class="img-fluid" alt="Total effect on spoke tension" src="{filename}/images/wheel-truing/rad_3_def.png">
+  </div>
+  <div class="col-sm-6">
+    <img class="img-fluid" alt="Total effect on spoke tension" src="{filename}/images/wheel-truing/rad_3_tens.png">
+  </div>
+</div>
+<div class="figure-caption text-center mb-3">
+<strong>Rim deformation and tension change for a radial adjustment between spokes. </strong> The two spokes near the center of the figure have each been tightened by 1/2 a turn.
+</div>
+
+### Independent lateral adjustment
+
+It is generally best to finish with a round of lateral truing, since the relatively large adjustments required for radial truing can cause lateral errors despite one's best efforts. The rim is much more flexible in the lateral direction, so it's possible to make large corrections without affecting the radial direction. However, one should still take care to make independent adjustments.
+
+Generally, a lateral adjustment should be made with a group of three spokes, tightening (or loosening) the spoke in the middle by about 1/2 a turn, and making the opposite adjustment to the two adjacent spokes by about a 1/4 turn. This type of adjustment also minimizes the tension increase of the center spoke by "letting out slack" from the other side of the wheel.
+
+<div class="row">
+  <div class="col-sm-6">
+    <img class="img-fluid" alt="Total effect on spoke tension" src="{filename}/images/wheel-truing/lat_3_def.png">
+  </div>
+  <div class="col-sm-6">
+    <img class="img-fluid" alt="Total effect on spoke tension" src="{filename}/images/wheel-truing/lat_3_tens.png">
+  </div>
+</div>
+<div class="figure-caption text-center mb-3">
+<strong>Rim deformation and tension change for an independent lateral adjustment on 3 spokes.</strong>
+</div>
