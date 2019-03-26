@@ -116,7 +116,7 @@ __If the bump occurs between two spokes__, tighten the two spokes immediately ad
 </div>
 
 <div class="my-1"></div>
-__If the bump occurs at a single spoke__, tighten that spoke, and tighten the two spokes immediately adjacent by the same amount. This will pull the rim inwards symmetrically. The tightening on the left and right sides will roughly cancel out.
+__If the bump occurs at a single spoke__, tighten that spoke, and tighten the two spokes immediately adjacent by half this amount. This will pull the rim inwards symmetrically. The tightening on the left and right sides will roughly cancel out (note: only on symmetric wheels. See below).
 
 <div class="row">
   <div class="col-sm-6">
@@ -147,3 +147,20 @@ Generally, a lateral adjustment should be made with a group of three spokes, tig
 <div class="figure-caption text-center mb-3">
 <strong>Rim deformation and tension change for an independent lateral adjustment on 3 spokes.</strong>
 </div>
+
+## Other common adjustments
+
+### Adjacent tight and loose spokes on same side
+
+Machine-built wheels are trued by an iterative "hunt-and-peck" method, essentially applying the corrections above in a rote algorithm. To my knowledge, automatic truing machines don't measure spoke tensions, so it's possible for large deviations in tension to "hide" from the machine because the wheel is balanced by large corrections at nearby spokes.
+
+One issue I have come across in my experience is a large difference in tension between two adjacent spokes on the same side of the wheel: one tighter than average and one looser than average. Let's look at what happens when you tighten and loosen two adjacent spokes on the same side:
+
+<div class="mx-auto text-center">
+  <img class="img-fluid" alt="Rim deformation" src="{filename}/images/wheel-truing/twist_def.png" />
+</div>
+<div class="figure-caption text-center mb-3"><strong>Rim deformation due to tight and loose spoke on the same side.</strong> Laterally, the rim seems to "twist" about a point in between the spokes.</div>
+
+This type of error essentially produces a twisting motion around a point in between the spokes. The neighboring spokes pull the rim back to center, but the tendency of the rim to remain straight produces a large wave on either side of the offending spokes. A truing machine, unaware of the real underlying problem, will try to correct this by tightening and loosening the spokes near the peak of each wave, producing even more non-uniform spoke tensions.
+
+When you are truing your own wheel (or touching up a machine-built wheel), pluck every spoke on a single side to look for errors like this and correct accordingly. You will still need to do lateral truing this, but hopefully your headaches will be minimized.
