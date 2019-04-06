@@ -31,7 +31,20 @@ The spoke is held in the rim by the spoke nipple, which is threaded onto the end
 
 > Pro-tip: Never forget which direction to turn to tighten the spoke: if you want __tight__, think __right__: Give a thumbs-up with your __right__ hand and point your thumb along the spoke towards the hub. Follow your fingers to __tighten__ the spoke. If you want __loose__, think __left__: point your __left__ thumb along the spoke towards the hub and follow your fingers to __loosen__ the spoke. This is always easier than trying to think of the nipple as a nut, and remember which direction to turn to "tighten" it towards the hub.
 
-![Spoke adjustment rule of Thumb]()
+<div class="row">
+  <div class="col-sm-6">
+    <img class="img-fluid" alt="Loosening a spoke" src="{filename}/images/wheel-truing/gif-tight-right.gif">
+    <div class="figure-caption text-center mb-3">
+      <strong>Tightening a spoke</strong>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <img class="img-fluid" alt="Total effect on spoke tension" src="{filename}/images/wheel-truing/gif-loose-left.gif">
+    <div class="figure-caption text-center mb-3">
+      <strong>Loosening a spoke</strong>
+    </div>
+  </div>
+</div>
 
 Two things happen to the spoke when you adjust the nipple: __(1)__ the __unstressed__ length of the spoke changes (the length the spoke _would_ be if the ends weren't held by the hub and rim), and __(2)__ the rim deforms under the additional tension. The change in spoke tension is a function of both effects:
 
@@ -51,10 +64,13 @@ To summarize:
 
 When you tighten a single spoke, the rim deforms in the same way as if you had applied a force in the direction of the spoke: inwards and slightly towards that spoke's hub flange. The rim is pulled inwards, and towards the side of the spoke you tightened. This creates a lateral "wave" and a radial "bump" near the spoke.
 
-<img class="img-fluid" alt="Rim deformation" src="{filename}/images/wheel-truing/deformation-single-spoke.png" />
+<img class="img-fluid" alt="Rim deformation" src="{filename}/images/wheel-truing/deformation-single-spoke.png">
 <div class="figure-caption text-center"><strong>Rim deformation due to tightening a single spoke.</strong></div>
 
 The radial bump is confined to a very small area, perhaps only 1-3 spokes wide. The lateral wave, on the other hand, extends over a wide arc, on the order of 8-12 spokes on a 36-spoke wheel. The stiffer the rim, the wider the arc. Even further away from the main wave, the rim bends in the opposite direction as the tightened spoke, like a lopsided spinning potato chip.
+
+<img class="img-fluid" alt="Rim deformation animation" src="{filename}/images/wheel-truing/gif-lateral-wave.gif">
+<div class="figure-caption text-center"><strong>Visible lateral wave due to tightening one spoke</strong> (marked with red tape).</div>
 
 If the spokes are "crossed," (they are crossed in almost all wheels) the adjustment also causes the rim to rotate in the direction of the tightened spoke. Tightening a pulling spoke rotates the rim clockwise when viewed from the drive side. These ripples are too small to measure or worry about in the rim, but they do have an effect on the spoke tensions.
 
