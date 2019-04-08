@@ -69,10 +69,13 @@ When you tighten a single spoke, the rim deforms in the same way as if you had a
 
 The radial bump is confined to a very small area, perhaps only 1-3 spokes wide. The lateral wave, on the other hand, extends over a wide arc, on the order of 8-12 spokes on a 36-spoke wheel. The stiffer the rim, the wider the arc. Even further away from the main wave, the rim bends in the opposite direction as the tightened spoke, like a lopsided spinning potato chip.
 
-<img class="img-fluid" alt="Rim deformation animation" src="{filename}/images/wheel-truing/gif-lateral-wave.gif">
+<div class="text-center">
+<img class="img-fluid" alt="Rim deformation animation" src="{filename}/images/wheel-truing/gif-lateral-wave-2.gif">
 <div class="figure-caption text-center"><strong>Visible lateral wave due to tightening one spoke</strong> (marked with red tape).</div>
+</div>
+<div class="my-1"></div>
 
-If the spokes are "crossed," (they are crossed in almost all wheels) the adjustment also causes the rim to rotate in the direction of the tightened spoke. Tightening a pulling spoke rotates the rim clockwise when viewed from the drive side. These ripples are too small to measure or worry about in the rim, but they do have an effect on the spoke tensions.
+If the spokes are "crossed," (they are crossed in almost all wheels) the adjustment also causes the rim to rotate in the direction of the tightened spoke. Tightening a pulling spoke rotates the rim clockwise when viewed from the drive side.
 
 ### What happens to the other spokes?
 
@@ -111,7 +114,7 @@ All of these effects (including the shortening of the adjusted spoke) add up to 
 
 ## Making independent corrections
 
-One of the difficulties in truing a wheel is that every correction seems to create a new problem. Many a beginner has spent an hour trying to straighten a wheel only to find it in worse shape than when they started. To avoid headaches, mechanics follow a simple guideline: _adjust spokes in groups such that only the desired degree of freedom (radial or lateral) is affected_. For example, if you wish to pull the rim laterally to the right, but don't want to mess up the radial direction, one might tighten a right spoke by 1/2 a turn, and loosen the two adjacent (left) spokes each a 1/4 turn. In the lateral direction, tightening spokes on one side and loosening spokes on the other has an additive effect. But in the radial direction, these corrections roughly cancel each other out (1/2 - 1/4 - 1/4 = 0).
+One of the difficulties in truing a wheel is that every correction seems to create a new problem. Many a beginner has spent an hour trying to straighten a wheel only to find it in worse shape than when they started. To avoid headaches, mechanics follow a simple guideline: _adjust spokes in groups such that only the desired degree of freedom (radial or lateral) is affected_.
 
 ### Independent radial adjustment
 
@@ -132,7 +135,7 @@ __If the bump occurs between two spokes__, tighten the two spokes immediately ad
 </div>
 
 <div class="my-1"></div>
-__If the bump occurs at a single spoke__, tighten that spoke, and tighten the two spokes immediately adjacent by half this amount. This will pull the rim inwards symmetrically. The tightening on the left and right sides will roughly cancel out (note: only on symmetric wheels. See below).
+__If the bump occurs at a single spoke__, tighten that spoke, and tighten the two spokes immediately adjacent by half this amount. This will pull the rim inwards symmetrically. The tightening on the left and right sides will roughly cancel out (note: only on symmetric wheels).
 
 <div class="row">
   <div class="col-sm-6">
@@ -179,4 +182,4 @@ One issue I have come across in my experience is a large difference in tension b
 
 This type of error essentially produces a twisting motion around a point in between the spokes. The neighboring spokes pull the rim back to center, but the tendency of the rim to remain straight produces a large wave on either side of the offending spokes. A truing machine, unaware of the real underlying problem, will try to correct this by tightening and loosening the spokes near the peak of each wave, producing even more non-uniform spoke tensions.
 
-When you are truing your own wheel (or touching up a machine-built wheel), pluck every spoke on a single side to look for errors like this and correct accordingly. You will still need to do lateral truing this, but hopefully your headaches will be minimized.
+When you are truing your own wheel (or touching up a machine-built wheel), pluck every spoke on a single side to look for errors like this and correct accordingly. You will still need to do lateral truing after correcting these, but hopefully your headaches will be minimized.
