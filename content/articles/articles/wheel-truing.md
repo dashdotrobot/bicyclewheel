@@ -48,7 +48,7 @@ The spoke is held in the rim by the spoke nipple, which is threaded onto the end
 
 Two things happen to the spoke when you adjust the nipple: __(1)__ the __unstressed__ length of the spoke changes (the length the spoke _would_ be if the ends weren't held by the hub and rim), and __(2)__ the rim deforms under the additional tension. The change in spoke tension is a function of both effects:
 
-$$\Delta T = K_s(\delta - u \sin{\alpha} - v \cos{\alpha})$$
+$\Delta T = K_s(\delta - u \sin{\alpha} - v \cos{\alpha})$
 
 $\delta = 0.454 N$ is the change in unstressed length in millimeters, where $N$ is the number of turns of the nipple (for a standard 56 thread-per-inch spoke thread), $u$ and $v$ are the __lateral displacement__ and __radial displacement__ of the spoke nipple, respectively, and $\alpha$ is the lateral bracing angle of the spoke which depends on the hub width. $K_s$ is the stiffness of the spoke (higher for larger and shorter spokes).
 
@@ -109,14 +109,14 @@ All of these effects (including the shortening of the adjusted spoke) add up to 
   <img class="img-fluid" alt="Total effect on spoke tension" src="{filename}/images/wheel-truing/tension-components-total.png">
 </div>
 
-<div class="figure-caption text-center ">The vertical scale in the first three images is the same, although the "zero" line is shifted in the radial plot.</div>
+<div class="figure-caption text-center mb-3">The vertical scale in the first three images is the same, although the "zero" line is shifted in the radial plot.</div>
 
 
-## Making independent corrections
+## Simple adjustments
 
 One of the difficulties in truing a wheel is that every correction seems to create a new problem. Many a beginner has spent an hour trying to straighten a wheel only to find it in worse shape than when they started. To avoid headaches, mechanics follow a simple guideline: _adjust spokes in groups such that only the desired degree of freedom (radial or lateral) is affected_.
 
-### Independent radial adjustment
+### Radial adjustment
 
 Radial truing is more difficult, and less-often necessary, than lateral truing. However, if you need to correct a radial error, you should generally work with a group of two or three spokes, depending on exactly where the error is.
 
@@ -149,7 +149,7 @@ __If the bump occurs at a single spoke__, tighten that spoke, and tighten the tw
 <strong>Rim deformation and tension change for a radial adjustment between spokes. </strong> The two spokes near the center of the figure have each been tightened by 1/2 a turn.
 </div>
 
-### Independent lateral adjustment
+### Lateral adjustment
 
 It is generally best to finish with a round of lateral truing, since the relatively large adjustments required for radial truing can cause lateral errors despite one's best efforts. The rim is much more flexible in the lateral direction, so it's possible to make large corrections without affecting the radial direction. However, one should still take care to make independent adjustments.
 
@@ -167,8 +167,6 @@ Generally, a lateral adjustment should be made with a group of three spokes, tig
 <strong>Rim deformation and tension change for an independent lateral adjustment on 3 spokes.</strong>
 </div>
 
-## Other common adjustments
-
 ### Adjacent tight and loose spokes on same side
 
 Machine-built wheels are trued by an iterative "hunt-and-peck" method, essentially applying the corrections above in a rote algorithm. To my knowledge, automatic truing machines don't measure spoke tensions, so it's possible for large deviations in tension to "hide" from the machine because the wheel is balanced by large corrections at nearby spokes.
@@ -183,3 +181,11 @@ One issue I have come across in my experience is a large difference in tension b
 This type of error essentially produces a twisting motion around a point in between the spokes. The neighboring spokes pull the rim back to center, but the tendency of the rim to remain straight produces a large wave on either side of the offending spokes. A truing machine, unaware of the real underlying problem, will try to correct this by tightening and loosening the spokes near the peak of each wave, producing even more non-uniform spoke tensions.
 
 When you are truing your own wheel (or touching up a machine-built wheel), pluck every spoke on a single side to look for errors like this and correct accordingly. You will still need to do lateral truing after correcting these, but hopefully your headaches will be minimized.
+
+## Automatic truing
+
+[Jim's patent](https://patents.google.com/patent/US5103414A/en)
+
+[Automatic truing following a simple hunt-and-peck algorithm](https://patents.google.com/patent/US4585046A/en)
+
+Adjusting spokes to uniform tension from natural frequency. [patent](https://patents.google.com/patent/US3507027A/en)
