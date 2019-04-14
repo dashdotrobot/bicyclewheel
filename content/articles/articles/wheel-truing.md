@@ -1,5 +1,5 @@
 Title: What can mechanics teach us about wheel truing?
-Date: 19 Feb 2019
+Date: 14 Apr 2019
 Slug: wheel-truing
 Featured: gif-lateral-wave-2.gif
 Summary: When you tighten a spoke, what happens to the other spokes in the wheel? Wheel truing can be a finicky and delicate task. But with a basic knowledge of the mechanics at play you can true your own wheels better than a robot.
@@ -75,7 +75,7 @@ The radial bump is confined to a very small area, perhaps only 1-3 spokes wide. 
 </div>
 <div class="my-1"></div>
 
-If the spokes are "crossed," (they are crossed in almost all wheels) the adjustment also causes the rim to rotate in the direction of the tightened spoke. Tightening a pulling spoke rotates the rim clockwise when viewed from the drive side.
+If the spokes are "crossed," (as they are in almost all wheels) the adjustment also causes the rim to rotate in the direction of the tightened spoke. Tightening a pulling spoke rotates the rim clockwise when viewed from the drive side.
 
 ### What happens to the other spokes?
 
@@ -112,7 +112,7 @@ All of these effects (including the shortening of the adjusted spoke) add up to 
 <div class="figure-caption text-center mb-3">The vertical scale in the first three images is the same, although the "zero" line is shifted in the radial plot.</div>
 
 
-## Simple adjustments
+## Common adjustments
 
 One of the difficulties in truing a wheel is that every correction seems to create a new problem. Many a beginner has spent an hour trying to straighten a wheel only to find it in worse shape than when they started. To avoid headaches, mechanics follow a simple guideline: _adjust spokes in groups such that only the desired degree of freedom (radial or lateral) is affected_.
 
@@ -169,7 +169,7 @@ Generally, a lateral adjustment should be made with a group of three spokes, tig
 
 ### Adjacent tight and loose spokes on same side
 
-Machine-built wheels are trued by an iterative "hunt-and-peck" method, essentially applying the corrections above in a rote algorithm. To my knowledge, automatic truing machines don't measure spoke tensions, so it's possible for large deviations in tension to "hide" from the machine because the wheel is balanced by large corrections at nearby spokes.
+Machine-built wheels are trued by an iterative "hunt-and-peck" method, essentially applying the corrections above in a rote algorithm. To my knowledge, most automatic truing machines don't measure spoke tensions, so it's possible for large deviations in tension to "hide" from the machine because the wheel is balanced by large corrections at nearby spokes.
 
 One issue I have come across in my experience is a large difference in tension between two adjacent spokes on the same side of the wheel: one tighter than average and one looser than average. Let's look at what happens when you tighten and loosen two adjacent spokes on the same side:
 
@@ -184,8 +184,10 @@ When you are truing your own wheel (or touching up a machine-built wheel), pluck
 
 ## Automatic truing
 
-[Jim's patent](https://patents.google.com/patent/US5103414A/en)
+Automated machinery has taken over many of the steps of wheelbuilding including ["filling"](https://www.hollandmechanics.com/machinery/bicycle-wheel/hub-filling/) the hub with spokes, [lacing](https://www.hollandmechanics.com/machinery/bicycle-wheel/easy-cam-lacer/) the spokes into the rim (assisted by a dexterous human operator), [pre-bending and tensioning](https://www.hollandmechanics.com/machinery/bicycle-wheel/tightening/) the spokes, and of course truing the wheel. Initial tensioning machines generally work by tightening the spokes to a roughly uniform tension (with the rim and hub rigidly clamped in place). The spoke tension can be estimated either by the torque required to drive the spoke nipple, or the [resonant frequency of the spoke](https://patents.google.com/patent/US3507027A/en).
 
-[Automatic truing following a simple hunt-and-peck algorithm](https://patents.google.com/patent/US4585046A/en)
+To my knowledge, modern automatic truing machines follow a ["hunt-and-peck" algorithm](https://patents.google.com/patent/US4585046A/en), wherein the machine spins the wheel to find the worst wobbles and makes corrections at the peak of each wobble iteratively until the wheel is within spec. Every wheel responds slightly differently to the same spoke adjustment, so the machine parameters have to be tuned so that it is not so aggressive as to over-correct errors, and not so timid as to require dozens of adjustments. Even on the best machines, this process doesn't measure or try to control spoke tensions.
 
-Adjusting spokes to uniform tension from natural frequency. [patent](https://patents.google.com/patent/US3507027A/en)
+In theory, an intelligent machine could be designed which measures the current state of the wheel (lateral wobble, radial wobble, and spoke tensions), and makes corrections _in a single pass_ to simultaneously minimize both geometric and tension errors. This machine would need a model (and an inverse model) which predicts the changes in spoke tensions and rim shape resulting from a spoke adjustment (and vice-versa). [Jim Papadopoulos and his co-inventors](https://patents.google.com/patent/US5103414A/en) showed how such a model can be easily measured by performing only a few experiments on a given wheel and described how the model can be used. The Bicycle Wheel Simulator generates this model directly from mechanics theory.
+
+To my knowledge, such a "smart truing machine" has never been designed or tested. Perhaps the cost and complexity of overcoming the remaining challenges in measurement and repeatability are not worth the benefits of reaching a market already satisfied by the work of expert artisans. This is one of the reasons why, despite increasing automation of the bike industry, hand-built wheels are still the best your money can buy.
