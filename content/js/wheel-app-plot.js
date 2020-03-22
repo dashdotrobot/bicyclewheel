@@ -269,6 +269,10 @@ function plot_tensions(plot_type, tension_diff) {
 
 function plot_deformation(plot_type) {
 
+  // Hide results table and show plot
+  $('#plotDiv').collapse('show')
+  $('#tableDiv').collapse('hide')
+
   var spk_num = parseInt($('#spkNum').val())
   var rim_radius = calc_result['wheel']['rim']['radius'];
 
