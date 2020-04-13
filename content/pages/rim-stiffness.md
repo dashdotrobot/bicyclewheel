@@ -7,13 +7,13 @@ Show_in_menu: true
 
 A sturdy wheel depends on a sturdy rim.
 The rim serves several purposes: it seats the tire, keeps the spokes under tension, distributes external forces to the spokes, and (in the case of rim brakes) stops the bicycle.
-From a structural standpoint, we mostly care about the __stiffness__ of the rim, or its ability to resist changes in shape. The rim has four different stiffness:
+From a structural standpoint, we mostly care about the __stiffness__ of the rim, or its ability to resist changes in shape. The rim has a different stiffness for each of the ways it can change shape.
 
 The __axial stiffness__ resists changes in the total length (circumference) of the rim.
 It determines how much the total rim circumference changes when all the spokes are evenly tightened or the tire is inflated.
-Other than these two cases, it doesn't really play an important role because it's so much larger than the other stiffness (you can easily bend a rim over you knee and see the lateral deformation, but you couldn't pull inwards on the rim and expect to notice any deformation other than bending).
+Other than these two cases, it doesn't really play an important role because it's so much larger than the other stiffness (you can easily bend a rim over you knee and see the lateral deformation, but you couldn't pull inwards on the rim and expect to notice any real change in circumference).
 
-The other three deformation modes are roughly illustrated below:
+The other three deformation modes are illustrated below on a short rim section:
 
 <div class="container">
 <div class="row">
