@@ -47,7 +47,9 @@ The torsional stiffness is generally much smaller than the lateral stiffness, an
 
 ## Rim stiffness library
 
-The stiffness properties of the rims below have been measured using the [acoustic measurement technique](https://rdcu.be/GPFI) developed by Ford, Peng, and Balogun. The values have been rounded to convenient values.
+The stiffness properties of the rims below have been measured using the [acoustic measurement technique](https://rdcu.be/GPFI) developed by Ford, Peng, and Balogun. The values have been rounded to convenient whole numbers.
+
+Masses are in grams. Stiffness are in N-m^2 (Newton-meters squared). The stiffness can be interpreted as the torque required (measured in Newton-meters) to produce a unit change in curvature (1/meters) in the case of bending, or a unit change in twist rate (radians per meter) in the case of torsion.
 
 <table id="rimtable" class="table table-striped table-hover table-sm">
 	<thead>
