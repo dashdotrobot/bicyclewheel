@@ -1,6 +1,8 @@
 Title: Rim Stiffness
 Authors: Matthew Ford
 Slug: rim-stiffness
+JavaScripts: datatables.min.js, wheel-app-constants.js, rimtable.js
+Stylesheets: datatables.min.css
 Show_in_menu: true
 
 A sturdy wheel depends on a sturdy rim.
@@ -42,3 +44,22 @@ The __torsional stiffness__ resists twisting of the rim around its circumference
 This is __not the same__ as the torsional (or wind-up stiffness) of the wheel, which resists rotation of the rim relative to the hub (around the axle).
 It also controls how much the rim deforms under side forces.
 The torsional stiffness is generally much smaller than the lateral stiffness, and because the more flexible mode dominates, it is generally much more important for the overall wheel stiffness than the rim lateral stiffness.
+
+## Rim stiffness library
+
+The stiffness properties of the rims below have been measured using the [acoustic measurement technique](https://rdcu.be/GPFI) developed by Ford, Peng, and Balogun. The values have been rounded to convenient values.
+
+<table id="rimtable" class="table table-striped table-hover table-sm">
+	<thead>
+		<tr>
+			<td>Rim</td>
+			<td>Size</td>
+			<td>Mass [g]</td>
+			<td>Radial</td>
+			<td>Lateral</td>
+			<td>Torsional</td>
+		</tr>
+	</thead>
+	<tbody>
+	</tbody>
+</table>

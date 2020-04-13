@@ -13,10 +13,9 @@
   </script>
 
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-  <link href="{{ SITEURL }}/theme/css/style.css" rel="stylesheet" />
+  <link href="{{ SITEURL }}/theme/css/style.css" rel="stylesheet">
   {% if article %}
     {% if article.stylesheets %}
         {% for stylesheet in article.stylesheets %}
@@ -37,16 +36,16 @@
   {% block opengraph %}
   <!-- Open Graph tags -->
     {% if OPEN_GRAPH_FB_APP_ID %}
-      <meta property="fb:app_id" content="{{ OPEN_GRAPH_FB_APP_ID }}"/>
+      <meta property="fb:app_id" content="{{ OPEN_GRAPH_FB_APP_ID }}">
     {% endif %}
-    <meta property="og:site_name" content="{{ SITENAME }}" />
-    <meta property="og:type" content="website"/>
-    <meta property="og:title" content="{{ SITENAME }}"/>
-    <meta property="og:url" content="{{ SITEURL }}"/>
-    <meta property="og:description" content="{{ SITENAME }}"/>
+    <meta property="og:site_name" content="{{ SITENAME }}">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{ SITENAME }}">
+    <meta property="og:url" content="{{ SITEURL }}">
+    <meta property="og:description" content="{{ SITENAME }}">
     {% if OPEN_GRAPH_IMAGE %}
       <meta property="og:image"
-            content="{{ SITEURL }}/{{ OPEN_GRAPH_IMAGE }}"/>
+            content="{{ SITEURL }}/{{ OPEN_GRAPH_IMAGE }}">
     {% endif %}
   {% endblock %}
   {% endblock head %}
