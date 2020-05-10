@@ -4,7 +4,7 @@ Slug: wheel-truing
 Featured: gif-lateral-wave-2.gif
 Summary: When you tighten a spoke, what happens to the other spokes in the wheel? Wheel truing can be a finicky and delicate task. But with a basic knowledge of the mechanics at play you can true your own wheels better than a robot.
 
-If you aspire to do your own bike maintenance, chances are you've tried to true your own wheels, or you want to learn how. Maybe you've tried, but weren't satisfied with the results. Either way, you may have been told that truing is one of the [trickiest](https://www.sheldonbrown.com/tooltips/truing.html) repair jobs a mechanic must learn, or that the wheel is one of the Great Mysteries upon which even the Master must meditate.
+If you aspire to do your own bike maintenance, chances are you've tried to true your own wheels, or you want to learn how. Maybe you've tried, but weren't satisfied with the results. Either way, you may have been told that truing is one of the [trickiest](https://www.sheldonbrown.com/tooltips/truing.html) repair jobs a mechanic must learn, or that the wheel is one of the Great Mysteries upon which [even the Master](https://www.wheelfanatyk.com/blog/wheel-building-tip-no-5-be-a-wheel-whisperer/) must meditate.
 
 Despite the mystique, plenty of riders learn to true their own wheels by following a simple set of guidelines:
 
