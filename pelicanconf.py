@@ -48,7 +48,7 @@ SOCIAL = (('You can add links in your config file', '#'),
 DEFAULT_PAGINATION = False
 
 PLUGIN_PATHS = ['../../pelican-plugins']
-PLUGINS = ['pelican_javascript', 'render_math']
+PLUGINS = ['pelican_javascript', 'pelican_render_math']
 
 MARKDOWN = {
     'extension_configs': {

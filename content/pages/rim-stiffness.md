@@ -60,8 +60,20 @@ Masses are in grams. Stiffness are in N-m^2 (Newton-meters squared). The stiffne
 			<td>Radial</td>
 			<td>Lateral</td>
 			<td>Torsional</td>
+			<td>Notes</td>
+			<td>Credit</td>
 		</tr>
 	</thead>
 	<tbody>
 	</tbody>
 </table>
+
+#### Notes
+
+[1] The mass of this rim has not been indepedently measured. The calculated stiffnesses are based on the mass provided by the manufacturer. If the true mass is higher than what is listed here, the true stiffness would be correspondingly higher.
+
+#### Credit
+
+Thanks to the following people who provided me with their rim data:
+
+[GE] Gabriel Ewig, mechanic at [Old Goat Gear Exchange](https://oldgoatgearexchange.com/) in Ithaca, NY.
